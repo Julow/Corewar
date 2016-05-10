@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/10 16:32:47 by jaguillo         ###   ########.fr       */
+/*   Created: 2016/05/10 16:25:37 by jaguillo          #+#    #+#             */
+/*   Updated: 2016/05/10 16:26:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "vm.h"
-#include "vm_exec.h"
-#include "vm_loader.h"
+#ifndef MAIN_H
+# define MAIN_H
 
-int				main(int argc, char **argv)
+# include "ft/libft.h"
+# include "vm.h"
+
+/*
+** ========================================================================== **
+** Main
+*/
+
+# define ARGV_F_DUMP	(1 << 0)
+# define ARGV_F_NCURSE	(1 << 1)
+
+struct			s_main
 {
-	t_main			main;
+	uint32_t		flags;
+	uint32_t		dump_cycles;
+	t_vm			*vm;
+};
 
-	if (!parse_argv(&main, argc, argv))
-		return (1);
-
-	// while (!(vm.flags & VM_F_GAMEOVER))
-	// {
-	// 	vm_exec(&vm);
-	// 	if (ui != NULL)
-	// 		ui_update(ui);
-	// 	if (vm.clock >= corewar.dump_clock)
-	// 		...
-	// }
-
-	return (0);
-}
+#endif

@@ -1,4 +1,8 @@
 module vm_exec:
 
+	public include public/
+	private include ./
+
 	public require vm
+	public require ft::base
 	private require process

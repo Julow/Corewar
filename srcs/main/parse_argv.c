@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/10 16:32:47 by jaguillo         ###   ########.fr       */
+/*   Created: 2016/05/10 16:19:10 by jaguillo          #+#    #+#             */
+/*   Updated: 2016/05/10 16:46:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "vm.h"
-#include "vm_exec.h"
-#include "vm_loader.h"
+#include "parse_argv.h"
 
-int				main(int argc, char **argv)
+bool			parse_argv(t_main *p, int argc, char const *const *argv)
 {
-	t_main			main;
+	t_parse_argv	argv;
+	char const		*opt;
 
-	if (!parse_argv(&main, argc, argv))
-		return (1);
-
-	// while (!(vm.flags & VM_F_GAMEOVER))
-	// {
-	// 	vm_exec(&vm);
-	// 	if (ui != NULL)
-	// 		ui_update(ui);
-	// 	if (vm.clock >= corewar.dump_clock)
-	// 		...
-	// }
-
-	return (0);
+	argv = (t_parse_argv){ARGS(argc, argv), 0, 0, VM_LOADER()};
+	while ()
 }

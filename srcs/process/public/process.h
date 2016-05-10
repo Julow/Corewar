@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:01:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/10 14:18:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/10 15:53:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,9 @@
 # define PFLAG_CARRY		(1 << 0)
 # define PFLAG_DEAD			(1 << 1)
 
-# if REG_SIZE == 4
-#  define REG_TYPE		uint32_t
-# else
-#  if REG_SIZE == 8
-#   define REG_TYPE		uint64_t
-#  else
-#   error "Invalid register size"
-#  endif
+# if REG_SIZE != 4
+#  error "Invalid register size"
 # endif
-
-typedef REG_TYPE		t_reg;
 
 /*
 ** process object
@@ -50,7 +42,7 @@ struct			s_process
 	uint32_t		player_idx;
 	uint32_t		reg_pc;
 	uint32_t		reg_pflags;
-	t_reg			reg[REG_NUMBER];
+	uint32_t		reg[REG_NUMBER];
 };
 
 #endif

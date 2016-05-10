@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/10 14:18:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/10 15:07:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ struct			s_vm
 	uint32_t		flags;
 	t_vector		process;
 	t_player		players[MAX_PLAYER];
+	uint32_t		player_count;
+	void			*arena;
 };
 
 # define VM_INIT()			((t_vm){0, 0, 0, 0, 0, 0, VECTOR(t_process)})
