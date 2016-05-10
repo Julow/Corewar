@@ -40,7 +40,7 @@
 struct			s_process
 {
 	uint32_t		player_idx;
-	uint32_t		reg_pc;
+	uint32_t		*reg_pc;
 	uint32_t		reg_pflags;
 	uint32_t		reg[REG_NUMBER];
 };

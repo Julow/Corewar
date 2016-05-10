@@ -21,7 +21,7 @@ uint32_t			get_value(t_process *const process, uint32_t const *args,
 	else if (args_types == DIR_CODE)
 		return (args[index]);
 	else
-		return (args[process->reg_pc + index % IDX_MOD]);
+		return (args[*process->reg_pc + index % IDX_MOD]);
 
 }
 
@@ -34,5 +34,5 @@ uint32_t			get_lvalue(t_process *const process, uint32_t const *args,
 	else if (args_types == DIR_CODE)
 		return (args[index]);
 	else
-		return (args[process->reg_pc + index]);
+		return (args[*process->reg_pc + index]);
 }
