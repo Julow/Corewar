@@ -27,7 +27,7 @@
 ** args			=> unpacked arguments
 ** ocp			=> arguments types
 */
-typedef void	(*t_op_f)(t_vm *vm, uint32_t process,
+typedef bool	(*t_op_f)(t_vm *vm, uint32_t process,
 					uint32_t const *args, uint8_t args_types);
 
 /*
@@ -40,4 +40,39 @@ typedef void	(*t_op_f)(t_vm *vm, uint32_t process,
 */
 bool			exec_op(t_vm *vm, uint32_t process_index);
 
+/*
+** op_fct proto
+*/
+bool			op_add(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_aff(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_and(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_fork(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_ld(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_ldi(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_lfork(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_live(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_lld(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_lldi(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_or(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_st(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_sti(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_sub(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_xor(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
+bool			op_zjump(t_vm *vm, uint32_t process,
+					uint32_t const *args, uint8_t args_types);
 #endif
