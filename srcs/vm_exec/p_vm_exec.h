@@ -33,7 +33,9 @@ typedef bool	(*t_op_f)(t_vm *vm, uint32_t process,
 /*
 ** Return the type of the Ith arg
 */
-# define OCP_GET(OCP, I)	((OCP << (8 - ((I + 1) * 2))) & 0b11)
+# define OCP_GET(OCP, I)		(((OCP) << (8 - (((I) + 1) * 2))) & 0b11)
+# define GET_VALUE(V,P,A,T,I)	get_value(V, P, (A)[I], OCP_GET(T, I))
+# define GET_LVALUE(V,P,A,T,I)	get_lvalue(V, P, (A)[I], OCP_GET(T, I))
 
 /*
 ** Exec the next instruction of the process at index process_index

@@ -15,5 +15,10 @@
 bool		op_and(t_vm *vm, uint32_t process_index, uint32_t const *args,
 						uint8_t args_types)
 {
+	t_process *const		process = VECTOR_GET(vm->process, process_index);
 
+	process->reg[args[2]] = get_value(process, args, args_type, 0)
+							& get_value(process, args, args_type, 1);
+	//modif carry
+	return (true);
 }

@@ -12,8 +12,8 @@
 
 #include "p_vm_exec.h"
 
-uint32_t			get_value(t_process *const process, uint32_t const *args,
-								uint8_t args_types, uint8_t index)
+uint32_t			get_value(t_vm const *vm, t_process *const process,
+						uint32_t args, uint8_t arg_type)
 {
 	args_types = OCP_GET(args_types, index);
 	if (args_types == REG_CODE)
@@ -25,8 +25,8 @@ uint32_t			get_value(t_process *const process, uint32_t const *args,
 
 }
 
-uint32_t			get_lvalue(t_process *const process, uint32_t const *args,
-								uint8_t args_types, uint8_t index)
+uint32_t			get_lvalue(t_vm const *vm, t_process *const process,
+						uint32_t args, uint8_t arg_type)
 {
 	args_types = OCP_GET(args_types, index);
 	if (args_types == REG_CODE)
