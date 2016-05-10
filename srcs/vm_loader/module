@@ -1,0 +1,4 @@
+module vm_loader:
+
+	public require vm
+	private require process_loader

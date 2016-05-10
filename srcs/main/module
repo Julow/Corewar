@@ -1,0 +1,5 @@
+main module corewar_vm:
+
+	require vm
+	require vm_loader
+	require ui
