@@ -1,4 +1,8 @@
 module vm_loader:
 
+	public include public/
+
 	public require vm
-	private require process_loader
+	public require ft::dstr
+	public require ft::base
+	public require ft::vector

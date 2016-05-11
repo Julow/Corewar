@@ -6,17 +6,18 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/10 15:07:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 15:26:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
+# include "ft/ft_vector.h"
 # include "ft/libft.h"
-# include "ft/vector.h"
 
-# include "players.h"
+# include "op.h"
+# include "player.h"
 # include "process.h"
 
 typedef struct s_vm		t_vm;
@@ -52,11 +53,16 @@ struct			s_vm
 	uint32_t		cycle_to_check;
 	uint32_t		flags;
 	t_vector		process;
-	t_player		players[MAX_PLAYER];
+	t_player		players[MAX_PLAYERS];
 	uint32_t		player_count;
 	void			*arena;
 };
 
-# define VM_INIT()			((t_vm){0, 0, 0, 0, 0, 0, VECTOR(t_process)})
+# define VM_INIT()			((t_vm){0,0,0,0,0,0,VECTOR(t_process),{},0,NULL})
+
+/*
+** Destroy vm
+*/
+void			vm_destroy(t_vm *vm);
 
 #endif

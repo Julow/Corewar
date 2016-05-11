@@ -1,3 +1,7 @@
 module vm:
 
-	public require process
+	public include public/
+
+	public require ft::base
+	public require ft::vector
+	public require ft::dstr

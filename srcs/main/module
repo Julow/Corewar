@@ -1,5 +1,11 @@
 main module corewar_vm:
 
+	private include ./
+
+	require ft::base
+	require ft::printf
+	require ft::argv
 	require vm
 	require vm_loader
+	require vm_exec
 	require ui

@@ -6,13 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:54:29 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/10 16:36:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 15:23:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_LOADER_H
 # define VM_LOADER_H
 
+# include "ft/ft_dstr.h"
 # include "ft/ft_vector.h"
 # include "ft/libft.h"
 
@@ -28,11 +29,12 @@ typedef struct s_vm_loader_player	t_vm_loader_player;
 
 /*
 ** represent a player to load
+** TODO: move to private
 */
 struct			s_vm_loader_player
 {
-	uint32_t		id;
-	char const		*program;
+	int32_t			id;
+	t_dstr			file_name;
 };
 
 /*
@@ -53,6 +55,11 @@ struct			s_vm_loader
 ** Load vm from a vm_loader object
 */
 bool			load_vm(t_vm_loader const *loader, t_vm *vm);
+
+/*
+** Return the next available player id
+*/
+int32_t			next_player_id(t_vm_loader const *loader, int32_t id);
 
 /*
 ** Destroy vm_loader
