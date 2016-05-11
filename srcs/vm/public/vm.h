@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 15:26:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 19:20:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,29 @@ struct			s_vm
 	uint32_t		nbr_check;
 	uint32_t		cycle_to_check;
 	uint32_t		flags;
-	t_vector		process;
 	t_player		players[MAX_PLAYERS];
 	uint32_t		player_count;
+	t_vector		process;
 	void			*arena;
 };
 
-# define VM_INIT()			((t_vm){0,0,0,0,0,0,VECTOR(t_process),{},0,NULL})
+# define VM_INIT()			((t_vm){0,0,0,0,0,0,{},0,VECTOR(t_process),NULL})
+
+/*
+** Start the game
+** (Unexpected behavior if called twice)
+*/
+void			vm_start(t_vm *vm);
+
+/*
+** Read the value at arena + i
+*/
+uint32_t		vm_get(t_vm const *vm, uint32_t i);
+
+/*
+** Write value at arena + i
+*/
+void			vm_set(t_vm *vm, uint32_t i, uint32_t value);
 
 /*
 ** Destroy vm

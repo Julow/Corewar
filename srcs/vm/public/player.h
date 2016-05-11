@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:15:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 15:25:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 19:06:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ typedef struct s_player		t_player;
 
 struct		s_player
 {
-	uint32_t	player_id;
+	uint32_t	id;
 	uint32_t	last_live;
+	uint32_t	arena_offset;
 	t_dstr		name;
 	t_dstr		comment;
 };
 
-# define PLAYER_INIT(ID)	((t_player){(ID), 0, DSTR0(), DSTR0()})
+# define PLAYER_INIT(ID,OFF)	((t_player){(ID), 0, (OFF), DSTR0(), DSTR0()})
 
 #endif

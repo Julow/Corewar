@@ -2,18 +2,15 @@
 
 ## TODO
 
-* vm_loader
-	* init vm
+* fix ft::argv
 
 * vm_exec
-	* checks
 	* exec process instructions
-	* op table
+	* checks
 	* exec report
 	* jump over emtpy cycles
 
 * ui
 
 * main
-	* parse argv
 	* main loop

@@ -6,9 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 16:26:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 19:18:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft/ft_printf.h"
 
 #include "main.h"
 #include "parse_argv.h"
@@ -24,6 +26,8 @@ int				main(int argc, char **argv)
 	if (!parse_argv(&m, argc, argv))
 		return (1);
 
+	vm_start(&m.vm);
+
 	ft_printf("flags: %b\n"
 		"dump cycles: %u%n",
 		m.flags, m.dump_cycles);
@@ -34,12 +38,22 @@ int				main(int argc, char **argv)
 		i = 0;
 		while (i < m.vm.player_count)
 		{
-			ft_printf("player #%u; name: %ts, comment: %ts%n",
-				m.vm.players[i].player_id, DSTR_SUB(m.vm.players[i].name),
-				DSTR_SUB(m.vm.players[i].comment));
+			ft_printf("player #%u; name: %ts, comment: %ts, offset: %u%n",
+				m.vm.players[i].id, DSTR_SUB(m.vm.players[i].name),
+				DSTR_SUB(m.vm.players[i].comment), m.vm.players[i].arena_offset);
 			i++;
 		}
 	}
+
+	{
+		t_process const	*process;
+
+		process = VECTOR_IT(m.vm.process);
+		while (VECTOR_NEXT(m.vm.process, process))
+			ft_printf("process; pidx: %u, pc: %u%n",
+				process->player_idx, process->reg_pc);
+	}
+
 	ft_printf("%ts%n", SUB(m.vm.arena, MEM_SIZE));
 
 	// while (!(vm.flags & VM_F_GAMEOVER))

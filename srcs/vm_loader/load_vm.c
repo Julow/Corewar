@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:21:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 17:11:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 18:41:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool		load_champion(t_vm *vm, t_vm_loader_player const *p,
 		LOAD_ERROR("Prog size does not match", DSTR_SUB(p->file_name.str));
 	else
 	{
-		*dst = PLAYER_INIT(p->id);
+		*dst = PLAYER_INIT(p->id, arena_offset);
 		ft_dstradd(&dst->name, ft_sub(head.prog_name, 0, -1));
 		ft_dstradd(&dst->comment, ft_sub(head.comment, 0, -1));
 		return (true);

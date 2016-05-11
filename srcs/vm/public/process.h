@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:01:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 16:02:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 19:03:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,19 @@ typedef struct s_process		t_process;
 
 struct			s_process
 {
-	uint32_t		player_idx;
+	uint32_t		player_idx; // TODO: remove
 	uint32_t		reg_pc;
 	uint32_t		reg_pflags;
 	uint32_t		reg[REG_NUMBER];
 };
+
+/*
+** Init a process object
+** -
+** PC			=> initial pc
+** PID			=> player id
+** PIDX			=> player index
+*/
+# define PROCESS_INIT(PC,PID,PIDX)	((t_process){(PIDX), (PC), 0, {PID, 0}})
 
 #endif

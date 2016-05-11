@@ -45,7 +45,8 @@ O_FILES += $(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/parse_argv.o \
 	$(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_printf/ft_vprintf.o \
 	$(O_DIR)/libft/ft_vector/ft_vclear.o $(O_DIR)/libft/ft_vector/ft_vpush.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/libft/ft_vector/ft_vspan.o \
-	$(O_DIR)/srcs/vm/vm_destroy.o $(O_DIR)/srcs/vm_loader/load_vm.o \
+	$(O_DIR)/srcs/vm/vm_access.o $(O_DIR)/srcs/vm/vm_destroy.o \
+	$(O_DIR)/srcs/vm/vm_start.o $(O_DIR)/srcs/vm_loader/load_vm.o \
 	$(O_DIR)/srcs/vm_loader/misc.o
 PUBLIC_LINKS += $(O_DIR)/_public/ft/argv.h $(O_DIR)/_public/ft/ft_colors.h \
 	$(O_DIR)/_public/ft/ft_wchar.h $(O_DIR)/_public/ft/libft.h \
@@ -59,6 +60,7 @@ PUBLIC_LINKS += $(O_DIR)/_public/ft/argv.h $(O_DIR)/_public/ft/ft_colors.h \
 # module corewar_vm
 $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_argv/public/argv.h \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
 	libft/ft_vector/public/ft_vector.h srcs/main/main.h srcs/main/parse_argv.h \
 	srcs/vm/public/op.h srcs/vm/public/player.h srcs/vm/public/process.h \
 	srcs/vm/public/vm.h srcs/vm_loader/public/vm_loader.h
@@ -287,10 +289,18 @@ $(O_DIR)/libft/ft_vector/ft_vspan.o: libft/ft_vector/ft_vspan.c \
 # module utils
 
 # module vm
+$(O_DIR)/srcs/vm/vm_access.o: srcs/vm/vm_access.c libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_vector/public/ft_vector.h \
+	srcs/vm/public/op.h srcs/vm/public/player.h srcs/vm/public/process.h \
+	srcs/vm/public/vm.h
 $(O_DIR)/srcs/vm/vm_destroy.o: srcs/vm/vm_destroy.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_vector/public/ft_vector.h srcs/vm/public/op.h \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
+$(O_DIR)/srcs/vm/vm_start.o: srcs/vm/vm_start.c libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_vector/public/ft_vector.h \
+	srcs/vm/public/op.h srcs/vm/public/player.h srcs/vm/public/process.h \
+	srcs/vm/public/vm.h
 
 # module vm_loader
 $(O_DIR)/srcs/vm_loader/load_vm.o: srcs/vm_loader/load_vm.c \
