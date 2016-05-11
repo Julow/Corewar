@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/10 16:17:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 15:37:57 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ typedef bool	(*t_op_f)(t_vm *vm, uint32_t process,
 */
 # define OCP_GET(OCP, I)		(((OCP) << (8 - (((I) + 1) * 2))) & 0b11)
 # define GET_VALUE(V,P,A,T,I)	get_value(V, P, (A)[I], OCP_GET(T, I))
-# define GET_LVALUE(V,P,A,T,I)	get_lvalue(V, P, (A)[I], OCP_GET(T, I))
 
 /*
 ** Exec the next instruction of the process at index process_index
 */
 bool			exec_op(t_vm *vm, uint32_t process_index);
-
+uint32_t		get_value(t_vm const *vm, t_process *const process,
+						uint32_t argi, uint32_t opc);
 /*
 ** op_fct proto
 */
@@ -75,6 +75,6 @@ bool			op_sub(t_vm *vm, uint32_t process,
 					uint32_t const *args, uint8_t args_types);
 bool			op_xor(t_vm *vm, uint32_t process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_zjump(t_vm *vm, uint32_t process,
+bool			op_zjmp(t_vm *vm, uint32_t process,
 					uint32_t const *args, uint8_t args_types);
 #endif
