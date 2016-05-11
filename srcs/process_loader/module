@@ -1,3 +1,0 @@
-module process_loader:
-
-	public require process
