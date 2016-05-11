@@ -6,13 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 15:37:57 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/11 15:43:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INTERNAL_H
 # define INTERNAL_H
 
+# include "process.h"
 # include "vm_exec.h"
 
 /*
@@ -77,4 +78,5 @@ bool			op_xor(t_vm *vm, uint32_t process,
 					uint32_t const *args, uint8_t args_types);
 bool			op_zjmp(t_vm *vm, uint32_t process,
 					uint32_t const *args, uint8_t args_types);
+
 #endif

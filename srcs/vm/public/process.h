@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:01:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 15:25:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 16:02:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "ft/libft.h"
 # include "op.h"
+
+typedef struct s_process		t_process;
 
 /*
 ** ========================================================================== **
@@ -43,7 +45,7 @@
 struct			s_process
 {
 	uint32_t		player_idx;
-	uint32_t		*reg_pc;
+	uint32_t		reg_pc;
 	uint32_t		reg_pflags;
 	uint32_t		reg[REG_NUMBER];
 };

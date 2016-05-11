@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:19:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 14:24:20 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 16:57:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm_loader.h"
 
-int32_t			next_player_id(t_vm_loader const *loader, int32_t id);
+int32_t			next_player_id(t_vm_loader const *loader, int32_t id)
 {
 	uint32_t		i;
 
@@ -20,10 +20,13 @@ int32_t			next_player_id(t_vm_loader const *loader, int32_t id);
 	{
 		i = 0;
 		while (true)
-			if (VGETC(t_vm_loader_player, vm->player, i)->id == id)
-				break ;
-			else if (++i >= vm->player.length)
+		{
+			if (i >= loader->player.length)
 				return (id);
+			if (VGETC(t_vm_loader_player, loader->player, i).id == id)
+				break ;
+			i++;
+		}
 		id++;
 	}
 }

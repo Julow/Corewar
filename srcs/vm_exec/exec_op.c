@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/10 17:23:13 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/11 15:45:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,5 @@ bool					exec_op(t_vm *vm, uint32_t process_index)
 	uint8_t					arg_type;
 	uint32_t				args[MAX_ARGS_NUMBER];
 
-
-	arg_type = 
-	args = 	
+	return (false); // TODO
 }

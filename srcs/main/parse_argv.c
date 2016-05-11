@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 16:19:10 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 15:32:18 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/11 17:03:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static bool		push_player(t_parse_argv *argv, int32_t id, t_sub file_name)
 {
 	t_vm_loader_player	player;
 
+	ft_printf("PUSH PLAYER %ts:%u%n", file_name, id);
 	player = (t_vm_loader_player){id, DSTR0()};
 	ft_dstradd(&player.file_name, file_name);
 	ft_vpush(&argv->vm_loader.player, &player, 1);
@@ -29,9 +30,9 @@ static bool		parse_opt_dump(t_parse_argv *argv)
 
 	argv->flags |= ARGV_F_DUMP;
 	if (!ft_argv_arg(&argv->args, &value))
-		PARSE_ARGV_ERR("-d require a value");
+		PARSE_ARGV_ERR("-d: Require a value");
 	else if (ft_subto_uint(value, &argv->dump_cycles) != value.length)
-		PARSE_ARGV_ERR("Invalid value: %ts", value);
+		PARSE_ARGV_ERR("-d: Invalid value: %ts", value);
 	else
 		return (true);
 	return (false);
@@ -42,12 +43,12 @@ static bool		parse_opt_n(t_parse_argv *argv)
 	t_sub			value;
 	int32_t			player_id;
 
-	if (!ft_argv_arg(&argv->args, &value))
-		PARSE_ARGV_ERR("-n require a value");
+	if (!ft_argv_arg(&argv->args, &value) || value.length == 0)
+		PARSE_ARGV_ERR("-n: Require a value");
 	else if (ft_subto_int(value, &player_id) != value.length)
-		PARSE_ARGV_ERR("Invalid value: %ts", value);
+		PARSE_ARGV_ERR("-n: Invalid value: %ts", value);
 	else if (next_player_id(&argv->vm_loader, player_id) != player_id)
-		PARSE_ARGV_ERR("Player id already used: %d", player_id);
+		PARSE_ARGV_ERR("-n: Player id already used: %d", player_id);
 	else if (!ft_argv_arg(&argv->args, &value))
 		PARSE_ARGV_ERR("Missing file name for player %d", player_id);
 	else

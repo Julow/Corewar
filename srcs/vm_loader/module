@@ -6,3 +6,6 @@ module vm_loader:
 	public require ft::dstr
 	public require ft::base
 	public require ft::vector
+
+	private require utils
+	private require ft::printf
