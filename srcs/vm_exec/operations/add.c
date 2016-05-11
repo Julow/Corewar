@@ -17,8 +17,8 @@ bool		op_add(t_vm *vm, uint32_t process_index, uint32_t const *args,
 {
 	t_process *const		process = VECTOR_GET(vm->process, process_index);
 	
-	process->reg[args[2]] = GET_VALUE(vm, process, args, args_types, 1)
-							+ GET_VALUE(vm, process, args, args_types, 0);
+	process->reg[args[2]] = GET_VALUE(vm, process, args, args_types, 0)
+							+ GET_VALUE(vm, process, args, args_types, 1);
 	//modif carry
 	return (true);
 }
