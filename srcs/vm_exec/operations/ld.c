@@ -12,7 +12,8 @@
 
 #include "p_vm_exec.h"
 
-bool		op_ld(t_vm *vm, t_process *process, uint32_t const *args)
+bool		op_ld(t_vm *vm, t_process *process, uint32_t const *args,
+					uint8_t args_types)
 {
 
 }

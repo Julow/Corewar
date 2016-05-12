@@ -53,11 +53,11 @@ static uint8_t		get_ocp(t_vm *vm, t_op const *op, t_process *process)
 	while (i < op->arg_n)
 	{
 		if (op->arg_types[i] == T_REG)
-			ocp |= OCP_VALUE(REG_CODE)
+			ocp |= OCP_VALUE(i, REG_CODE);
 		else if (op->arg_types[i] == T_DIR)
-			ocp |= OCP_VALUE(DIR_CODE)
+			ocp |= OCP_VALUE(i, DIR_CODE);
 		else if (op->arg_types[i] == T_IND)
-			ocp |= OCP_VALUE(IND_CODE)
+			ocp |= OCP_VALUE(i, IND_CODE);
 		else
 			ASSERT(false);
 		i++;
@@ -67,18 +67,18 @@ static uint8_t		get_ocp(t_vm *vm, t_op const *op, t_process *process)
 
 bool				exec_op(t_vm *vm, t_process *process)
 {
-	uint32_t const		op_code = PC_READ(vm, process->reg_pc);
 	t_op const			*op;
 	uint32_t			args[MAX_ARGS_NUMBER];
 	uint8_t				ocp;
 	uint32_t			i;
 	uint32_t			value_size;
 
+	i = VM_GET1(vm, process->reg_pc);
 	PC_INC(process, 1);
-	if (op_code < 1 || op_code > OPCODE_COUNT)
+	if (i < 1 || i > OPCODE_COUNT)
 		return (true);
-	op = &g_op_tab[op_code];
-	ocp = get_ocp(op);
+	op = &g_op_tab[i];
+	ocp = get_ocp(vm, op, process);
 	i = 0;
 	while (i < op->arg_n)
 	{
@@ -94,5 +94,5 @@ bool				exec_op(t_vm *vm, t_process *process)
 		PC_INC(process, value_size);
 		i++;
 	}
-	return (true);
+	return (g_op_functions[op->op_code](vm, process, args, ocp));
 }

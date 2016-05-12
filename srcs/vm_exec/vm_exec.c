@@ -31,11 +31,11 @@ static bool		vm_check(t_vm *vm)
 		vm->flags |= VM_F_GAMEOVER;
 		return (false);
 	}
-	vm->check_count++;
-	if (vm->nbr_live >= NBR_LIVE || vm->check_count >= MAX_CHECKS)
+	vm->nbr_check++;
+	if (vm->nbr_live >= NBR_LIVE || vm->nbr_check >= MAX_CHECKS)
 	{
 		vm->cycle_to_check -= CYCLE_DELTA;
-		vm->check_count = 0;
+		vm->nbr_check = 0;
 	}
 	vm->next_check = vm->clock + vm->cycle_to_check;
 	vm->nbr_live = 0;
@@ -53,5 +53,9 @@ bool			vm_exec(t_vm *vm)
 			process->wait--;
 		else if (!exec_op(vm, process))
 			return (false);
+		else
+		{
+			//Todo : wait
+		}
 	return (++vm->clock != vm->next_check || vm_check(vm));
 }
