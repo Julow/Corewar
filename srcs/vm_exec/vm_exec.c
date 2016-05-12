@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 11:27:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 12:34:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 19:49:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static bool		vm_check(t_vm *vm)
 bool			vm_exec(t_vm *vm)
 {
 	t_process		*process;
-	uint32_t		i;
 
 	process = LIST_IT(&vm->process);
 	while ((process = LIST_NEXT(process)))

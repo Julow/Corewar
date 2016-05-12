@@ -355,7 +355,8 @@ $(O_DIR)/srcs/vm_exec/operations/add.o: srcs/vm_exec/operations/add.c \
 	srcs/vm_exec/p_vm_exec.h srcs/vm_exec/public/vm_exec.h
 $(O_DIR)/srcs/vm_exec/operations/aff.o: srcs/vm_exec/operations/aff.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
+	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h srcs/corewar_config/public/op.h \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
 	srcs/vm_exec/p_vm_exec.h srcs/vm_exec/public/vm_exec.h
 $(O_DIR)/srcs/vm_exec/operations/and.o: srcs/vm_exec/operations/and.c \

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 16:45:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 19:35:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ typedef bool	(*t_op_f)(t_vm *vm, t_process *process,
 
 # define GET_VALUE(V,P,A,T,I)	get_value(V, P, (A)[I], OCP_GET(T, I))
 # define GET_LVALUE(V,P,A,T,I)	get_lvalue(V, P, (A)[I], OCP_GET(T, I))
+
+/*
+** Set/unset bits
+** -
+** VAL		=> Initial value
+** F		=> Flags
+** SET		=> Set/unset toggle
+*/
+# define SET_FLAGS(VAL, FLAG, SET)	((SET) ? (VAL) | (FLAG) : (VAL) & ~(FLAG))
+
+# define SET_CARRY(P, V)	((P)->reg_pflags=_SET_CARRY(P, V))
+
+# define _SET_CARRY(P, V)	(SET_FLAGS((P)->reg_pflags,PFLAG_CARRY,(V)==0))
 
 /*
 ** Exec the next instruction of the process at index process_index

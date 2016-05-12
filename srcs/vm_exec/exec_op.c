@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 17:50:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 19:53:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ bool				exec_op(t_vm *vm, t_process *process)
 		else if (OCP_GET(ocp, i) == IND_CODE && op->arg_types[i] & T_IND)
 			value_size = 2;
 		else
-			return (true);
+			return (ASSERT(false));
 		args[i] = vm_get(vm, process->reg_pc, value_size);
 		PC_INC(process, value_size);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:11:44 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 12:38:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 19:37:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ bool		op_add(t_vm *vm, t_process *process, uint32_t const *args,
 {
 	process->reg[args[2]] = GET_VALUE(vm, process, args, args_types, 0)
 							+ GET_VALUE(vm, process, args, args_types, 1);
-	//modif carry
+	SET_CARRY(process, process->reg[args[2]]);
 	return (true);
 }
