@@ -6,3 +6,4 @@ module vm_exec:
 	public require corewar_config
 	public require ft::base
 	public require vm
+	private require ft::printf

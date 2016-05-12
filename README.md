@@ -14,3 +14,6 @@
 
 * main
 	* main loop
+
+* check
+	* % MEM_SIZE

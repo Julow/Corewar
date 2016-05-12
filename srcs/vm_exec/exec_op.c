@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 15:56:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 17:50:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ bool				exec_op(t_vm *vm, t_process *process)
 	i = 0;
 	while (i < op->arg_n)
 	{
-		if (OCP_GET(ocp, i) == REG_CODE)
+		if (OCP_GET(ocp, i) == REG_CODE && op->arg_types[i] & T_REG)
 			value_size = 1;
-		else if (OCP_GET(ocp, i) == DIR_CODE)
+		else if (OCP_GET(ocp, i) == DIR_CODE && op->arg_types[i] & T_DIR)
 			value_size = op->short_value ? 2 : 4;
-		else if (OCP_GET(ocp, i) == IND_CODE)
+		else if (OCP_GET(ocp, i) == IND_CODE && op->arg_types[i] & T_IND)
 			value_size = 2;
 		else
 			return (true);
