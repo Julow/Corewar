@@ -7,5 +7,5 @@ main module corewar_vm:
 	require ft::argv
 	require vm
 	require vm_loader
-#	require vm_exec
+	require vm_exec
 	require ui

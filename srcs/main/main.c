@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 12:15:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 16:42:22 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "main.h"
 #include "parse_argv.h"
 #include "vm.h"
+#include "vm_exec.h"
 
 // #include "vm_exec.h"
 #include "vm_loader.h"
@@ -55,6 +56,13 @@ int				main(int argc, char **argv)
 	}
 
 	ft_printf("%ts%n", SUB(m.vm.arena, MEM_SIZE));
+
+	while (!VM_GAMEOVER(m.vm))
+	{
+		vm_exec(&m.vm);
+		if (m.vm.clock > 20)
+			break ;
+	}
 
 	// while (!(vm.flags & VM_F_GAMEOVER))
 	// {

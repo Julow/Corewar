@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 15:24:06 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 16:45:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ bool			exec_op(t_vm *vm, t_process *process);
 ** Return the value of an argumemt depending on its type
 */
 uint32_t		get_value(t_vm const *vm, t_process *const process,
-						uint32_t argi, uint32_t opc);
+						uint32_t arg, uint32_t arg_type);
+uint32_t		get_lvalue(t_vm const *vm, t_process *const process,
+						uint32_t arg, uint32_t arg_type);
 
 /*
 ** op_fct proto
