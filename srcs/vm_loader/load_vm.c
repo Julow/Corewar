@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:21:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 18:41:09 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 14:38:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 static bool		load_champion(t_vm *vm, t_vm_loader_player const *p,
 					uint32_t arena_offset, t_player *dst)
 {
-	header_t		head;
+	t_header		head;
 	int				fd;
 
 	if ((fd = open(p->file_name.str, O_RDONLY)) < 0)
 		LOAD_ERROR("Cannot open file", DSTR_SUB(p->file_name.str));
-	else if (read(fd, &head, sizeof(header_t)) != sizeof(header_t))
+	else if (read(fd, &head, sizeof(t_header)) != sizeof(t_header))
 		LOAD_ERROR("Invalid file", DSTR_SUB(p->file_name.str));
 	else if (B32_REV(head.magic) != COREWAR_EXEC_MAGIC)
 		LOAD_ERROR("Not a corewar file", DSTR_SUB(p->file_name.str));

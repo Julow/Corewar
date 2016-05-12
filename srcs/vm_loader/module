@@ -7,5 +7,7 @@ module vm_loader:
 	public require ft::base
 	public require ft::vector
 
+	public require corewar_config
+
 	private require utils
 	private require ft::printf

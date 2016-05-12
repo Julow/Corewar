@@ -1,0 +1,2 @@
+module corewar_config:
+	public include public/

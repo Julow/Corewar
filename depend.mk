@@ -1,15 +1,16 @@
 INCLUDE_FLAGS += -I$(O_DIR)/_public
 OBJ_DIR_TREE += $(O_DIR)/srcs/vm_loader/ $(O_DIR)/srcs/vm/ $(O_DIR)/srcs/main/ \
-	$(O_DIR)/srcs/ $(O_DIR)/libft/ft_vector/ $(O_DIR)/libft/ft_printf/formats/ \
-	$(O_DIR)/libft/ft_printf/ $(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_dstr/ \
+	$(O_DIR)/srcs/corewar_config/ $(O_DIR)/srcs/ $(O_DIR)/libft/ft_vector/ \
+	$(O_DIR)/libft/ft_printf/formats/ $(O_DIR)/libft/ft_printf/ \
+	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ $(O_DIR)/libft/ft_dstr/ \
 	$(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ft_argv/ $(O_DIR)/libft/ \
 	$(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
-O_FILES += $(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/parse_argv.o \
-	$(O_DIR)/libft/ft_argv/arg.o $(O_DIR)/libft/ft_argv/opt.o \
-	$(O_DIR)/libft/ft_base/ft_abs.o $(O_DIR)/libft/ft_base/ft_assert.o \
-	$(O_DIR)/libft/ft_base/ft_atoib.o $(O_DIR)/libft/ft_base/ft_bitset.o \
-	$(O_DIR)/libft/ft_base/ft_bzero.o $(O_DIR)/libft/ft_base/ft_clock.o \
-	$(O_DIR)/libft/ft_base/ft_clock_stack.o \
+O_FILES += $(O_DIR)/srcs/corewar_config/op.o $(O_DIR)/srcs/main/main.o \
+	$(O_DIR)/srcs/main/parse_argv.o $(O_DIR)/libft/ft_argv/arg.o \
+	$(O_DIR)/libft/ft_argv/opt.o $(O_DIR)/libft/ft_base/ft_abs.o \
+	$(O_DIR)/libft/ft_base/ft_assert.o $(O_DIR)/libft/ft_base/ft_atoib.o \
+	$(O_DIR)/libft/ft_base/ft_bitset.o $(O_DIR)/libft/ft_base/ft_bzero.o \
+	$(O_DIR)/libft/ft_base/ft_clock.o $(O_DIR)/libft/ft_base/ft_clock_stack.o \
 	$(O_DIR)/libft/ft_base/ft_emalloc.o $(O_DIR)/libft/ft_base/ft_escape.o \
 	$(O_DIR)/libft/ft_base/ft_getenv.o $(O_DIR)/libft/ft_base/ft_is.o \
 	$(O_DIR)/libft/ft_base/ft_max.o $(O_DIR)/libft/ft_base/ft_memcmp.o \
@@ -26,7 +27,9 @@ O_FILES += $(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/parse_argv.o \
 	$(O_DIR)/libft/ft_base/ft_wstrlen.o $(O_DIR)/libft/ft_base/ft_wstrnconv.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstradd.o $(O_DIR)/libft/ft_dstr/ft_dstrclear.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstrextend.o \
-	$(O_DIR)/libft/ft_dstr/ft_dstrspan.o $(O_DIR)/libft/ft_out/ft_putchar.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstrspan.o $(O_DIR)/libft/ft_list/ft_listadd.o \
+	$(O_DIR)/libft/ft_list/ft_listremove.o \
+	$(O_DIR)/libft/ft_list/ft_listsort.o $(O_DIR)/libft/ft_out/ft_putchar.o \
 	$(O_DIR)/libft/ft_out/ft_putendl.o $(O_DIR)/libft/ft_out/ft_putfloat.o \
 	$(O_DIR)/libft/ft_out/ft_putint.o $(O_DIR)/libft/ft_out/ft_putnchar.o \
 	$(O_DIR)/libft/ft_out/ft_putpad.o $(O_DIR)/libft/ft_out/ft_putstr.o \
@@ -48,28 +51,35 @@ O_FILES += $(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/parse_argv.o \
 	$(O_DIR)/srcs/vm/vm_access.o $(O_DIR)/srcs/vm/vm_destroy.o \
 	$(O_DIR)/srcs/vm/vm_start.o $(O_DIR)/srcs/vm_loader/load_vm.o \
 	$(O_DIR)/srcs/vm_loader/misc.o
-PUBLIC_LINKS += $(O_DIR)/_public/ft/argv.h $(O_DIR)/_public/ft/ft_colors.h \
-	$(O_DIR)/_public/ft/ft_wchar.h $(O_DIR)/_public/ft/libft.h \
-	$(O_DIR)/_public/ft/ft_dstr.h $(O_DIR)/_public/ft/ft_out.h \
+PUBLIC_LINKS += $(O_DIR)/_public/op.h $(O_DIR)/_public/ft/argv.h \
+	$(O_DIR)/_public/ft/ft_colors.h $(O_DIR)/_public/ft/ft_wchar.h \
+	$(O_DIR)/_public/ft/libft.h $(O_DIR)/_public/ft/ft_dstr.h \
+	$(O_DIR)/_public/ft/ft_list.h $(O_DIR)/_public/ft/ft_out.h \
 	$(O_DIR)/_public/ft/ft_str_out.h $(O_DIR)/_public/ft/ft_printf.h \
 	$(O_DIR)/_public/ft/ft_vprintf.h $(O_DIR)/_public/ft/ft_vector.h \
-	$(O_DIR)/_public/utils.h $(O_DIR)/_public/op.h $(O_DIR)/_public/player.h \
+	$(O_DIR)/_public/utils.h $(O_DIR)/_public/player.h \
 	$(O_DIR)/_public/process.h $(O_DIR)/_public/vm.h \
 	$(O_DIR)/_public/vm_loader.h
+
+# module corewar_config
+$(O_DIR)/srcs/corewar_config/op.o: srcs/corewar_config/op.c \
+	srcs/corewar_config/public/op.h
 
 # module corewar_vm
 $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_argv/public/argv.h \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
-	libft/ft_vector/public/ft_vector.h srcs/main/main.h srcs/main/parse_argv.h \
-	srcs/vm/public/op.h srcs/vm/public/player.h srcs/vm/public/process.h \
-	srcs/vm/public/vm.h srcs/vm_loader/public/vm_loader.h
+	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
+	srcs/corewar_config/public/op.h srcs/main/main.h srcs/main/parse_argv.h \
+	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
+	srcs/vm_loader/public/vm_loader.h
 $(O_DIR)/srcs/main/parse_argv.o: srcs/main/parse_argv.c \
 	libft/ft_argv/public/argv.h libft/ft_base/public/libft.h \
-	libft/ft_dstr/public/ft_dstr.h libft/ft_out/public/ft_out.h \
-	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
-	srcs/main/main.h srcs/main/parse_argv.h srcs/vm/public/op.h \
-	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
+	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
+	libft/ft_vector/public/ft_vector.h srcs/corewar_config/public/op.h \
+	srcs/main/main.h srcs/main/parse_argv.h srcs/vm/public/player.h \
+	srcs/vm/public/process.h srcs/vm/public/vm.h \
 	srcs/vm_loader/public/vm_loader.h
 
 $(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/parse_argv.o: INCLUDE_FLAGS += \
@@ -162,6 +172,14 @@ $(O_DIR)/libft/ft_dstr/ft_dstrextend.o: libft/ft_dstr/ft_dstrextend.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h
 $(O_DIR)/libft/ft_dstr/ft_dstrspan.o: libft/ft_dstr/ft_dstrspan.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h
+
+# module ft::list
+$(O_DIR)/libft/ft_list/ft_listadd.o: libft/ft_list/ft_listadd.c \
+	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h
+$(O_DIR)/libft/ft_list/ft_listremove.o: libft/ft_list/ft_listremove.c \
+	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h
+$(O_DIR)/libft/ft_list/ft_listsort.o: libft/ft_list/ft_listsort.c \
+	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h
 
 # module ft::out
 $(O_DIR)/libft/ft_out/ft_putchar.o: libft/ft_out/ft_putchar.c \
@@ -290,35 +308,38 @@ $(O_DIR)/libft/ft_vector/ft_vspan.o: libft/ft_vector/ft_vspan.c \
 
 # module vm
 $(O_DIR)/srcs/vm/vm_access.o: srcs/vm/vm_access.c libft/ft_base/public/libft.h \
-	libft/ft_dstr/public/ft_dstr.h libft/ft_vector/public/ft_vector.h \
-	srcs/vm/public/op.h srcs/vm/public/player.h srcs/vm/public/process.h \
-	srcs/vm/public/vm.h
+	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
+	srcs/corewar_config/public/op.h srcs/vm/public/player.h \
+	srcs/vm/public/process.h srcs/vm/public/vm.h
 $(O_DIR)/srcs/vm/vm_destroy.o: srcs/vm/vm_destroy.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_vector/public/ft_vector.h srcs/vm/public/op.h \
+	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
 $(O_DIR)/srcs/vm/vm_start.o: srcs/vm/vm_start.c libft/ft_base/public/libft.h \
-	libft/ft_dstr/public/ft_dstr.h libft/ft_vector/public/ft_vector.h \
-	srcs/vm/public/op.h srcs/vm/public/player.h srcs/vm/public/process.h \
-	srcs/vm/public/vm.h
+	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
+	srcs/corewar_config/public/op.h srcs/vm/public/player.h \
+	srcs/vm/public/process.h srcs/vm/public/vm.h
 
 # module vm_loader
 $(O_DIR)/srcs/vm_loader/load_vm.o: srcs/vm_loader/load_vm.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
-	libft/ft_vector/public/ft_vector.h srcs/utils/utils.h srcs/vm/public/op.h \
-	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
+	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
+	srcs/corewar_config/public/op.h srcs/utils/utils.h srcs/vm/public/player.h \
+	srcs/vm/public/process.h srcs/vm/public/vm.h \
 	srcs/vm_loader/public/vm_loader.h
 $(O_DIR)/srcs/vm_loader/misc.o: srcs/vm_loader/misc.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_vector/public/ft_vector.h srcs/vm/public/op.h \
-	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
+	libft/ft_list/public/ft_list.h libft/ft_vector/public/ft_vector.h \
+	srcs/corewar_config/public/op.h srcs/vm/public/player.h \
+	srcs/vm/public/process.h srcs/vm/public/vm.h \
 	srcs/vm_loader/public/vm_loader.h
 
 # public links
 $(O_DIR)/_public/ft/argv.h: libft/ft_argv/public/argv.h
 $(O_DIR)/_public/ft/ft_colors.h: libft/ft_base/public/ft_colors.h
 $(O_DIR)/_public/ft/ft_dstr.h: libft/ft_dstr/public/ft_dstr.h
+$(O_DIR)/_public/ft/ft_list.h: libft/ft_list/public/ft_list.h
 $(O_DIR)/_public/ft/ft_out.h: libft/ft_out/public/ft_out.h
 $(O_DIR)/_public/ft/ft_printf.h: libft/ft_printf/public/ft_printf.h
 $(O_DIR)/_public/ft/ft_str_out.h: libft/ft_out/public/ft_str_out.h
@@ -326,7 +347,7 @@ $(O_DIR)/_public/ft/ft_vector.h: libft/ft_vector/public/ft_vector.h
 $(O_DIR)/_public/ft/ft_vprintf.h: libft/ft_printf/public/ft_vprintf.h
 $(O_DIR)/_public/ft/ft_wchar.h: libft/ft_base/public/ft_wchar.h
 $(O_DIR)/_public/ft/libft.h: libft/ft_base/public/libft.h
-$(O_DIR)/_public/op.h: srcs/vm/public/op.h
+$(O_DIR)/_public/op.h: srcs/corewar_config/public/op.h
 $(O_DIR)/_public/player.h: srcs/vm/public/player.h
 $(O_DIR)/_public/process.h: srcs/vm/public/process.h
 $(O_DIR)/_public/utils.h: srcs/utils/utils.h

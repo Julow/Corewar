@@ -3,5 +3,6 @@ module vm_exec:
 	public include public/
 	private include ./
 
+	public require corewar_config
 	public require ft::base
 	public require vm

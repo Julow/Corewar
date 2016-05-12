@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 12:17:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:03:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,16 @@ struct			s_vm
 void			vm_start(t_vm *vm);
 
 /*
-** Read the value at arena + i
+** Read n bytes from arena + i
+** 0 < n <= 4
 */
-uint32_t		vm_get(t_vm const *vm, uint32_t i);
+uint32_t		vm_get(t_vm const *vm, uint32_t i, uint32_t n);
 
 /*
-** Write value at arena + i
+** Write n bytes from arena + i
+** 0 < n <= 4
 */
-void			vm_set(t_vm *vm, uint32_t i, uint32_t value);
+void			vm_set(t_vm *vm, uint32_t i, uint32_t value, uint32_t n);
 
 /*
 ** Destroy vm

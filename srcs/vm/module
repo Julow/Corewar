@@ -2,6 +2,7 @@ module vm:
 
 	public include public/
 
+	public require corewar_config
 	public require ft::base
 	public require ft::list
 	public require ft::dstr
