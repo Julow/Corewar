@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 11:27:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 19:49:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 20:04:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ bool			vm_exec(t_vm *vm)
 	t_process		*process;
 
 	process = LIST_IT(&vm->process);
+	vm->clock++;
 	while ((process = LIST_NEXT(process)))
 		if (process->wait > 0)
 			process->wait--;
@@ -56,5 +57,5 @@ bool			vm_exec(t_vm *vm)
 		{
 			//Todo : wait
 		}
-	return (++vm->clock != vm->next_check || vm_check(vm));
+	return (vm->clock != vm->next_check || vm_check(vm));
 }

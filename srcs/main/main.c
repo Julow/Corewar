@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 19:47:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 20:34:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int				main(int argc, char **argv)
 	{
 		ft_printf("CLOCK %u%n", m.vm.clock);
 		vm_exec(&m.vm);
-		if (m.vm.clock > 5)
+		if (m.vm.clock > 50)
 			break ;
 	}
 	if (VM_GAMEOVER(m.vm))

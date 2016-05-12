@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:09:57 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 18:08:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 20:32:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	player_id_exists(t_vm const *vm, uint32_t player_id)
 
 	i = 0;
 	while (i < vm->player_count)
-		if (vm->players[i].id == player_id)
+		if (vm->players[i++].id == player_id)
 			return (true);
 	return (false);
 }

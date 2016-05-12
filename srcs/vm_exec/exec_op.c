@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 19:53:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 19:55:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ bool				exec_op(t_vm *vm, t_process *process)
 		PC_INC(process, value_size);
 		i++;
 	}
+	ft_printf("P #%u EXEC %s, PC => %u%n", process->player_idx, op->name, process->reg_pc);
 	return (g_op_functions[op->op_code](vm, process, args, ocp));
 }
