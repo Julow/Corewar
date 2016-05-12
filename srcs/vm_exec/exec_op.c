@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/11 15:45:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 12:36:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ static t_op_f const		g_optab[] =
 	[16] = &op_aff
 };
 
-bool					exec_op(t_vm *vm, uint32_t process_index)
+bool					exec_op(t_vm *vm, t_process *process)
 {
-	t_process *const		process = VECTOR_GET(vm->process, process_index);
 	uint8_t					arg_type;
 	uint32_t				args[MAX_ARGS_NUMBER];
 

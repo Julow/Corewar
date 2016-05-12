@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 19:20:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 12:17:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-# include "ft/ft_vector.h"
+# include "ft/ft_list.h"
 # include "ft/libft.h"
 
 # include "op.h"
@@ -51,14 +51,15 @@ struct			s_vm
 	uint32_t		nbr_live;
 	uint32_t		nbr_check;
 	uint32_t		cycle_to_check;
+	uint32_t		last_alive_player;
 	uint32_t		flags;
 	t_player		players[MAX_PLAYERS];
 	uint32_t		player_count;
-	t_vector		process;
+	t_list			process;
 	void			*arena;
 };
 
-# define VM_INIT()			((t_vm){0,0,0,0,0,0,{},0,VECTOR(t_process),NULL})
+# define VM_INIT()			((t_vm){0,0,0,0,0,0,0,{},0,LIST(t_process),NULL})
 
 /*
 ** Start the game

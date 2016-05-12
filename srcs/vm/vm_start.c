@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 19:08:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 12:16:17 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 void			vm_start(t_vm *vm)
 {
 	uint32_t		i;
-	t_player const	*player;
-	t_process		process;
+	t_process		*process;
 
 	vm->clock = 0;
 	vm->next_check = CYCLE_TO_DIE;
@@ -27,9 +26,9 @@ void			vm_start(t_vm *vm)
 	i = 0;
 	while (i < vm->player_count)
 	{
-		player = &vm->players[i];
-		process = PROCESS_INIT(player->arena_offset, player->id, i);
-		ft_vpush(&vm->process, &process, 1);
+		process = ft_listadd(&vm->process, vm->process.last, 0);
+		*process = PROCESS_INIT(vm->players[i].arena_offset,
+			vm->players[i].id, i);
 		i++;
 	}
 }

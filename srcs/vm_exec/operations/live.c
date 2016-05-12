@@ -6,13 +6,13 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:09:57 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/10 17:10:09 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/12 12:38:22 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_vm_exec.h"
 
-bool		op_live(t_vm *vm, uint32_t process_index, uint32_t const *args,
+bool		op_live(t_vm *vm, t_process *process, uint32_t const *args,
 						uint8_t args_types)
 {
 

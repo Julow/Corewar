@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 19:18:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 12:15:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int				main(int argc, char **argv)
 	{
 		t_process const	*process;
 
-		process = VECTOR_IT(m.vm.process);
-		while (VECTOR_NEXT(m.vm.process, process))
+		process = LIST_IT(&m.vm.process);
+		while ((process = LIST_NEXT(process)))
 			ft_printf("process; pidx: %u, pc: %u%n",
 				process->player_idx, process->reg_pc);
 	}

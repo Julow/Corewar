@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:01:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 19:03:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 12:33:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_process		t_process;
 */
 
 # define PFLAG_CARRY		(1 << 0)
-# define PFLAG_DEAD			(1 << 1)
+# define PFLAG_ALIVE		(1 << 1)
 
 # if REG_SIZE != 4
 #  error "Invalid register size"
@@ -45,6 +45,7 @@ typedef struct s_process		t_process;
 struct			s_process
 {
 	uint32_t		player_idx; // TODO: remove
+	uint32_t		wait;
 	uint32_t		reg_pc;
 	uint32_t		reg_pflags;
 	uint32_t		reg[REG_NUMBER];
@@ -57,6 +58,6 @@ struct			s_process
 ** PID			=> player id
 ** PIDX			=> player index
 */
-# define PROCESS_INIT(PC,PID,PIDX)	((t_process){(PIDX), (PC), 0, {PID, 0}})
+# define PROCESS_INIT(PC,PID,PIDX)	((t_process){(PIDX), 0, (PC), 0, {PID, 0}})
 
 #endif

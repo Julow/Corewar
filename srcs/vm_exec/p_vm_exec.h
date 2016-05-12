@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 15:43:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 12:40:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 ** op
 ** -
 ** vm			=> current vm
-** process		=> current process index
+** process		=> current process
 ** args			=> unpacked arguments
 ** ocp			=> arguments types
 */
-typedef bool	(*t_op_f)(t_vm *vm, uint32_t process,
+typedef bool	(*t_op_f)(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
 
 /*
@@ -40,43 +40,48 @@ typedef bool	(*t_op_f)(t_vm *vm, uint32_t process,
 /*
 ** Exec the next instruction of the process at index process_index
 */
-bool			exec_op(t_vm *vm, uint32_t process_index);
+bool			exec_op(t_vm *vm, t_process *process);
+
+/*
+** Return the value of an argumemt depending on its type
+*/
 uint32_t		get_value(t_vm const *vm, t_process *const process,
 						uint32_t argi, uint32_t opc);
+
 /*
 ** op_fct proto
 */
-bool			op_add(t_vm *vm, uint32_t process,
+bool			op_add(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_aff(t_vm *vm, uint32_t process,
+bool			op_aff(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_and(t_vm *vm, uint32_t process,
+bool			op_and(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_fork(t_vm *vm, uint32_t process,
+bool			op_fork(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_ld(t_vm *vm, uint32_t process,
+bool			op_ld(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_ldi(t_vm *vm, uint32_t process,
+bool			op_ldi(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_lfork(t_vm *vm, uint32_t process,
+bool			op_lfork(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_live(t_vm *vm, uint32_t process,
+bool			op_live(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_lld(t_vm *vm, uint32_t process,
+bool			op_lld(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_lldi(t_vm *vm, uint32_t process,
+bool			op_lldi(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_or(t_vm *vm, uint32_t process,
+bool			op_or(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_st(t_vm *vm, uint32_t process,
+bool			op_st(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_sti(t_vm *vm, uint32_t process,
+bool			op_sti(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_sub(t_vm *vm, uint32_t process,
+bool			op_sub(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_xor(t_vm *vm, uint32_t process,
+bool			op_xor(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
-bool			op_zjmp(t_vm *vm, uint32_t process,
+bool			op_zjmp(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
 
 #endif

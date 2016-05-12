@@ -6,13 +6,13 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:13:00 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/10 17:13:01 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/12 12:38:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_vm_exec.h"
 
-bool		op_lldi(t_vm *vm, uint32_t process_index, uint32_t const *args,
+bool		op_lldi(t_vm *vm, t_process *process, uint32_t const *args,
 						uint8_t args_types)
 {
 
