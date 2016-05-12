@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 19:55:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 20:44:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ static t_op_f const		g_op_functions[] =
 	[0xf]	= &op_lfork,
 	[0x10]	= &op_aff
 };
-
-#define PC_INC(P,N)			((P)->reg_pc = ((P)->reg_pc + (N)) % MEM_SIZE)
-#define VM_GET1(VM,I)		(((char const*)(VM)->arena)[I])
-
-#define OCP_VALUE(I,V)		((V) << (8 - (((I) + 1) * 2)))
 
 static uint8_t		get_ocp(t_vm *vm, t_op const *op, t_process *process)
 {

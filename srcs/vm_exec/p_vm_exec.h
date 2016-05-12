@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 19:35:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/12 20:46:28 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ typedef bool	(*t_op_f)(t_vm *vm, t_process *process,
 */
 # define OCP_GET(OCP, I)		(((OCP) >> (8 - (((I) + 1) * 2))) & 0b11)
 
+# define OCP_VALUE(I,V)			((V) << (8 - (((I) + 1) * 2)))
+
 # define GET_VALUE(V,P,A,T,I)	get_value(V, P, (A)[I], OCP_GET(T, I))
 # define GET_LVALUE(V,P,A,T,I)	get_lvalue(V, P, (A)[I], OCP_GET(T, I))
+
+# define PC_INC(P,N)			((P)->reg_pc = ((P)->reg_pc + (N)) % MEM_SIZE)
+# define VM_GET1(VM,I)			(((char const*)(VM)->arena)[I])
 
 /*
 ** Set/unset bits
@@ -48,9 +53,9 @@ typedef bool	(*t_op_f)(t_vm *vm, t_process *process,
 */
 # define SET_FLAGS(VAL, FLAG, SET)	((SET) ? (VAL) | (FLAG) : (VAL) & ~(FLAG))
 
-# define SET_CARRY(P, V)	((P)->reg_pflags=_SET_CARRY(P, V))
+# define SET_CARRY(P, V)		((P)->reg_pflags=_SET_CARRY(P, V))
 
-# define _SET_CARRY(P, V)	(SET_FLAGS((P)->reg_pflags,PFLAG_CARRY,(V)==0))
+# define _SET_CARRY(P, V)		(SET_FLAGS((P)->reg_pflags,PFLAG_CARRY,(V)==0))
 
 /*
 ** Exec the next instruction of the process at index process_index
