@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 19:18:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 20:02:27 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/13 11:55:05 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ void			vm_set(t_vm *vm, uint32_t i, uint32_t value, uint32_t n)
 {
 	char *const		arena = vm->arena + (i % MEM_SIZE);
 
-	i = 0;
-	while (i < n)
+	while (n-- > 0)
 	{
-		arena[i++] = value & 0xFF;
+		arena[n] = value & 0xFF;
 		value >>= 8;
 	}
 }

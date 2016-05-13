@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 20:44:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/13 13:27:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,12 @@ bool				exec_op(t_vm *vm, t_process *process)
 	i = VM_GET1(vm, process->reg_pc);
 	PC_INC(process, 1);
 	if (i < 1 || i > OPCODE_COUNT)
+	{
+		ft_printf("P#%u invalid op%n", process->player_idx);
 		return (true);
+	}
 	op = &g_op_tab[i];
+	ft_printf("P#%u op %s%n", process->player_idx, op->name);
 	ocp = get_ocp(vm, op, process);
 	i = 0;
 	while (i < op->arg_n)
@@ -84,11 +88,10 @@ bool				exec_op(t_vm *vm, t_process *process)
 		else if (OCP_GET(ocp, i) == IND_CODE && op->arg_types[i] & T_IND)
 			value_size = 2;
 		else
-			return (ASSERT(false));
+			return (ASSERT(false), true); // Invalid param
 		args[i] = vm_get(vm, process->reg_pc, value_size);
 		PC_INC(process, value_size);
 		i++;
 	}
-	ft_printf("P #%u EXEC %s, PC => %u%n", process->player_idx, op->name, process->reg_pc);
 	return (g_op_functions[op->op_code](vm, process, args, ocp));
 }

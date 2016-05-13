@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:09:57 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 20:32:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/13 10:55:57 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ static bool	player_id_exists(t_vm const *vm, uint32_t player_id)
 bool		op_live(t_vm *vm, t_process *process, uint32_t const *args,
 						uint8_t args_types)
 {
-	uint32_t const	player_id = GET_VALUE(vm, process, args, args_types, 0);
+	// uint32_t const	player_id = GET_VALUE(vm, process, args, args_types, 0);
+	uint32_t const	player_id = args[0];
 
+	ft_printf("LIVE %u;%n", args[0]);
 	vm->nbr_live++;
 	if (player_id_exists(vm, player_id))
 		vm->last_alive_player = player_id;

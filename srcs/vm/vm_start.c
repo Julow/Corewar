@@ -6,12 +6,19 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 12:16:17 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/13 11:46:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 #include "vm.h"
+
+void			vm_wait_next(t_vm *vm, t_process *process)
+{
+	uint32_t const	op = VM_GET1(vm, process->reg_pc);
+
+	process->wait = (op < 1 || op > OPCODE_COUNT) ? 0 : g_op_tab[op].duration;
+}
 
 void			vm_start(t_vm *vm)
 {
@@ -27,8 +34,10 @@ void			vm_start(t_vm *vm)
 	while (i < vm->player_count)
 	{
 		process = ft_listadd(&vm->process, vm->process.last, 0);
-		*process = PROCESS_INIT(vm->players[i].arena_offset,
-			vm->players[i].id, i);
+		*process = PROCESS_INIT(vm->players[i].arena_offset, i);
+		process->reg[0] = vm->players[i].id;
+		vm_wait_next(vm, process);
 		i++;
 	}
+	vm->last_alive_player = vm->players[vm->player_count - 1].id;
 }

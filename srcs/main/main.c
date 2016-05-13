@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 20:34:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/13 10:50:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ int				main(int argc, char **argv)
 
 	while (!VM_GAMEOVER(m.vm))
 	{
-		ft_printf("CLOCK %u%n", m.vm.clock);
+		// ft_printf("CLOCK %u%n", m.vm.clock);
 		vm_exec(&m.vm);
-		if (m.vm.clock > 50)
-			break ;
+		// if (m.vm.clock > 1000)
+			// break ;
 	}
 	if (VM_GAMEOVER(m.vm))
-		ft_printf("GAME OVER%n");
+		ft_printf("GAME OVER, last alive player: %u%n", m.vm.last_alive_player);
 
 	// while (!(vm.flags & VM_F_GAMEOVER))
 	// {

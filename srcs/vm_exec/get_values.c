@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:40:42 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 18:39:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/13 11:49:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ uint32_t			get_value(t_vm const *vm, t_process *const process,
 						uint32_t arg, uint32_t arg_type)
 {
 	if (arg_type == REG_CODE)
-		return ((arg >= REG_NUMBER) ? 0 : process->reg[arg]);
+		return ((arg < 1 || arg > REG_NUMBER) ? 0 : process->reg[arg - 1]);
 	else if (arg_type == DIR_CODE)
 		return (arg);
 	else

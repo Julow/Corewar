@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:01:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 12:33:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/13 11:42:57 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ struct			s_process
 ** Init a process object
 ** -
 ** PC			=> initial pc
-** PID			=> player id
 ** PIDX			=> player index
 */
-# define PROCESS_INIT(PC,PID,PIDX)	((t_process){(PIDX), 0, (PC), 0, {PID, 0}})
+# define PROCESS_INIT(PC,PIDX)		((t_process){(PIDX), 0, (PC), 0, {0}})
 
 #endif

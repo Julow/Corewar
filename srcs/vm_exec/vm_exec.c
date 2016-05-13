@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 11:27:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 20:51:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/13 13:25:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static bool		vm_check_alive(t_vm *vm)
 	while ((process = LIST_NEXT(process)))
 		if (!(process->reg_pflags & PFLAG_ALIVE))
 			process = ft_listremove(&vm->process, process);
+		else
+			process->reg_pflags &= ~PFLAG_ALIVE;
 	return (vm->process.length > 0);
 }
 
@@ -34,19 +36,13 @@ static bool		vm_check(t_vm *vm)
 	vm->nbr_check++;
 	if (vm->nbr_live >= NBR_LIVE || vm->nbr_check >= MAX_CHECKS)
 	{
-		vm->cycle_to_check -= CYCLE_DELTA;
+		vm->cycle_to_check = (vm->cycle_to_check > CYCLE_DELTA) ?
+			vm->cycle_to_check - CYCLE_DELTA : 0;
 		vm->nbr_check = 0;
 	}
 	vm->next_check = vm->clock + vm->cycle_to_check;
 	vm->nbr_live = 0;
 	return (true);
-}
-
-static void		wait_next(t_vm *vm, t_process *process)
-{
-	uint32_t const	op = VM_GET1(vm, process->reg_pc);
-
-	process->wait = (op < 1 || op > OPCODE_COUNT) ? 0 : g_op_tab[op].duration;
 }
 
 bool			vm_exec(t_vm *vm)
@@ -58,7 +54,10 @@ bool			vm_exec(t_vm *vm)
 	while ((process = LIST_NEXT(process)))
 		if (process->wait > 0)
 			process->wait--;
-		else if (exec_op(vm, process))
-			wait_next(vm, process);
-	return (vm->clock != vm->next_check || vm_check(vm));
+		else
+		{
+			exec_op(vm, process);
+			vm_wait_next(vm, process);
+		}
+	return (vm->clock < vm->next_check || vm_check(vm));
 }
