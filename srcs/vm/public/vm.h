@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/13 10:40:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/16 18:40:48 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			vm_start(t_vm *vm);
 
 /*
 ** Read n bytes from arena + i
-** 0 < n <= 4
+** n can be 1, 2 or 4
 */
 uint32_t		vm_get(t_vm const *vm, uint32_t i, uint32_t n);
 

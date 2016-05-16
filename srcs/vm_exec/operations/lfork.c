@@ -6,13 +6,11 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:13:07 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/13 11:43:34 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/16 18:10:55 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_vm_exec.h"
-
-#define LFORK_OPCODE_LEN	3
 
 bool		op_lfork(t_vm *vm, t_process *process, uint32_t const *args,
 						uint8_t args_types)
@@ -20,8 +18,7 @@ bool		op_lfork(t_vm *vm, t_process *process, uint32_t const *args,
 	t_process		*new_p;
 
 	new_p = ft_listadd(&vm->process, NULL, 0);
-	*new_p = PROCESS_INIT((process->reg_pc - LFORK_OPCODE_LEN + args[0])
-							% MEM_SIZE,
+	*new_p = PROCESS_INIT((process->reg_pc + args[0]) % MEM_SIZE,
 				process->player_idx);
 	ft_memcpy(new_p->reg, process->reg, sizeof(uint32_t[REG_NUMBER]));
 	SET_CARRY(new_p, process->reg_pflags & PFLAG_CARRY);

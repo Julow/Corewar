@@ -16,10 +16,16 @@ bool		op_st(t_vm *vm, t_process *process, uint32_t const *args,
 						uint8_t args_types)
 {
 	uint32_t		val1;
-	uint32_t		val2;
 
 	val1 = GET_VALUE(vm, process, args, args_types, 0);
-	val2 = GET_VALUE(vm, process, args, args_types, 1);
-	vm_set(vm, process->reg_pc + val2, val1, 4);
+	if (OCP_GET(args_types, 1) == IND_CODE)
+		vm_set(vm, process->reg_pc + (args[1] % IDX_MOD), val1, 4);
+	else if (OCP_GET(args_types, 1) == REG_CODE)
+	{
+		if (args[1] >= 1 && args[1] <= REG_NUMBER)
+			process->reg[args[1] - 1] = args[val1];
+	}
+	else
+		return (ASSERT(false));
 	return (true);
 }

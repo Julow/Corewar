@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/13 10:50:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/16 18:22:28 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,28 @@
 #include "vm_exec.h"
 
 // #include "vm_exec.h"
+#include "ft/getkey.h"
 #include "vm_loader.h"
+
+static void		dump_arena(t_vm const *vm)
+{
+	char const *const	arena = vm->arena;
+	uint32_t			i;
+	uint32_t			j;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		j = 0;
+		while (j < 64)
+		{
+			ft_printf("%.2hhx ", arena[j + i]);
+			j++;
+		}
+		ft_printf("%n");
+		i += j;
+	}
+}
 
 int				main(int argc, char **argv)
 {
@@ -55,15 +76,19 @@ int				main(int argc, char **argv)
 				process->player_idx, process->reg_pc);
 	}
 
-	ft_printf("%ts%n", SUB(m.vm.arena, MEM_SIZE));
-
 	while (!VM_GAMEOVER(m.vm))
 	{
+
+		ft_printf("\n\n\tCLOCK: %u\n", m.vm.clock);
+		dump_arena(&m.vm);
+		ft_getkey(0);
+
 		// ft_printf("CLOCK %u%n", m.vm.clock);
 		vm_exec(&m.vm);
 		// if (m.vm.clock > 1000)
 			// break ;
 	}
+	dump_arena(&m.vm);
 	if (VM_GAMEOVER(m.vm))
 		ft_printf("GAME OVER, last alive player: %u%n", m.vm.last_alive_player);
 

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/13 13:27:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/16 18:40:16 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ static t_op_f const		g_op_functions[] =
 	[0x10]	= &op_aff
 };
 
-static uint8_t		get_ocp(t_vm *vm, t_op const *op, t_process *process)
+static uint8_t		get_ocp(t_vm const *vm, t_op const *op, uint32_t *pc)
 {
 	uint8_t				ocp;
 	uint32_t			i;
 
 	if (op->has_ocp)
 	{
-		ocp = VM_GET1(vm, process->reg_pc);
-		PC_INC(process, 1);
+		ocp = VM_GET1(vm, *pc);
+		(*pc)++;
 		return (ocp);
 	}
 	ocp = 0;
@@ -60,38 +60,67 @@ static uint8_t		get_ocp(t_vm *vm, t_op const *op, t_process *process)
 	return (ocp);
 }
 
+static t_op const	*unpack_args(t_vm const *vm, uint32_t *pc,
+						uint32_t *args, uint8_t *ocp)
+{
+	t_op const			*op;
+	uint32_t			i;
+	uint32_t			value_size;
+
+	i = VM_GET1(vm, *pc);
+	(*pc)++;
+	if (i < 1 || i > OPCODE_COUNT)
+		return (NULL);
+	op = &g_op_tab[i];
+	*ocp = get_ocp(vm, op, pc);
+	i = 0;
+	while (i < op->arg_n)
+	{
+		if (OCP_GET(*ocp, i) == REG_CODE && op->arg_types[i] & T_REG)
+			value_size = 1;
+		else if (OCP_GET(*ocp, i) == DIR_CODE && op->arg_types[i] & T_DIR)
+			value_size = (op->short_value) ? 2 : 4;
+		else if (OCP_GET(*ocp, i) == IND_CODE && op->arg_types[i] & T_IND)
+			value_size = 2;
+		else
+			return (ASSERT(false), NULL); // Invalid param
+		args[i] = vm_get(vm, *pc, value_size);
+		*pc += value_size;
+		i++;
+	}
+	return (op);
+}
+
+#define TO_FALSE(CODE)		((CODE), false)
+
 bool				exec_op(t_vm *vm, t_process *process)
 {
 	t_op const			*op;
 	uint32_t			args[MAX_ARGS_NUMBER];
 	uint8_t				ocp;
-	uint32_t			i;
-	uint32_t			value_size;
+	uint32_t			pc;
 
-	i = VM_GET1(vm, process->reg_pc);
-	PC_INC(process, 1);
-	if (i < 1 || i > OPCODE_COUNT)
+	pc = process->reg_pc;
+	if ((op = unpack_args(vm, &pc, args, &ocp)) == NULL)
+		return (ASSERT(false, "Invalid op"));
+
 	{
-		ft_printf("P#%u invalid op%n", process->player_idx);
-		return (true);
+		uint32_t		i = 0;
+
+		ft_printf("OP %s", op->name);
+		while (i < op->arg_n)
+		{
+			ft_printf(" %s%u",
+				(OCP_GET(ocp, i) == REG_CODE) ? "r" : (
+					(OCP_GET(ocp, i) == DIR_CODE) ? "%" : ""
+					),
+					args[i]
+				);
+			i++;
+		}
+		ft_printf("%n");
 	}
-	op = &g_op_tab[i];
-	ft_printf("P#%u op %s%n", process->player_idx, op->name);
-	ocp = get_ocp(vm, op, process);
-	i = 0;
-	while (i < op->arg_n)
-	{
-		if (OCP_GET(ocp, i) == REG_CODE && op->arg_types[i] & T_REG)
-			value_size = 1;
-		else if (OCP_GET(ocp, i) == DIR_CODE && op->arg_types[i] & T_DIR)
-			value_size = op->short_value ? 2 : 4;
-		else if (OCP_GET(ocp, i) == IND_CODE && op->arg_types[i] & T_IND)
-			value_size = 2;
-		else
-			return (ASSERT(false), true); // Invalid param
-		args[i] = vm_get(vm, process->reg_pc, value_size);
-		PC_INC(process, value_size);
-		i++;
-	}
-	return (g_op_functions[op->op_code](vm, process, args, ocp));
+
+	return (g_op_functions[op->op_code](vm, process, args, ocp)
+			| (op->incr_pc && TO_FALSE(process->reg_pc = pc)));
 }

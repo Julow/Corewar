@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/13 11:56:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/16 18:13:19 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ typedef bool	(*t_op_f)(t_vm *vm, t_process *process,
 
 # define GET_VALUE(V,P,A,T,I)	get_value(V, P, (A)[I], OCP_GET(T, I))
 # define GET_LVALUE(V,P,A,T,I)	get_lvalue(V, P, (A)[I], OCP_GET(T, I))
-
-# define PC_INC(P,N)			((P)->reg_pc = ((P)->reg_pc + (N)) % MEM_SIZE)
 
 /*
 ** Set/unset bits
