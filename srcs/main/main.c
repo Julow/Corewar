@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/16 18:22:28 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/16 19:34:57 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft/ft_printf.h"
+#include "ft/get_next_line.h"
 
 #include "main.h"
 #include "parse_argv.h"
@@ -18,7 +19,6 @@
 #include "vm_exec.h"
 
 // #include "vm_exec.h"
-#include "ft/getkey.h"
 #include "vm_loader.h"
 
 static void		dump_arena(t_vm const *vm)
@@ -78,19 +78,26 @@ int				main(int argc, char **argv)
 
 	while (!VM_GAMEOVER(m.vm))
 	{
+		t_sub			line;
+		uint32_t		tmp;
 
-		ft_printf("\n\n\tCLOCK: %u\n", m.vm.clock);
-		dump_arena(&m.vm);
-		ft_getkey(0);
+		tmp = 0;
+		ft_printf("CLOCK %u: %!", m.vm.clock);
+		if (get_next_line(0, &line) <= 0)
+			tmp = -1;
+		else if (SUB_EQU(line, SUBC("p")))
+			dump_arena(&m.vm);
+		else if (line.length == 0)
+			tmp = 1;
+		else if (ft_subto_uint(line, &tmp) == 0)
+			ASSERT(false, "Unknown command");
 
-		// ft_printf("CLOCK %u%n", m.vm.clock);
-		vm_exec(&m.vm);
-		// if (m.vm.clock > 1000)
-			// break ;
+		while (tmp-- > 0 && !VM_GAMEOVER(m.vm))
+			vm_exec(&m.vm);
 	}
+
 	dump_arena(&m.vm);
-	if (VM_GAMEOVER(m.vm))
-		ft_printf("GAME OVER, last alive player: %u%n", m.vm.last_alive_player);
+	ft_printf("CLOCK %u: GAME OVER, last alive player: %u%n", m.vm.clock, m.vm.last_alive_player);
 
 	// while (!(vm.flags & VM_F_GAMEOVER))
 	// {

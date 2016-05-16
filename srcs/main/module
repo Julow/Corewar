@@ -9,4 +9,4 @@ main module corewar_vm:
 	require vm_loader
 	require vm_exec
 	require ui
-	require ft::getkey
+	require ft::get_next_line

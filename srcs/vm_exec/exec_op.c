@@ -6,13 +6,13 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/16 18:40:16 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/16 19:48:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_vm_exec.h"
 
-static t_op_f const		g_op_functions[] = 
+static t_op_f const		g_op_functions[] =
 {
 	[0x1]	= &op_live,
 	[0x2]	= &op_ld,
@@ -83,7 +83,7 @@ static t_op const	*unpack_args(t_vm const *vm, uint32_t *pc,
 		else if (OCP_GET(*ocp, i) == IND_CODE && op->arg_types[i] & T_IND)
 			value_size = 2;
 		else
-			return (ASSERT(false), NULL); // Invalid param
+			return (ASSERT(false, "Invalid param"), NULL);
 		args[i] = vm_get(vm, *pc, value_size);
 		*pc += value_size;
 		i++;
@@ -91,7 +91,24 @@ static t_op const	*unpack_args(t_vm const *vm, uint32_t *pc,
 	return (op);
 }
 
-#define TO_FALSE(CODE)		((CODE), false)
+static void			print_op(t_op const *op, t_process const *process,
+						uint32_t *args, uint8_t ocp)
+{
+	uint32_t		i = 0;
+
+	ft_printf("%u %#.8x: %s", process->player_idx, process, op->name);
+	while (i < op->arg_n)
+	{
+		ft_printf(" %s%u",
+			(OCP_GET(ocp, i) == REG_CODE) ? "r" : (
+				(OCP_GET(ocp, i) == DIR_CODE) ? "%" : ""
+				),
+				args[i]
+			);
+		i++;
+	}
+	ft_printf("%n");
+}
 
 bool				exec_op(t_vm *vm, t_process *process)
 {
@@ -102,25 +119,12 @@ bool				exec_op(t_vm *vm, t_process *process)
 
 	pc = process->reg_pc;
 	if ((op = unpack_args(vm, &pc, args, &ocp)) == NULL)
-		return (ASSERT(false, "Invalid op"));
-
 	{
-		uint32_t		i = 0;
-
-		ft_printf("OP %s", op->name);
-		while (i < op->arg_n)
-		{
-			ft_printf(" %s%u",
-				(OCP_GET(ocp, i) == REG_CODE) ? "r" : (
-					(OCP_GET(ocp, i) == DIR_CODE) ? "%" : ""
-					),
-					args[i]
-				);
-			i++;
-		}
-		ft_printf("%n");
+		ft_printf("Invalid op %#.2x%n", VM_GET1(vm, process->reg_pc));
+		process->reg_pc = pc;
+		return (false);
 	}
-
+	print_op(op, process, args, ocp);
 	return (g_op_functions[op->op_code](vm, process, args, ocp)
-			| (op->incr_pc && TO_FALSE(process->reg_pc = pc)));
+			| (op->incr_pc && (process->reg_pc = pc, 0)));
 }

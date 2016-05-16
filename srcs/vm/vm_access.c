@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 19:18:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/16 18:39:12 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/16 19:13:04 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ uint32_t		vm_get(t_vm const *vm, uint32_t i, uint32_t n)
 	if (n == 1)
 		return (VM_GET1(vm, i));
 	if (n == 2)
-		return ((uint16_t)((arena[0] << 8) | arena[1]));
+		return ((int32_t)(int16_t)((arena[0] << 8) | arena[1]));
 	return ((arena[0] << 24)
 		| (arena[0] << 16)
 		| (arena[0] << 8)
