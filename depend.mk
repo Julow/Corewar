@@ -1,11 +1,13 @@
 INCLUDE_FLAGS += -I$(O_DIR)/_public
+LINK_FLAGS += -lcurses
 OBJ_DIR_TREE += $(O_DIR)/srcs/vm_loader/ $(O_DIR)/srcs/vm_exec/operations/ \
-	$(O_DIR)/srcs/vm_exec/ $(O_DIR)/srcs/vm/ $(O_DIR)/srcs/main/ \
-	$(O_DIR)/srcs/corewar_config/ $(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ \
-	$(O_DIR)/libft/ft_vector/ $(O_DIR)/libft/ft_printf/formats/ \
-	$(O_DIR)/libft/ft_printf/ $(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ \
-	$(O_DIR)/libft/ft_dstr/ $(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ft_argv/ \
-	$(O_DIR)/libft/ $(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
+	$(O_DIR)/srcs/vm_exec/ $(O_DIR)/srcs/vm/ $(O_DIR)/srcs/ui/ \
+	$(O_DIR)/srcs/main/ $(O_DIR)/srcs/corewar_config/ $(O_DIR)/srcs/ \
+	$(O_DIR)/libft/get_next_line/ $(O_DIR)/libft/ft_vector/ \
+	$(O_DIR)/libft/ft_printf/formats/ $(O_DIR)/libft/ft_printf/ \
+	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ $(O_DIR)/libft/ft_dstr/ \
+	$(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ft_argv/ $(O_DIR)/libft/ \
+	$(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
 O_FILES += $(O_DIR)/srcs/corewar_config/op.o $(O_DIR)/srcs/main/main.o \
 	$(O_DIR)/srcs/main/parse_argv.o $(O_DIR)/libft/ft_argv/arg.o \
 	$(O_DIR)/libft/ft_argv/opt.o $(O_DIR)/libft/ft_base/ft_abs.o \
@@ -50,6 +52,7 @@ O_FILES += $(O_DIR)/srcs/corewar_config/op.o $(O_DIR)/srcs/main/main.o \
 	$(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_printf/ft_vprintf.o \
 	$(O_DIR)/libft/ft_vector/ft_vclear.o $(O_DIR)/libft/ft_vector/ft_vpush.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/libft/ft_vector/ft_vspan.o \
+	$(O_DIR)/srcs/ui/ui.o $(O_DIR)/srcs/ui/ui_print.o \
 	$(O_DIR)/srcs/vm/vm_access.o $(O_DIR)/srcs/vm/vm_destroy.o \
 	$(O_DIR)/srcs/vm/vm_start.o $(O_DIR)/srcs/vm_exec/exec_op.o \
 	$(O_DIR)/srcs/vm_exec/get_values.o $(O_DIR)/srcs/vm_exec/operations/add.o \
@@ -75,8 +78,9 @@ PUBLIC_LINKS += $(O_DIR)/_public/op.h $(O_DIR)/_public/ft/argv.h \
 	$(O_DIR)/_public/ft/get_next_line.h $(O_DIR)/_public/ft/ft_list.h \
 	$(O_DIR)/_public/ft/ft_out.h $(O_DIR)/_public/ft/ft_str_out.h \
 	$(O_DIR)/_public/ft/ft_printf.h $(O_DIR)/_public/ft/ft_vprintf.h \
-	$(O_DIR)/_public/ft/ft_vector.h $(O_DIR)/_public/utils.h \
-	$(O_DIR)/_public/player.h $(O_DIR)/_public/process.h $(O_DIR)/_public/vm.h \
+	$(O_DIR)/_public/ft/ft_vector.h $(O_DIR)/_public/ui.h \
+	$(O_DIR)/_public/utils.h $(O_DIR)/_public/player.h \
+	$(O_DIR)/_public/process.h $(O_DIR)/_public/vm.h \
 	$(O_DIR)/_public/vm_exec.h $(O_DIR)/_public/vm_loader.h
 
 # module corewar_config
@@ -89,9 +93,9 @@ $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_argv/public/argv.h \
 	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
 	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
 	libft/get_next_line/public/get_next_line.h srcs/corewar_config/public/op.h \
-	srcs/main/main.h srcs/main/parse_argv.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h srcs/vm_exec/public/vm_exec.h \
-	srcs/vm_loader/public/vm_loader.h
+	srcs/main/main.h srcs/main/parse_argv.h srcs/ui/public/ui.h \
+	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
+	srcs/vm_exec/public/vm_exec.h srcs/vm_loader/public/vm_loader.h
 $(O_DIR)/srcs/main/parse_argv.o: srcs/main/parse_argv.c \
 	libft/ft_argv/public/argv.h libft/ft_base/public/libft.h \
 	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
@@ -331,6 +335,14 @@ $(O_DIR)/libft/ft_vector/ft_vspan.o: libft/ft_vector/ft_vspan.c \
 	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h
 
 # module ui
+$(O_DIR)/srcs/ui/ui.o: srcs/ui/ui.c libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
+	srcs/corewar_config/public/op.h srcs/ui/public/ui.h \
+	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
+$(O_DIR)/srcs/ui/ui_print.o: srcs/ui/ui_print.c libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
+	srcs/corewar_config/public/op.h srcs/ui/public/ui.h \
+	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
 
 # module utils
 
@@ -490,6 +502,7 @@ $(O_DIR)/_public/ft/libft.h: libft/ft_base/public/libft.h
 $(O_DIR)/_public/op.h: srcs/corewar_config/public/op.h
 $(O_DIR)/_public/player.h: srcs/vm/public/player.h
 $(O_DIR)/_public/process.h: srcs/vm/public/process.h
+$(O_DIR)/_public/ui.h: srcs/ui/public/ui.h
 $(O_DIR)/_public/utils.h: srcs/utils/utils.h
 $(O_DIR)/_public/vm.h: srcs/vm/public/vm.h
 $(O_DIR)/_public/vm_exec.h: srcs/vm_exec/public/vm_exec.h

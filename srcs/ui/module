@@ -1,3 +1,7 @@
 module ui:
 
+	public include public/
+
 	public require vm
+	public require corewar_config
+	put LINK_FLAGS -lcurses
