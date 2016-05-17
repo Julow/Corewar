@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:12:48 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/16 18:10:17 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/17 19:54:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool		op_fork(t_vm *vm, t_process *process, uint32_t const *args,
 	t_process		*new_p;
 
 	new_p = ft_listadd(&vm->process, NULL, 0);
-	*new_p = PROCESS_INIT((process->reg_pc + ((int32_t)args[0] % IDX_MOD))
+	*new_p = PROCESS_INIT((process->reg_pc + (((int32_t)args[0]) % IDX_MOD))
 						% MEM_SIZE, process->player_idx);
 	ft_memcpy(new_p->reg, process->reg, sizeof(uint32_t[REG_NUMBER]));
 	SET_CARRY(new_p, process->reg_pflags & PFLAG_CARRY);

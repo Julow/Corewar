@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/16 18:40:48 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/17 19:41:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ void			vm_start(t_vm *vm);
 ** Read n bytes from arena + i
 ** n can be 1, 2 or 4
 */
-uint32_t		vm_get(t_vm const *vm, uint32_t i, uint32_t n);
+uint32_t		vm_get(t_vm const *vm, int32_t i, uint32_t n);
 
 /*
 ** Write n bytes from arena + i
 ** 0 < n <= 4
 */
-void			vm_set(t_vm *vm, uint32_t i, uint32_t value, uint32_t n);
+void			vm_set(t_vm *vm, int32_t i, uint32_t value, uint32_t n);
 
 /*
 ** Destroy vm

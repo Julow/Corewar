@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:01:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/13 11:42:57 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/17 19:37:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ struct			s_process
 {
 	uint32_t		player_idx; // TODO: remove
 	uint32_t		wait;
-	uint32_t		reg_pc;
-	uint32_t		reg_pflags;
-	uint32_t		reg[REG_NUMBER];
+	int32_t			reg_pc;
+	int32_t			reg_pflags;
+	int32_t			reg[REG_NUMBER];
 };
 
 /*

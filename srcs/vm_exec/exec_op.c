@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/17 15:23:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/17 19:58:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ static t_op const	*unpack_args(t_vm const *vm, uint32_t *pc,
 		else if (OCP_GET(*ocp, i) == IND_CODE && op->arg_types[i] & T_IND)
 			value_size = 2;
 		else
-			return (ASSERT(false, "Invalid param"), NULL);
+			return (NULL);
+			// return (ASSERT(false, "Invalid param"), NULL);
 		args[i] = vm_get(vm, *pc, value_size);
 		*pc += value_size;
 		i++;
@@ -120,11 +121,11 @@ bool				exec_op(t_vm *vm, t_process *process)
 	pc = process->reg_pc;
 	if ((op = unpack_args(vm, &pc, args, &ocp)) == NULL)
 	{
-		ft_printf("Invalid op %#.2x%n", VM_GET1(vm, process->reg_pc));
+		// ft_printf("Invalid op %#.2x%n", VM_GET1(vm, process->reg_pc));
 		process->reg_pc = pc;
 		return (false);
 	}
-	print_op(op, process, args, ocp);
+	// print_op(op, process, args, ocp);
 	pc -= process->reg_pc;
 	return (g_op_functions[op->op_code](vm, process, args, ocp)
 			| (process->reg_pc += pc, 0));

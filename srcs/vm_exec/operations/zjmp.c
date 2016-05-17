@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:37:35 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/17 13:47:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/17 19:54:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool		op_zjmp(t_vm *vm, t_process *process, uint32_t const *args,
 {
 	if (process->reg_pflags & PFLAG_CARRY)
 	{
-		process->reg_pc = (process->reg_pc + ((int32_t)args[0] % IDX_MOD)
+		process->reg_pc = (process->reg_pc + (((int32_t)args[0]) % IDX_MOD)
 				- ZJMP_OP_LENGTH + MEM_SIZE) % MEM_SIZE;
 	}
 	return (true);
