@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2016/05/16 18:15:21 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/17 13:46:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ typedef struct		s_op
 	char const			*desc;
 	bool				has_ocp;
 	bool				short_value;
-	bool				incr_pc;
 }					t_op;
 
 extern t_op			g_op_tab[];

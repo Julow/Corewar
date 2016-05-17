@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/16 19:48:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/17 15:23:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ bool				exec_op(t_vm *vm, t_process *process)
 		return (false);
 	}
 	print_op(op, process, args, ocp);
+	pc -= process->reg_pc;
 	return (g_op_functions[op->op_code](vm, process, args, ocp)
-			| (op->incr_pc && (process->reg_pc = pc, 0)));
+			| (process->reg_pc += pc, 0));
 }

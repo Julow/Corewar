@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:12:53 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/12 19:35:56 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/17 17:36:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ bool		op_lld(t_vm *vm, t_process *process, uint32_t const *args,
 {
 	uint32_t const	value = GET_LVALUE(vm, process, args, args_types, 0);
 
-	if (args[1] >= REG_NUMBER)
-		return (true);
-	process->reg[args[1]] = value;
 	SET_CARRY(process, value);
+	if (args[1] >= 1 && args[1] <= REG_NUMBER)
+		process->reg[args[1] - 1] = value;
 	return (true);
 }
