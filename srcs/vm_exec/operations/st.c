@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:11:32 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/17 19:53:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/23 18:24:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool		op_st(t_vm *vm, t_process *process, uint32_t const *args,
 	else if (OCP_GET(args_types, 1) == REG_CODE)
 	{
 		if (args[1] >= 1 && args[1] <= REG_NUMBER)
-			process->reg[args[1] - 1] = args[val1];
+			process->reg[args[1] - 1] = val1;
 	}
 	else
 		return (ASSERT(false));

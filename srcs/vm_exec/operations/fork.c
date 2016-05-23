@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:12:48 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/23 14:10:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/23 19:03:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		process_fork(t_vm *vm, t_process const *process, uint32_t pc)
 
 	if (player_process_count(vm, process->player_idx) >= MAX_PLAYER_PROCESS)
 		return ;
-	new_p = ft_listadd(&vm->process, NULL, 0);
+	new_p = ft_listadd(&vm->process, process, 0);
 	*new_p = PROCESS_INIT(pc, process->player_idx);
 	ft_memcpy(new_p->reg, process->reg, sizeof(uint32_t[REG_NUMBER]));
 	SET_CARRY(new_p, !(process->reg_pflags & PFLAG_CARRY));
