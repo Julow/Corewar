@@ -61,7 +61,6 @@ O_FILES += $(O_DIR)/srcs/corewar_config/op.o $(O_DIR)/srcs/main/main.o \
 	$(O_DIR)/srcs/vm_exec/operations/fork.o \
 	$(O_DIR)/srcs/vm_exec/operations/ld.o \
 	$(O_DIR)/srcs/vm_exec/operations/ldi.o \
-	$(O_DIR)/srcs/vm_exec/operations/lfork.o \
 	$(O_DIR)/srcs/vm_exec/operations/live.o \
 	$(O_DIR)/srcs/vm_exec/operations/lld.o \
 	$(O_DIR)/srcs/vm_exec/operations/lldi.o \
@@ -89,13 +88,14 @@ $(O_DIR)/srcs/corewar_config/op.o: srcs/corewar_config/op.c \
 
 # module corewar_vm
 $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_argv/public/argv.h \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
-	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
+	libft/ft_base/public/ft_colors.h libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
+	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
+	libft/ft_vector/public/ft_vector.h \
 	libft/get_next_line/public/get_next_line.h srcs/corewar_config/public/op.h \
-	srcs/main/main.h srcs/main/parse_argv.h srcs/ui/public/ui.h \
-	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
-	srcs/vm_exec/public/vm_exec.h srcs/vm_loader/public/vm_loader.h
+	srcs/main/main.h srcs/main/parse_argv.h srcs/vm/public/player.h \
+	srcs/vm/public/process.h srcs/vm/public/vm.h srcs/vm_exec/public/vm_exec.h \
+	srcs/vm_loader/public/vm_loader.h
 $(O_DIR)/srcs/main/parse_argv.o: srcs/main/parse_argv.c \
 	libft/ft_argv/public/argv.h libft/ft_base/public/libft.h \
 	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
@@ -402,11 +402,6 @@ $(O_DIR)/srcs/vm_exec/operations/ldi.o: srcs/vm_exec/operations/ldi.c \
 	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
 	srcs/vm_exec/p_vm_exec.h srcs/vm_exec/public/vm_exec.h
-$(O_DIR)/srcs/vm_exec/operations/lfork.o: srcs/vm_exec/operations/lfork.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
-	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
-	srcs/vm_exec/p_vm_exec.h srcs/vm_exec/public/vm_exec.h
 $(O_DIR)/srcs/vm_exec/operations/live.o: srcs/vm_exec/operations/live.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
@@ -462,7 +457,6 @@ $(O_DIR)/srcs/vm_exec/exec_op.o $(O_DIR)/srcs/vm_exec/get_values.o \
 $(O_DIR)/srcs/vm_exec/operations/add.o $(O_DIR)/srcs/vm_exec/operations/aff.o \
 $(O_DIR)/srcs/vm_exec/operations/and.o $(O_DIR)/srcs/vm_exec/operations/fork.o \
 $(O_DIR)/srcs/vm_exec/operations/ld.o $(O_DIR)/srcs/vm_exec/operations/ldi.o \
-$(O_DIR)/srcs/vm_exec/operations/lfork.o \
 $(O_DIR)/srcs/vm_exec/operations/live.o $(O_DIR)/srcs/vm_exec/operations/lld.o \
 $(O_DIR)/srcs/vm_exec/operations/lldi.o $(O_DIR)/srcs/vm_exec/operations/or.o \
 $(O_DIR)/srcs/vm_exec/operations/st.o $(O_DIR)/srcs/vm_exec/operations/sti.o \

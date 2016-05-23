@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/17 19:41:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/23 12:03:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ struct			s_vm
 ** (Unexpected behavior if called twice)
 */
 void			vm_start(t_vm *vm);
+
+/*
+** Set the process wait time for it's next instruction
+*/
+void			vm_wait_next(t_vm *vm, t_process *process);
 
 /*
 ** Read n bytes from arena + i

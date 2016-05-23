@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/17 19:58:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/23 15:28:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void			print_op(t_op const *op, t_process const *process,
 	ft_printf("%u %#.8x: %s", process->player_idx, process, op->name);
 	while (i < op->arg_n)
 	{
-		ft_printf(" %s%u",
+		ft_printf(" %s%d",
 			(OCP_GET(ocp, i) == REG_CODE) ? "r" : (
 				(OCP_GET(ocp, i) == DIR_CODE) ? "%" : ""
 				),
@@ -121,11 +121,11 @@ bool				exec_op(t_vm *vm, t_process *process)
 	pc = process->reg_pc;
 	if ((op = unpack_args(vm, &pc, args, &ocp)) == NULL)
 	{
-		// ft_printf("Invalid op %#.2x%n", VM_GET1(vm, process->reg_pc));
+		ft_printf("%u %#.8x: Invalid op %#.2x%n", process->player_idx, process, VM_GET1(vm, process->reg_pc));
 		process->reg_pc = pc;
 		return (false);
 	}
-	// print_op(op, process, args, ocp);
+	print_op(op, process, args, ocp);
 	pc -= process->reg_pc;
 	return (g_op_functions[op->op_code](vm, process, args, ocp)
 			| (process->reg_pc += pc, 0));

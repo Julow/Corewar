@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/17 14:40:06 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/23 18:04:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,49 @@
 #include "vm_exec.h"
 
 // #include "vm_exec.h"
+#include "ft/ft_colors.h"
 #include "vm_loader.h"
 
-static void		dump_arena(t_vm const *vm)
+static void		dump_arena_n(t_vm const *vm, uint32_t index, uint32_t len)
+{
+	char const		*from;
+	char const		*to;
+	bool			shaded;
+
+	shaded = false;
+	from = vm->arena + index;
+	to = from + len;
+	while (from < to)
+	{
+		if ((*from == 0) != shaded)
+			ft_printf((shaded = !shaded) ? C_GRAY : C_RESET);
+		ft_printf("%.2hhx ", *from);
+		from++;
+	}
+	if (shaded)
+		ft_printf(C_RESET);
+}
+
+#define BYTE_PER_LINE		64
+
+static void		dump_arena(t_vm const *vm, uint32_t mark)
 {
 	char const *const	arena = vm->arena;
 	uint32_t			i;
-	uint32_t			j;
 
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		j = 0;
-		while (j < 64)
+		if (mark >= i && mark < (i + BYTE_PER_LINE))
 		{
-			ft_printf("%.2hhx ", arena[j + i]);
-			j++;
+			dump_arena_n(vm, i, mark - i);
+			ft_printf(C_CYAN "%.2hhx " C_RESET, arena[mark]);
+			dump_arena_n(vm, mark + 1, BYTE_PER_LINE - (mark - i) - 1);
 		}
+		else
+			dump_arena_n(vm, i, BYTE_PER_LINE);
 		ft_printf("\n");
-		i += j;
+		i += BYTE_PER_LINE;
 	}
 	ft_printf("%!");
 }
@@ -61,7 +85,7 @@ static void		dump_process(t_vm const *vm, bool show_registers)
 				i += 4;
 			}
 	}
-	ft_printf("%!");
+	ft_printf("Process count: %u%n", vm->process.length);
 }
 
 int				main(int argc, char **argv)
@@ -109,7 +133,14 @@ int				main(int argc, char **argv)
 		if (get_next_line(0, &line) <= 0)
 			tmp = -1;
 		else if (SUB_EQU(line, SUBC("p")))
-			dump_arena(&m.vm);
+			dump_arena(&m.vm, -1);
+		else if (SUB_EQU(SUB(line.str, 2), SUBC("p ")))
+		{
+			uint32_t	mark;
+
+			if (ft_subto_uint(SUB_FOR(line, 2), &mark) > 0)
+				dump_arena(&m.vm, mark);
+		}
 		else if (SUB_EQU(line, SUBC("pc")))
 			dump_process(&m.vm, false);
 		else if (SUB_EQU(line, SUBC("pcr")))
@@ -123,7 +154,7 @@ int				main(int argc, char **argv)
 			vm_exec(&m.vm);
 	}
 
-	dump_arena(&m.vm);
+	dump_arena(&m.vm, -1);
 	ft_printf("CLOCK %u: GAME OVER, last alive player: %u%n", m.vm.clock, m.vm.last_alive_player);
 
 	// while (!(vm.flags & VM_F_GAMEOVER))

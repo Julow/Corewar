@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/13 11:46:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/23 15:33:43 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			vm_wait_next(t_vm *vm, t_process *process)
 {
 	uint32_t const	op = VM_GET1(vm, process->reg_pc);
 
-	process->wait = (op < 1 || op > OPCODE_COUNT) ? 0 : g_op_tab[op].duration;
+	process->wait = (op < 1 || op > OPCODE_COUNT) ? 0 : g_op_tab[op].duration - 1;
 }
 
 void			vm_start(t_vm *vm)

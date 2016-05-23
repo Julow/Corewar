@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2016/05/17 13:46:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/23 13:51:04 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 # define MAX_CHECKS				10
 
 # define OPCODE_COUNT			16
+
+# define MAX_PLAYER_PROCESS		16384
 
 /*
 **
