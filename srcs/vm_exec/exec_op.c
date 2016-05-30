@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/30 16:29:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/30 18:47:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,11 @@ bool				exec_op(t_vm *vm, t_process *process)
 	LISTENER(vm, on_exec, process, VM_GET1(vm, pc));
 	if ((op = unpack_args(vm, &pc, args, &ocp)) == NULL)
 	{
-		ft_printf("%u %#.8x: Invalid op %#.2x%n", process->player_idx, process, VM_GET1(vm, process->reg_pc));
+		// ft_printf("%u %#.8x: Invalid op %#.2x%n", process->player_idx, process, VM_GET1(vm, process->reg_pc));
 		process->reg_pc = pc;
 		return (false);
 	}
-	print_op(op, process, args, ocp);
+	// print_op(op, process, args, ocp);
 	pc -= process->reg_pc;
 	return (g_op_functions[op->op_code](vm, process, args, ocp)
 			| (process->reg_pc += pc, 0));

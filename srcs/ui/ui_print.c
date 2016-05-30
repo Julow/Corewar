@@ -6,11 +6,11 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 13:52:41 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/17 16:43:15 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/30 18:46:40 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ui.h"
+#include "p_ui.h"
 
 void				print_arena(t_ui *ui)
 {

@@ -6,43 +6,68 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 11:50:01 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/17 16:57:17 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/30 19:26:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ui.h"
+#include "p_ui.h"
 
-WINDOW 					*create_newwin(int height, int width,
-								int starty, int startx)
-{	WINDOW *local_win;
-
-	local_win = newwin(height, width, starty, startx);
-	box(local_win, 0 , 0);
-	wrefresh(local_win);
-	return local_win;
-}
-
-static void				ui_init(t_vm const *vm, t_ui *ui)
+static void		init_panel(t_ui *ui)
 {
-	initscr();
-	ui->w_arena = create_newwin(ARENA_H, ARENA_W, ARENA_S_X, ARENA_S_Y);
-	ui->w_panel = create_newwin(PANEL_H, PANEL_W, PANEL_S_X, PANEL_S_Y);
-    refresh();
 }
 
-static void				panel_init(t_ui *ui)
+static void		refresh_arena(t_ui *ui)
 {
-
 }
 
-void				ui_loop(t_vm const *vm)
+static void		refresh_panel(t_ui *ui)
+{
+	uint32_t		i;
+	t_player const	*p;
+
+	mvwprintw(ui->w_panel, 2, 5, "Cycles: %u", ui->vm->clock);
+	i = 0;
+	while (i < ui->vm->player_count)
+	{
+		p = &ui->vm->players[i];
+		mvwprintw(ui->w_panel, 7 + 5*i, 5, "Player #%d - %s", p->id, p->name.str);
+		i++;
+	}
+}
+
+static void		refresh_log(t_ui *ui)
+{
+}
+
+static void		loop(t_ui *ui)
+{
+	uint32_t		loop;
+
+	while (!VM_GAMEOVER(*ui->vm))
+	{
+		getch();
+		loop = ui->loop_speed;
+		while (!VM_GAMEOVER(*ui->vm) && loop-- > 0)
+			vm_exec(ui->vm);
+		refresh_arena(ui);
+		refresh_panel(ui);
+		refresh_log(ui);
+		wnoutrefresh(ui->w_arena);
+		wnoutrefresh(ui->w_panel);
+		wnoutrefresh(ui->w_log);
+		doupdate();
+		usleep(1000000/30);
+	}
+}
+
+void			ui_loop(t_vm *vm)
 {
 	t_ui				ui;
 
-	ui_init(vm, &ui);
-	panel_init(&ui);
-	print_arena(&ui);
-
+	init_ui(&ui, vm);
+	init_panel(&ui);
+	loop(&ui);
+	destroy_ui(&ui);
 }
 
 // getmaxyx(stdscr,int row,int col);		/* get the number of rows and columns */

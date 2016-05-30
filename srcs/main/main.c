@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/30 16:34:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/30 18:30:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				main(int argc, char **argv)
 
 	vm_start(&m.vm);
 
-	debug_loop(&m.vm);
+	ui_loop(&m.vm);
 
 	return (0);
 }

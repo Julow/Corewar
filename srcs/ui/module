@@ -1,7 +1,9 @@
 module ui:
-
 	public include public/
+	private include ./
 
 	public require vm
-	public require corewar_config
+	private require corewar_config
+	private require ft::base
+
 	put LINK_FLAGS -lcurses

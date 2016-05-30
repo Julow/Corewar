@@ -1,13 +1,13 @@
 INCLUDE_FLAGS += -I$(O_DIR)/_public
 LINK_FLAGS += -lcurses
 OBJ_DIR_TREE += $(O_DIR)/srcs/vm_loader/ $(O_DIR)/srcs/vm_exec/operations/ \
-	$(O_DIR)/srcs/vm_exec/ $(O_DIR)/srcs/vm/ $(O_DIR)/srcs/ui/listeners/ \
-	$(O_DIR)/srcs/ui/ $(O_DIR)/srcs/main/ $(O_DIR)/srcs/debug_ui/ \
-	$(O_DIR)/srcs/corewar_config/ $(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ \
-	$(O_DIR)/libft/ft_vector/ $(O_DIR)/libft/ft_printf/formats/ \
-	$(O_DIR)/libft/ft_printf/ $(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ \
-	$(O_DIR)/libft/ft_dstr/ $(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ft_argv/ \
-	$(O_DIR)/libft/ $(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
+	$(O_DIR)/srcs/vm_exec/ $(O_DIR)/srcs/vm/ $(O_DIR)/srcs/ui/ \
+	$(O_DIR)/srcs/main/ $(O_DIR)/srcs/debug_ui/ $(O_DIR)/srcs/corewar_config/ \
+	$(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ $(O_DIR)/libft/ft_vector/ \
+	$(O_DIR)/libft/ft_printf/formats/ $(O_DIR)/libft/ft_printf/ \
+	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ $(O_DIR)/libft/ft_dstr/ \
+	$(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ft_argv/ $(O_DIR)/libft/ \
+	$(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
 O_FILES += $(O_DIR)/srcs/corewar_config/op.o $(O_DIR)/srcs/main/main.o \
 	$(O_DIR)/srcs/main/parse_argv.o $(O_DIR)/srcs/debug_ui/debug_loop.o \
 	$(O_DIR)/libft/ft_argv/arg.o $(O_DIR)/libft/ft_argv/opt.o \
@@ -53,13 +53,7 @@ O_FILES += $(O_DIR)/srcs/corewar_config/op.o $(O_DIR)/srcs/main/main.o \
 	$(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_printf/ft_vprintf.o \
 	$(O_DIR)/libft/ft_vector/ft_vclear.o $(O_DIR)/libft/ft_vector/ft_vpush.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/libft/ft_vector/ft_vspan.o \
-	$(O_DIR)/srcs/ui/listeners/ui_on_aff.o \
-	$(O_DIR)/srcs/ui/listeners/ui_on_die.o \
-	$(O_DIR)/srcs/ui/listeners/ui_on_exec.o \
-	$(O_DIR)/srcs/ui/listeners/ui_on_fork.o \
-	$(O_DIR)/srcs/ui/listeners/ui_on_live.o \
-	$(O_DIR)/srcs/ui/listeners/ui_on_read.o \
-	$(O_DIR)/srcs/ui/listeners/ui_on_write.o $(O_DIR)/srcs/ui/ui.o \
+	$(O_DIR)/srcs/ui/ui.o $(O_DIR)/srcs/ui/ui_init.o \
 	$(O_DIR)/srcs/ui/ui_print.o $(O_DIR)/srcs/vm/vm_access.o \
 	$(O_DIR)/srcs/vm/vm_destroy.o $(O_DIR)/srcs/vm/vm_start.o \
 	$(O_DIR)/srcs/vm_exec/exec_op.o $(O_DIR)/srcs/vm_exec/get_values.o \
@@ -354,57 +348,21 @@ $(O_DIR)/libft/ft_vector/ft_vspan.o: libft/ft_vector/ft_vspan.c \
 	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h
 
 # module ui
-$(O_DIR)/srcs/ui/listeners/ui_on_aff.o: srcs/ui/listeners/ui_on_aff.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
-	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h
-$(O_DIR)/srcs/ui/listeners/ui_on_die.o: srcs/ui/listeners/ui_on_die.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
-	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h
-$(O_DIR)/srcs/ui/listeners/ui_on_exec.o: srcs/ui/listeners/ui_on_exec.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
-	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h
-$(O_DIR)/srcs/ui/listeners/ui_on_fork.o: srcs/ui/listeners/ui_on_fork.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
-	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h
-$(O_DIR)/srcs/ui/listeners/ui_on_live.o: srcs/ui/listeners/ui_on_live.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
-	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h
-$(O_DIR)/srcs/ui/listeners/ui_on_read.o: srcs/ui/listeners/ui_on_read.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
-	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h
-$(O_DIR)/srcs/ui/listeners/ui_on_write.o: srcs/ui/listeners/ui_on_write.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
-	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h
 $(O_DIR)/srcs/ui/ui.o: srcs/ui/ui.c libft/ft_base/public/libft.h \
 	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
-	srcs/corewar_config/public/op.h srcs/ui/public/ui.h \
+	srcs/corewar_config/public/op.h srcs/ui/p_ui.h srcs/ui/public/ui.h \
+	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
+$(O_DIR)/srcs/ui/ui_init.o: srcs/ui/ui_init.c libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
+	srcs/corewar_config/public/op.h srcs/ui/p_ui.h srcs/ui/public/ui.h \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
 $(O_DIR)/srcs/ui/ui_print.o: srcs/ui/ui_print.c libft/ft_base/public/libft.h \
 	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
-	srcs/corewar_config/public/op.h srcs/ui/public/ui.h \
+	srcs/corewar_config/public/op.h srcs/ui/p_ui.h srcs/ui/public/ui.h \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
 
-$(O_DIR)/srcs/ui/listeners/ui_on_aff.o $(O_DIR)/srcs/ui/listeners/ui_on_die.o \
-$(O_DIR)/srcs/ui/listeners/ui_on_exec.o \
-$(O_DIR)/srcs/ui/listeners/ui_on_fork.o \
-$(O_DIR)/srcs/ui/listeners/ui_on_live.o \
-$(O_DIR)/srcs/ui/listeners/ui_on_read.o \
-$(O_DIR)/srcs/ui/listeners/ui_on_write.o $(O_DIR)/srcs/ui/ui.o \
-$(O_DIR)/srcs/ui/ui_print.o: INCLUDE_FLAGS += -Isrcs/ui
+$(O_DIR)/srcs/ui/ui.o $(O_DIR)/srcs/ui/ui_init.o $(O_DIR)/srcs/ui/ui_print.o: \
+	INCLUDE_FLAGS += -Isrcs/ui
 
 # module utils
 
