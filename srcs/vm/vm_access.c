@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 19:18:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/23 18:58:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/30 16:05:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ void			vm_set(t_vm *vm, int32_t i, uint32_t value, uint32_t n)
 	uint8_t *const	arena = vm->arena;
 
 	i = POSITIVE_MOD(i, MEM_SIZE);
-	n += i;
-	while (n-- > i)
+	while (n-- > 0)
 	{
-		arena[n % MEM_SIZE] = (uint8_t)(value & 0xFF);
+		arena[(n + i) % MEM_SIZE] = (uint8_t)(value & 0xFF);
 		value >>= 8;
 	}
 }

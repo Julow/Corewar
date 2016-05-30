@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/23 12:03:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/30 16:33:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include "player.h"
 # include "process.h"
 
-typedef struct s_vm		t_vm;
+typedef struct s_vm			t_vm;
+typedef struct s_listeners	t_listeners;
 
 /*
 ** ========================================================================== **
@@ -32,6 +33,25 @@ typedef struct s_vm		t_vm;
 # define VM_GAMEOVER(VM)	((VM).flags & VM_F_GAMEOVER)
 
 /*
+** void* 		=> ptr on callback data
+** t_process	=> ptr on current process
+** for (read//write)
+** 		i			=> index
+** 		s			=> size
+*/
+
+struct			s_listeners
+{
+	void			(*on_exec)(void*, t_process const*, uint32_t op);
+	void			(*on_fork)(void*, t_process const*, t_process const *c);
+	void			(*on_write)(void*, t_process const*, uint32_t i, uint32_t s);
+	void			(*on_die)(void*, t_process const*);
+	void			(*on_aff)(void*, t_process const*, uint32_t aff);
+	void			(*on_live)(void*, t_process const*, t_player const *p);
+	void			*callback_data;
+};
+
+/*
 ** vm object
 ** -
 ** clock			=> clock count since game start
@@ -39,8 +59,7 @@ typedef struct s_vm		t_vm;
 ** nbr_live			=> live count since last check
 ** nbr_check		=> check count since last decrement of cycle_to_check
 ** cycle_to_check	=> clock delta between 2 checks
-** flags			=> flags:
-** 			VM_F_GAMEOVER		game is over
+** flags			=> flags
 ** process			=> processes
 */
 
@@ -57,9 +76,10 @@ struct			s_vm
 	uint32_t		player_count;
 	t_list			process;
 	void			*arena;
+	t_listeners		listeners;
 };
 
-# define VM_INIT()			((t_vm){0,0,0,0,0,0,0,{},0,LIST(t_process),NULL})
+# define VM_INIT()			((t_vm){0,0,0,0,0,0,0,{},0,LIST(t_process),0,{}})
 
 # define VM_GET1(VM,I)		(((char const*)(VM)->arena)[I])
 

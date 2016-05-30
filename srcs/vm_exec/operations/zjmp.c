@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:37:35 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/17 19:54:06 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/30 14:06:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ bool		op_zjmp(t_vm *vm, t_process *process, uint32_t const *args,
 				- ZJMP_OP_LENGTH + MEM_SIZE) % MEM_SIZE;
 	}
 	return (true);
+	(void)vm;
+	(void)args_types;
 }

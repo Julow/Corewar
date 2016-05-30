@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:12:48 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/23 19:03:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/30 16:03:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static uint32_t	player_process_count(t_vm const *vm, uint32_t player_idx)
 	return (count);
 }
 
-static void		process_fork(t_vm *vm, t_process const *process, uint32_t pc)
+static void		process_fork(t_vm *vm, t_process *process, uint32_t pc)
 {
 	t_process		*new_p;
 
@@ -36,19 +36,22 @@ static void		process_fork(t_vm *vm, t_process const *process, uint32_t pc)
 	ft_memcpy(new_p->reg, process->reg, sizeof(uint32_t[REG_NUMBER]));
 	SET_CARRY(new_p, !(process->reg_pflags & PFLAG_CARRY));
 	vm_wait_next(vm, new_p);
+	LISTENER(vm, on_fork, process, new_p);
 }
 
-bool			op_fork(t_vm *vm, t_process *process, uint32_t const *args,
-						uint8_t args_types)
+bool			op_fork(t_vm *vm, t_process *process,
+						uint32_t const *args, uint8_t args_types)
 {
 	process_fork(vm, process,
 		(process->reg_pc + (((int32_t)args[0]) % IDX_MOD)) % MEM_SIZE);
 	return (true);
+	(void)args_types;
 }
 
-bool			op_lfork(t_vm *vm, t_process *process, uint32_t const *args,
-						uint8_t args_types)
+bool			op_lfork(t_vm *vm, t_process *process,
+						uint32_t const *args, uint8_t args_types)
 {
 	process_fork(vm, process, (process->reg_pc + args[0]) % MEM_SIZE);
 	return (true);
+	(void)args_types;
 }

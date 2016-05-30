@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:12:26 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/23 18:01:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/30 15:04:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static int32_t	get_sti_value(t_vm const *vm, t_process *const process,
 	if (arg_type == REG_CODE)
 		return ((arg < 1 || arg > REG_NUMBER) ? 0 : process->reg[arg - 1]);
 	return (arg);
+	(void)vm;
 }
 
-bool		op_ldi(t_vm *vm, t_process *process, uint32_t const *args,
-						uint8_t args_types)
+bool		op_ldi(t_vm *vm, t_process *process,
+						uint32_t const *args, uint8_t args_types)
 {
 	int32_t const	v1 = get_sti_value(vm, process, args[0], OCP_GET(args_types, 0));
 	int32_t const	v2 = get_sti_value(vm, process, args[1], OCP_GET(args_types, 1));
-	uint32_t const	value = vm_get(vm, process->reg_pc + v1 + v2, 4);
+	uint32_t const	value = vm_get(vm, process->reg_pc + (v1 + v2) % IDX_MOD, 4);
 
 	SET_CARRY(process, value);
-	ft_printf("PUT %#.8x INTO r%d (*%d)%n", value, args[2], v1 + v2);
 	if (args[2] >= 1 && args[2] <= REG_NUMBER)
 		process->reg[args[2] - 1] = value;
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:12:39 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/23 18:09:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/30 15:05:22 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int32_t	get_sti_value(t_vm const *vm, t_process *const process,
 		return ((arg < 1 || arg > REG_NUMBER) ? 0 : process->reg[arg - 1]);
 	else
 		return (arg);
+	(void)vm;
 }
 
 bool		op_sti(t_vm *vm, t_process *process, uint32_t const *args,
@@ -31,6 +32,6 @@ bool		op_sti(t_vm *vm, t_process *process, uint32_t const *args,
 	val0 = GET_VALUE(vm, process, args, args_types, 0);
 	val1 = get_sti_value(vm, process, args[1], OCP_GET(args_types, 1));
 	val2 = get_sti_value(vm, process, args[2], OCP_GET(args_types, 2));
-	vm_set(vm, process->reg_pc + val2 + val1, val0, 4);
+	vm_set(vm, process->reg_pc + (val2 + val1) % IDX_MOD, val0, 4);
 	return (true);
 }

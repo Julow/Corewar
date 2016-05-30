@@ -1,0 +1,9 @@
+module debug_ui:
+	public include public/
+	private include ./
+
+	public require vm
+	private require ft::get_next_line
+	private require ft::base
+	private require vm_exec
+	private require ft::printf

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/16 18:13:19 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/05/30 16:30:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef bool	(*t_op_f)(t_vm *vm, t_process *process,
 # define GET_VALUE(V,P,A,T,I)	get_value(V, P, (A)[I], OCP_GET(T, I))
 # define GET_LVALUE(V,P,A,T,I)	get_lvalue(V, P, (A)[I], OCP_GET(T, I))
 
+# define LISTENER(VM,L,...)		(_LISTENER(((VM)->listeners), L, ##__VA_ARGS__))
+
 /*
 ** Set/unset bits
 ** -
@@ -51,8 +53,6 @@ typedef bool	(*t_op_f)(t_vm *vm, t_process *process,
 # define SET_FLAGS(VAL, FLAG, SET)	((SET) ? (VAL) | (FLAG) : (VAL) & ~(FLAG))
 
 # define SET_CARRY(P, V)		((P)->reg_pflags = _SET_CARRY(P, (V) == 0))
-
-# define _SET_CARRY(P, V)		(SET_FLAGS((P)->reg_pflags, PFLAG_CARRY, V))
 
 /*
 ** Exec the next instruction of the process at index process_index
@@ -102,5 +102,11 @@ bool			op_xor(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
 bool			op_zjmp(t_vm *vm, t_process *process,
 					uint32_t const *args, uint8_t args_types);
+
+/*
+** -
+*/
+# define _LISTENER(V,L,...)		(V.L&&(V.L(V.callback_data,##__VA_ARGS__),0))
+# define _SET_CARRY(P, V)		(SET_FLAGS((P)->reg_pflags, PFLAG_CARRY, V))
 
 #endif
