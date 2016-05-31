@@ -1,10 +1,15 @@
 module ui:
 	public include public/
+
 	private include ./
+	private include ui_arena/
+	private include ui_panel/
+	private include ui_log/
 
 	public require vm
 
 	private require corewar_config
+	private require ft::out
 	private require vm_exec
 	private require ft::base
 

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 11:50:01 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/31 16:15:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:56:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 static void		refresh_ui(t_ui *ui)
 {
-	refresh_arena(ui);
-	refresh_panel(ui);
-	refresh_log(ui);
+	w_arena_refresh(&ui->w_arena);
+	w_panel_refresh(&ui->w_panel);
+	w_log_refresh(&ui->w_log);
 	doupdate();
 	refresh();
 }
@@ -42,7 +42,6 @@ void			ui_loop(t_vm *vm)
 	t_ui				ui;
 
 	init_ui(&ui, vm);
-	init_panel(&ui);
 	loop(&ui);
 	destroy_ui(&ui);
 }

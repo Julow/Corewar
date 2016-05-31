@@ -6,29 +6,34 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 15:35:39 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 15:37:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:58:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_ui.h"
 
-void			init_panel(t_ui *ui)
+void			w_panel_init(t_w_panel *w)
 {
-	ui->w_panel = create_newwin(PANEL_POS, PANEL_SIZE);
+	w->w = create_newwin(PANEL_POS, PANEL_SIZE);
 }
 
-void			refresh_panel(t_ui *ui)
+void			w_panel_refresh(t_w_panel *w)
 {
 	uint32_t		i;
 	t_player const	*p;
 
-	mvwprintw(ui->w_panel, 2, 5, "Cycles: %u", ui->vm->clock);
+	mvwprintw(w->w, 2, 5, "Cycles: %u", w->vm->clock);
 	i = 0;
-	while (i < ui->vm->player_count)
+	while (i < w->vm->player_count)
 	{
-		p = &ui->vm->players[i];
-		mvwprintw(ui->w_panel, 7 + 5*i, 5, "Player #%d - %s", p->id, p->name.str);
+		p = &w->vm->players[i];
+		mvwprintw(w->w, 7 + 5*i, 5, "Player #%d - %s", p->id, p->name.str);
 		i++;
 	}
-	wnoutrefresh(ui->w_panel);
+	wnoutrefresh(w->w);
+}
+
+void			w_panel_destroy(t_w_panel *w)
+{
+	delwin(w->w);
 }

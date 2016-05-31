@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 14:55:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 16:14:34 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:55:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define P_UI_H
 
 # include "ui.h"
-# include <ncurses.h>
+# include "ui_arena.h"
+# include "ui_log.h"
+# include "ui_panel.h"
 
 typedef struct s_ui		t_ui;
 
@@ -22,27 +24,15 @@ typedef struct s_ui		t_ui;
 ** ========================================================================== **
 */
 
-# define ARENA_POS		(VEC2U(0, 0))
-# define ARENA_SIZE		(VEC2U(195, 66))
-
-# define PANEL_POS		(VEC2U(195, 0))
-# define PANEL_SIZE		(VEC2U(42, 75))
-
-# define LOG_POS		(VEC2U(0, 66))
-# define LOG_SIZE		(VEC2U(195, 9))
-
 # define EXEC_PER_FRAME	10
 # define FRAMERATE		(1000 / 30)
 
 struct 			s_ui
 {
 	t_vm			*vm;
-	WINDOW			*w_arena;
-	WINDOW			*w_panel;
-	WINDOW			*w_log;
-	char			logs[LOG_SIZE.y-2][LOG_SIZE.x-2];
-	uint32_t		log_start;
-	uint8_t			*arena_colors;
+	t_w_arena		w_arena;
+	t_w_panel		w_panel;
+	t_w_log			w_log;
 	uint32_t		flags;
 	uint32_t		loop_speed;
 };
@@ -56,35 +46,15 @@ struct 			s_ui
 /*
 ** Init
 */
-# define UI_INIT(VM)	((t_ui){(VM), NULL, NULL, NULL, {}, 0, NULL, 0, EXEC_PER_FRAME})
+# define UI_INIT(VM)	((t_ui){(VM), W_ARENA(VM), W_PANEL(VM), W_LOG(VM), 0, EXEC_PER_FRAME})
 
 void			init_ui(t_ui *ui, t_vm *vm);
-WINDOW			*create_newwin(t_vec2u pos, t_vec2u size);
 void			destroy_ui(t_ui *ui);
 
 /*
 ** -
 */
 void			handle_key(t_ui *ui, int key);
-
-/*
-** arena
-*/
-void			init_arena(t_ui *ui);
-void			refresh_arena(t_ui *ui);
-
-/*
-** panel
-*/
-void			init_panel(t_ui *ui);
-void			refresh_panel(t_ui *ui);
-
-/*
-** log
-*/
-void			init_log(t_ui *ui);
-void			refresh_log(t_ui *ui);
-void			ui_log(t_ui *ui, t_sub msg);
 
 /*
 ** listeners

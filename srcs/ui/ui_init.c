@@ -6,14 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 18:32:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 15:38:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:59:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_ui.h"
 #include "ui.h"
-
-#include <stdlib.h>
 
 WINDOW			*create_newwin(t_vec2u pos, t_vec2u size)
 {
@@ -32,10 +30,9 @@ void			init_ui(t_ui *ui, t_vm *vm)
 	noecho();
 	cbreak();
 	*ui = UI_INIT(vm);
-	init_arena(ui);
-	init_panel(ui);
-	init_log(ui);
-	ui->arena_colors = NEW_N(uint8_t, MEM_SIZE);
+	w_arena_init(&ui->w_arena);
+	w_panel_init(&ui->w_panel);
+	w_log_init(&ui->w_log);
 	ui->vm->listeners = (t_listeners){
 		NULL, //&ui_on_exec,
 		NULL, //&ui_on_fork,
@@ -49,9 +46,8 @@ void			init_ui(t_ui *ui, t_vm *vm)
 
 void			destroy_ui(t_ui *ui)
 {
-	delwin(ui->w_arena);
-	delwin(ui->w_panel);
-	delwin(ui->w_log);
-	free(ui->arena_colors);
+	w_arena_destroy(&ui->w_arena);
+	w_panel_destroy(&ui->w_panel);
+	w_log_destroy(&ui->w_log);
 	endwin();
 }
