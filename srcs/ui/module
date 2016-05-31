@@ -3,7 +3,9 @@ module ui:
 	private include ./
 
 	public require vm
+
 	private require corewar_config
+	private require vm_exec
 	private require ft::base
 
 	put LINK_FLAGS -lcurses

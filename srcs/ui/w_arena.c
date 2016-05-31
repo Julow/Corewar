@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_print.c                                         :+:      :+:    :+:   */
+/*   w_arena.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/17 13:52:41 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/30 18:46:40 by jaguillo         ###   ########.fr       */
+/*   Created: 2016/05/31 15:33:47 by jaguillo          #+#    #+#             */
+/*   Updated: 2016/05/31 15:41:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_ui.h"
 
-void				print_arena(t_ui *ui)
+static void		print_arena(t_ui *ui)
 {
 	uint32_t			i;
 	uint32_t			j;
@@ -30,4 +30,14 @@ void				print_arena(t_ui *ui)
 		printw("\n  ");
 		i++;
 	}
+}
+
+void			init_arena(t_ui *ui)
+{
+	ui->w_arena = create_newwin(ARENA_POS, ARENA_SIZE);
+}
+
+void			refresh_arena(t_ui *ui)
+{
+	wnoutrefresh(ui->w_arena);
 }

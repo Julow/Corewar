@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 18:32:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/30 19:20:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 15:38:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 
-static WINDOW	*create_newwin(t_vec2u pos, t_vec2u size)
+WINDOW			*create_newwin(t_vec2u pos, t_vec2u size)
 {
 	WINDOW			*w;
 
@@ -30,10 +30,11 @@ void			init_ui(t_ui *ui, t_vm *vm)
 	curs_set(0);
 	timeout(FRAMERATE);
 	noecho();
+	cbreak();
 	*ui = UI_INIT(vm);
-	ui->w_arena = create_newwin(ARENA_POS, ARENA_SIZE);
-	ui->w_panel = create_newwin(PANEL_POS, PANEL_SIZE);
-	ui->w_log = create_newwin(LOG_POS, LOG_SIZE);
+	init_arena(ui);
+	init_panel(ui);
+	init_log(ui);
 	ui->arena_colors = NEW_N(uint8_t, MEM_SIZE);
 	ui->vm->listeners = (t_listeners){
 		NULL, //&ui_on_exec,
