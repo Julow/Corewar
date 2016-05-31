@@ -1,4 +1,4 @@
-main module corewar_vm:
+main module corewar:
 
 	private include ./
 
