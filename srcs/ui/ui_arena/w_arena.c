@@ -6,37 +6,45 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 15:33:47 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 16:59:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 18:18:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_ui.h"
+#include "ui_arena.h"
+
 #include <stdlib.h>
 
-// static void		print_arena(t_w_arena *w)
-// {
-// 	uint32_t			i;
-// 	uint32_t			j;
+static void		init_owners(t_w_arena *w)
+{
+	uint32_t		i;
+	t_vec2u			range;
 
-// 	i = 0;
-// 	while (i < 64)
-// 	{
-// 		j = 0;
-// 		while(j < 64)
-// 		{
-// 			//get color in array
-// 			mvprintw(i, j, "%02hhx  ", ((uint32_t *)(w->vm->arena))[i + j]);
-// 			j++;
-// 		}
-// 		printw("\n  ");
-// 		i++;
-// 	}
-// }
+	i = w->vm->player_count;
+	range.y = MEM_SIZE;
+	while (i-- > 0)
+	{
+		range.x = w->vm->players[i].arena_offset;
+		while (range.y > range.x && VM_GET1(w->vm, range.y - 1) == 0)
+			range.y--;
+		w_arena_set_owner(w, range, i + 1);
+		ft_dprintf(2, "OWNER RANGE %d-%d = %d%n", range.x, range.y, i);
+		range.y = range.x;
+	}
+}
 
 void			w_arena_init(t_w_arena *w)
 {
 	w->w = create_newwin(ARENA_POS, ARENA_SIZE);
-	w->colors = NEW_N(uint8_t, MEM_SIZE);
+	w->owners = NEW_N(uint8_t, MEM_SIZE);
+	ft_memset(w->owners, 0, MEM_SIZE);
+	init_owners(w);
+	init_pair(1, COLOR_WHITE, COLOR_BLACK);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(4, COLOR_GREEN, COLOR_BLACK);
+	init_pair(5, COLOR_BLUE, COLOR_BLACK);
+	w_arena_update(w, VEC2U(0, MEM_SIZE));
 }
 
 void			w_arena_refresh(t_w_arena *w)
@@ -47,5 +55,5 @@ void			w_arena_refresh(t_w_arena *w)
 void			w_arena_destroy(t_w_arena *w)
 {
 	delwin(w->w);
-	free(w->colors);
+	free(w->owners);
 }

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:11:32 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/30 16:07:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 18:44:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool		op_st(t_vm *vm, t_process *process, uint32_t const *args,
 	{
 		val2 = process->reg_pc + (((int32_t)args[1]) % IDX_MOD);
 		vm_set(vm, val2, val1, 4);
-		LISTENER(vm, on_write, process, val2, 4);
+		LISTENER(vm, on_write, process, VEC2U(val2, 4));
 	}
 	else if (OCP_GET(args_types, 1) == REG_CODE)
 	{

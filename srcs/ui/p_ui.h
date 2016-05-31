@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 14:55:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 16:55:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 18:21:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ struct 			s_ui
 /*
 ** Init
 */
-# define UI_INIT(VM)	((t_ui){(VM), W_ARENA(VM), W_PANEL(VM), W_LOG(VM), 0, EXEC_PER_FRAME})
+
+# define UI_INIT(VM)	((t_ui){(VM), W_ARENA(VM), W_PANEL(VM), W_LOG(VM), UI_F_PAUSE, EXEC_PER_FRAME})
 
 void			init_ui(t_ui *ui, t_vm *vm);
 void			destroy_ui(t_ui *ui);
@@ -59,12 +60,11 @@ void			handle_key(t_ui *ui, int key);
 /*
 ** listeners
 */
-void			ui_on_exec(void*, t_process const*, uint32_t op);
-void			ui_on_fork(void*, t_process const*, t_process const *c);
-void			ui_on_read(void*, t_process const*, uint32_t i, uint32_t s);
-void			ui_on_write(void*, t_process const*, uint32_t i, uint32_t s);
-void			ui_on_die(void*, t_process const*);
-void			ui_on_aff(void*, t_process const*, uint32_t aff);
-void			ui_on_live(void*, t_process const*);
+void			ui_on_exec(t_ui *ui, t_process const *p, uint32_t op);
+void			ui_on_fork(t_ui *ui, t_process const *p, t_process const *c);
+void			ui_on_write(t_ui *ui, t_process const *p, t_vec2u range);
+void			ui_on_die(t_ui *ui, t_process const *p);
+void			ui_on_aff(t_ui *ui, t_process const *p, uint32_t aff);
+void			ui_on_live(t_ui *ui, t_process const *p);
 
 #endif

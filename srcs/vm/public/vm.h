@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/30 16:33:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 18:21:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ struct			s_listeners
 {
 	void			(*on_exec)(void*, t_process const*, uint32_t op);
 	void			(*on_fork)(void*, t_process const*, t_process const *c);
-	void			(*on_write)(void*, t_process const*, uint32_t i, uint32_t s);
+	void			(*on_write)(void*, t_process const*, t_vec2u range);
 	void			(*on_die)(void*, t_process const*);
 	void			(*on_aff)(void*, t_process const*, uint32_t aff);
 	void			(*on_live)(void*, t_process const*, t_player const *p);

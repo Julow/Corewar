@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 18:32:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 16:59:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/05/31 18:23:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void			init_ui(t_ui *ui, t_vm *vm)
 	curs_set(0);
 	timeout(FRAMERATE);
 	noecho();
+	keypad(stdscr, TRUE);
 	cbreak();
+	start_color();
+	use_default_colors();
 	*ui = UI_INIT(vm);
 	w_arena_init(&ui->w_arena);
 	w_panel_init(&ui->w_panel);
@@ -36,7 +39,7 @@ void			init_ui(t_ui *ui, t_vm *vm)
 	ui->vm->listeners = (t_listeners){
 		NULL, //&ui_on_exec,
 		NULL, //&ui_on_fork,
-		NULL, //&ui_on_write,
+		V(&ui_on_write),
 		NULL, //&ui_on_die,
 		NULL, //&ui_on_aff,
 		NULL, //&ui_on_live,
