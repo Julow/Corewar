@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/30 14:48:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/02 17:11:54 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void			vm_start(t_vm *vm)
 	i = 0;
 	while (i < vm->player_count)
 	{
-		process = ft_listadd(&vm->process, vm->process.last, 0);
+		process = ft_listadd(&vm->process, NULL, 0);
 		*process = PROCESS_INIT(vm->players[i].arena_offset, i);
 		process->reg[0] = vm->players[i].id;
 		vm_wait_next(vm, process);

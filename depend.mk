@@ -69,8 +69,9 @@ O_FILES += $(O_DIR)/srcs/asm/main.o $(O_DIR)/srcs/asm/parse_params.o \
 	$(O_DIR)/libft/ft_tokenizer/ft_tokenize.o \
 	$(O_DIR)/libft/ft_vector/ft_vclear.o $(O_DIR)/libft/ft_vector/ft_vpush.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/libft/ft_vector/ft_vspan.o \
-	$(O_DIR)/srcs/ui/key_handler.o $(O_DIR)/srcs/ui/listeners/on_write.o \
-	$(O_DIR)/srcs/ui/ui.o $(O_DIR)/srcs/ui/ui_arena/arena_update.o \
+	$(O_DIR)/srcs/ui/key_handler.o $(O_DIR)/srcs/ui/listeners/on_aff.o \
+	$(O_DIR)/srcs/ui/listeners/on_write.o $(O_DIR)/srcs/ui/ui.o \
+	$(O_DIR)/srcs/ui/ui_arena/arena_update.o \
 	$(O_DIR)/srcs/ui/ui_arena/w_arena.o $(O_DIR)/srcs/ui/ui_init.o \
 	$(O_DIR)/srcs/ui/ui_log/w_log.o $(O_DIR)/srcs/ui/ui_panel/w_panel.o \
 	$(O_DIR)/srcs/vm/vm_access.o $(O_DIR)/srcs/vm/vm_destroy.o \
@@ -197,7 +198,7 @@ corewar: $(O_DIR)/srcs/ui/listeners/on_write.o \
 	$(O_DIR)/libft/ft_out/ft_putint.o $(O_DIR)/libft/ft_printf/ft_out.o \
 	$(O_DIR)/srcs/vm_exec/operations/ldi.o $(O_DIR)/libft/ft_out/ft_putfloat.o \
 	$(O_DIR)/libft/ft_base/ft_bzero.o $(O_DIR)/srcs/ui/ui_panel/w_panel.o \
-	$(O_DIR)/srcs/vm_exec/operations/or.o \
+	$(O_DIR)/srcs/ui/listeners/on_aff.o $(O_DIR)/srcs/vm_exec/operations/or.o \
 	$(O_DIR)/libft/ft_printf/ft_vprintf.o $(O_DIR)/libft/ft_list/ft_listsort.o \
 	$(O_DIR)/srcs/vm_exec/operations/xor.o \
 	$(O_DIR)/libft/ft_printf/ft_printf.o $(O_DIR)/libft/ft_base/ft_assert.o \
@@ -567,6 +568,13 @@ $(O_DIR)/srcs/ui/key_handler.o: srcs/ui/key_handler.c \
 	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/ui/ui_arena/ui_arena.h \
 	srcs/ui/ui_log/ui_log.h srcs/ui/ui_panel/ui_panel.h srcs/ui/ui_utils.h \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
+$(O_DIR)/srcs/ui/listeners/on_aff.o: srcs/ui/listeners/on_aff.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
+	libft/ft_out/public/ft_str_out.h srcs/corewar_config/public/op.h \
+	srcs/ui/p_ui.h srcs/ui/public/ui.h srcs/ui/ui_arena/ui_arena.h \
+	srcs/ui/ui_log/ui_log.h srcs/ui/ui_panel/ui_panel.h srcs/ui/ui_utils.h \
+	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
 $(O_DIR)/srcs/ui/listeners/on_write.o: srcs/ui/listeners/on_write.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
@@ -609,12 +617,12 @@ $(O_DIR)/srcs/ui/ui_panel/w_panel.o: srcs/ui/ui_panel/w_panel.c \
 	srcs/ui/ui_log/ui_log.h srcs/ui/ui_panel/ui_panel.h srcs/ui/ui_utils.h \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h
 
-$(O_DIR)/srcs/ui/key_handler.o $(O_DIR)/srcs/ui/listeners/on_write.o \
-$(O_DIR)/srcs/ui/ui.o $(O_DIR)/srcs/ui/ui_arena/arena_update.o \
-$(O_DIR)/srcs/ui/ui_arena/w_arena.o $(O_DIR)/srcs/ui/ui_init.o \
-$(O_DIR)/srcs/ui/ui_log/w_log.o $(O_DIR)/srcs/ui/ui_panel/w_panel.o: \
-	INCLUDE_FLAGS += -Isrcs/ui -Isrcs/ui/ui_arena -Isrcs/ui/ui_panel \
-	-Isrcs/ui/ui_log
+$(O_DIR)/srcs/ui/key_handler.o $(O_DIR)/srcs/ui/listeners/on_aff.o \
+$(O_DIR)/srcs/ui/listeners/on_write.o $(O_DIR)/srcs/ui/ui.o \
+$(O_DIR)/srcs/ui/ui_arena/arena_update.o $(O_DIR)/srcs/ui/ui_arena/w_arena.o \
+$(O_DIR)/srcs/ui/ui_init.o $(O_DIR)/srcs/ui/ui_log/w_log.o \
+$(O_DIR)/srcs/ui/ui_panel/w_panel.o: INCLUDE_FLAGS += -Isrcs/ui \
+	-Isrcs/ui/ui_arena -Isrcs/ui/ui_panel -Isrcs/ui/ui_log
 
 # module utils
 
