@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:15:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 12:17:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/02 14:54:03 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ struct		s_player
 {
 	uint32_t	id;
 	uint32_t	arena_offset;
+	uint32_t	last_live;
+	uint32_t	live_to_check;
 	t_dstr		name;
 	t_dstr		comment;
 };
 
-# define PLAYER_INIT(ID,OFF)	((t_player){(ID), (OFF), DSTR0(), DSTR0()})
+# define PLAYER_INIT(ID,OFF)	((t_player){(ID),(OFF),0,0,DSTR0(),DSTR0()})
 
 #endif
