@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 18:32:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 18:23:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/02 18:03:51 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			init_ui(t_ui *ui, t_vm *vm)
 		NULL, //&ui_on_fork,
 		V(&ui_on_write),
 		NULL, //&ui_on_die,
-		NULL, //&ui_on_aff,
+		V(&ui_on_aff),
 		NULL, //&ui_on_live,
 		ui
 	};
