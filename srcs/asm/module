@@ -1,10 +1,10 @@
 main module asm:
 	private include ./
 
+	require asm_parser
 	require corewar_config
 	require ft::printf
 	require ft::base
-	require ft::tokenizer
 	require ft::in
 	require ft::path
 	require ft::vector
