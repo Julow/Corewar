@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:21:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/12 14:38:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/06 17:41:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static bool		load_champion(t_vm *vm, t_vm_loader_player const *p,
 	else
 	{
 		*dst = PLAYER_INIT(p->id, arena_offset);
-		ft_dstradd(&dst->name, ft_sub(head.prog_name, 0, -1));
-		ft_dstradd(&dst->comment, ft_sub(head.comment, 0, -1));
+		dst->name = ft_aprintf("%s", head.prog_name);
+		dst->comment = ft_aprintf("%s", head.comment);
 		return (true);
 	}
 	return (false);

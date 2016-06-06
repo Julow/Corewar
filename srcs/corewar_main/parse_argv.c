@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 16:19:10 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 17:03:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/06 17:40:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static bool		push_player(t_parse_argv *argv, int32_t id, t_sub file_name)
 	t_vm_loader_player	player;
 
 	ft_printf("PUSH PLAYER %ts:%u%n", file_name, id);
-	player = (t_vm_loader_player){id, DSTR0()};
-	ft_dstradd(&player.file_name, file_name);
+	player = (t_vm_loader_player){id, ft_aprintf("%ts", file_name)};
 	ft_vpush(&argv->vm_loader.player, &player, 1);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/02 19:10:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/02 19:16:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/06 17:37:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,13 @@
 
 static t_dstr	get_output_file(t_sub source_file)
 {
-	t_dstr			out_file;
 	t_sub			dirname;
 	t_sub			fname;
 
-	out_file = DSTR0();
 	fname = ft_path_split(source_file, &dirname);
 	ft_path_ext(fname, &fname);
-	ft_dstradd(&out_file, dirname);
-	if (dirname.length > 0)
-		ft_dstradd(&out_file, SUBC("/"));
-	ft_dstradd(&out_file, fname);
-	ft_dstradd(&out_file, SUBC(".cor"));
-	return (out_file);
+	return (ft_aprintf("%ts%ts%ts.cor", dirname,
+			(dirname.length > 0) ? SUBC("/") : SUB0(), fname));
 }
 
 static bool		parse_argv_opt_o(t_params *params, t_argv *argv)
