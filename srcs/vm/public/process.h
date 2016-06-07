@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:01:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/17 19:37:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 16:36:22 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef struct s_process		t_process;
 
 struct			s_process
 {
-	uint32_t		player_idx; // TODO: remove
+	uint32_t		player_idx;
 	uint32_t		wait;
-	int32_t			reg_pc;
+	uint32_t		reg_pc;
 	int32_t			reg_pflags;
 	int32_t			reg[REG_NUMBER];
 };
