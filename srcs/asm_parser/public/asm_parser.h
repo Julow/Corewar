@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:45:27 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/06 13:00:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 13:06:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,35 @@
 
 typedef struct s_asm		t_asm;
 typedef struct s_instr		t_instr;
-typedef enum e_instr_arg	t_instr_arg;
+typedef struct s_instr_arg	t_instr_arg;
+typedef enum e_instr_arg_e	t_instr_arg_e;
+typedef union e_instr_arg_u	t_instr_arg_u;
 
 /*
 ** ========================================================================== **
-** Corewar asm parser
+** ASM struct
 */
 
-enum			e_instr_arg
+enum			e_instr_arg_e
 {
 	INSTR_ARG_REG,
 	INSTR_ARG_DIR,
 	INSTR_ARG_IND,
 	INSTR_ARG_LABEL
+};
+
+union			u_instr_arg_u
+{
+	uint32_t		reg;
+	int32_t			dir;
+	int32_t			ind;
+	t_dstr			label;
+};
+
+struct			s_instr_arg
+{
+	t_instr_arg_e	e;
+	t_instr_arg_u	u;
 };
 
 struct			s_instr
@@ -51,6 +67,11 @@ struct			s_asm
 	t_vector		instr;
 	t_hmap			*labels;
 };
+
+/*
+** ========================================================================== **
+** Corewar asm parser
+*/
 
 /*
 ** Parse an asm file
