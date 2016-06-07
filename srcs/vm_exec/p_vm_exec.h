@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/30 16:30:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 14:24:48 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERNAL_H
-# define INTERNAL_H
+#ifndef P_VM_EXEC_H
+# define P_VM_EXEC_H
 
 # include "process.h"
 # include "vm_exec.h"

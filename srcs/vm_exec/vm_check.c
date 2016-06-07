@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 16:07:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/02 14:55:03 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/07 14:25:23 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool			vm_check(t_vm *vm)
 	if (vm->nbr_live >= NBR_LIVE || vm->nbr_check >= MAX_CHECKS)
 	{
 		vm->cycle_to_check = (vm->cycle_to_check > CYCLE_DELTA) ?
-			 vm->cycle_to_check - CYCLE_DELTA : 0;
+			vm->cycle_to_check - CYCLE_DELTA : 0;
 		vm->nbr_check = 0;
 	}
 	vm->next_check = vm->clock + vm->cycle_to_check;

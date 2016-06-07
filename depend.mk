@@ -18,11 +18,12 @@ O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/main.o \
 	$(O_DIR)/srcs/corewar_main/main.o $(O_DIR)/srcs/corewar_main/parse_argv.o \
 	$(O_DIR)/srcs/corewar_main/parse_argv_opt.o \
 	$(O_DIR)/srcs/corewar_main/parse_tools.o $(O_DIR)/srcs/corewar_config/op.o \
-	$(O_DIR)/srcs/debug_ui/debug_loop.o $(O_DIR)/libft/ft_argv/arg.o \
-	$(O_DIR)/libft/ft_argv/opt.o $(O_DIR)/libft/ft_base/ft_abs.o \
-	$(O_DIR)/libft/ft_base/ft_assert.o $(O_DIR)/libft/ft_base/ft_atoib.o \
-	$(O_DIR)/libft/ft_base/ft_bitset.o $(O_DIR)/libft/ft_base/ft_bzero.o \
-	$(O_DIR)/libft/ft_base/ft_clock.o $(O_DIR)/libft/ft_base/ft_clock_stack.o \
+	$(O_DIR)/srcs/debug_ui/debug_dump.o $(O_DIR)/srcs/debug_ui/debug_loop.o \
+	$(O_DIR)/libft/ft_argv/arg.o $(O_DIR)/libft/ft_argv/opt.o \
+	$(O_DIR)/libft/ft_base/ft_abs.o $(O_DIR)/libft/ft_base/ft_assert.o \
+	$(O_DIR)/libft/ft_base/ft_atoib.o $(O_DIR)/libft/ft_base/ft_bitset.o \
+	$(O_DIR)/libft/ft_base/ft_bzero.o $(O_DIR)/libft/ft_base/ft_clock.o \
+	$(O_DIR)/libft/ft_base/ft_clock_stack.o \
 	$(O_DIR)/libft/ft_base/ft_emalloc.o $(O_DIR)/libft/ft_base/ft_escape.o \
 	$(O_DIR)/libft/ft_base/ft_getenv.o $(O_DIR)/libft/ft_base/ft_is.o \
 	$(O_DIR)/libft/ft_base/ft_max.o $(O_DIR)/libft/ft_base/ft_memcmp.o \
@@ -167,9 +168,10 @@ corewar: $(O_DIR)/srcs/ui/listeners/on_write.o \
 	$(O_DIR)/libft/ft_out/ft_write_char.o $(O_DIR)/libft/ft_base/ft_memmove.o \
 	$(O_DIR)/libft/ft_out/ft_putsub.o $(O_DIR)/srcs/vm_exec/operations/ld.o \
 	$(O_DIR)/libft/ft_base/ft_clock.o $(O_DIR)/libft/ft_printf/ft_logf.o \
-	$(O_DIR)/libft/ft_base/ft_max.o $(O_DIR)/libft/ft_out/ft_putuint.o \
-	$(O_DIR)/libft/ft_base/ft_bitset.o $(O_DIR)/libft/ft_base/ft_getenv.o \
-	$(O_DIR)/srcs/vm/vm_access.o $(O_DIR)/srcs/corewar_main/parse_argv.o \
+	$(O_DIR)/libft/ft_base/ft_max.o $(O_DIR)/srcs/debug_ui/debug_dump.o \
+	$(O_DIR)/libft/ft_out/ft_putuint.o $(O_DIR)/libft/ft_base/ft_bitset.o \
+	$(O_DIR)/libft/ft_base/ft_getenv.o $(O_DIR)/srcs/vm/vm_access.o \
+	$(O_DIR)/srcs/corewar_main/parse_argv.o \
 	$(O_DIR)/srcs/corewar_main/parse_tools.o $(O_DIR)/srcs/ui/ui.o \
 	$(O_DIR)/srcs/vm_loader/misc.o $(O_DIR)/srcs/vm_exec/vm_check.o \
 	$(O_DIR)/libft/ft_base/ft_wstrnconv.o \
@@ -278,7 +280,8 @@ $(O_DIR)/srcs/corewar_main/parse_argv.o: srcs/corewar_main/parse_argv.c \
 $(O_DIR)/srcs/corewar_main/parse_argv_opt.o: \
 	srcs/corewar_main/parse_argv_opt.c libft/ft_argv/public/argv.h \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_list/public/ft_list.h libft/ft_vector/public/ft_vector.h \
+	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
 	srcs/corewar_config/public/op.h srcs/corewar_main/main.h \
 	srcs/corewar_main/parse_argv.h srcs/vm/public/player.h \
 	srcs/vm/public/process.h srcs/vm/public/vm.h \
@@ -301,15 +304,21 @@ $(O_DIR)/srcs/corewar_config/op.o: srcs/corewar_config/op.c \
 	srcs/corewar_config/public/op.h
 
 # module debug_ui
-$(O_DIR)/srcs/debug_ui/debug_loop.o: srcs/debug_ui/debug_loop.c \
+$(O_DIR)/srcs/debug_ui/debug_dump.o: srcs/debug_ui/debug_dump.c \
 	libft/ft_base/public/ft_colors.h libft/ft_base/public/libft.h \
 	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
 	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
 	libft/get_next_line/public/get_next_line.h srcs/corewar_config/public/op.h \
 	srcs/debug_ui/public/debug_ui.h srcs/vm/public/player.h \
 	srcs/vm/public/process.h srcs/vm/public/vm.h srcs/vm_exec/public/vm_exec.h
+$(O_DIR)/srcs/debug_ui/debug_loop.o: srcs/debug_ui/debug_loop.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
+	srcs/debug_ui/public/debug_ui.h srcs/vm/public/player.h \
+	srcs/vm/public/process.h srcs/vm/public/vm.h srcs/vm_exec/public/vm_exec.h
 
-$(O_DIR)/srcs/debug_ui/debug_loop.o: INCLUDE_FLAGS += -Isrcs/debug_ui
+$(O_DIR)/srcs/debug_ui/debug_dump.o $(O_DIR)/srcs/debug_ui/debug_loop.o: \
+	INCLUDE_FLAGS += -Isrcs/debug_ui
 
 # module ft::argv
 $(O_DIR)/libft/ft_argv/arg.o: libft/ft_argv/arg.c libft/ft_argv/public/argv.h \

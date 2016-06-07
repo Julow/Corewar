@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/07 12:06:43 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/07 16:38:16 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_op const	*unpack_args(t_vm const *vm, uint32_t *pc,
 	uint32_t			value_size;
 
 	i = VM_GET1(vm, *pc);
-	(*pc)++;
+	*pc = (*pc + 1) % MEM_SIZE;
 	if (i < 1 || i > OPCODE_COUNT)
 		return (NULL);
 	op = &g_op_tab[i];
@@ -84,10 +84,8 @@ static t_op const	*unpack_args(t_vm const *vm, uint32_t *pc,
 			value_size = 2;
 		else
 			return (NULL);
-			// return (ASSERT(false, "Invalid param"), NULL);
-		args[i] = vm_get(vm, *pc, value_size);
-		*pc += value_size;
-		i++;
+		args[i++] = vm_get(vm, *pc, value_size);
+		*pc = (*pc + value_size) % MEM_SIZE;
 	}
 	return (op);
 }
@@ -96,17 +94,19 @@ static void			print_op(t_op const *op, t_process const *process,
 						uint32_t *args, uint8_t ocp)
 {
 	uint32_t		i;
+	char			c;
 
 	i = 0;
 	ft_printf("%u %#.8x: %s", process->player_idx, process, op->name);
 	while (i < op->arg_n)
 	{
-		ft_printf(" %s%d",
-			(OCP_GET(ocp, i) == REG_CODE) ? "r" : (
-				(OCP_GET(ocp, i) == DIR_CODE) ? "%" : ""
-				),
-				args[i]
-			);
+		if (OCP_GET(ocp, i) == REG_CODE)
+			c = 'r';
+		else if (OCP_GET(ocp, i) == DIR_CODE)
+			c = '%';
+		else
+			c = 0;
+		ft_printf(" %c%d", c, args[i]);
 		i++;
 	}
 	ft_printf("%n");
@@ -117,18 +117,19 @@ bool				exec_op(t_vm *vm, t_process *process)
 	t_op const			*op;
 	uint32_t			args[MAX_ARGS_NUMBER];
 	uint8_t				ocp;
-	uint32_t			pc;
+	t_vec2u				pc;
+	bool				r;
 
-	pc = process->reg_pc;
-	LISTENER(vm, on_exec, process, VM_GET1(vm, pc));
-	if ((op = unpack_args(vm, &pc, args, &ocp)) == NULL)
+	pc = VEC2U1(process->reg_pc);
+	LISTENER(vm, on_exec, process, VM_GET1(vm, pc.x));
+	if ((op = unpack_args(vm, &pc.x, args, &ocp)) == NULL)
 	{
-		// ft_printf("%u %#.8x: Invalid op %#.2x%n", process->player_idx, process, VM_GET1(vm, process->reg_pc));
-		process->reg_pc = pc;
+		process->reg_pc = pc.x;
 		return (false);
 	}
-	// print_op(op, process, args, ocp);
-	pc -= process->reg_pc;
-	return (g_op_functions[op->op_code](vm, process, args, ocp)
-			| (process->reg_pc += pc, 0));
+	//print_op(op, process, args, ocp);
+	r = g_op_functions[op->op_code](vm, process, args, ocp);
+	if (process->reg_pc == pc.y)
+		process->reg_pc = pc.x;
+	return (r);
 }
