@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/02 18:17:43 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/07 11:35:01 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,9 @@ int				main(int argc, char **argv)
 
 	if (!parse_argv(&m, argc, argv))
 		return (1);
-
 	ft_printf("flags: %b\ndump cycles: %u%n", m.flags, m.dump_cycles);
-
 	vm_start(&m.vm);
-
 	ui_loop(&m.vm);
 	//debug_loop(&m.vm);
-
 	return (0);
 }

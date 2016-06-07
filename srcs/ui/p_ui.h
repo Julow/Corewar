@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 14:55:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 18:21:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 11:52:43 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ typedef struct s_ui		t_ui;
 ** ========================================================================== **
 */
 
-# define EXEC_PER_FRAME	10
+# define E_FRAME	10
 # define FRAMERATE		(1000 / 30)
 
-struct 			s_ui
+struct			s_ui
 {
 	t_vm			*vm;
 	t_w_arena		w_arena;
@@ -37,7 +37,7 @@ struct 			s_ui
 	uint32_t		loop_speed;
 };
 
-# define UI_F_PAUSE		(1 << 0)
+# define UI_PAUSE		(1 << 0)
 # define UI_F_EXIT		(1 << 1)
 
 # define KEY_SPACE		32
@@ -47,7 +47,7 @@ struct 			s_ui
 ** Init
 */
 
-# define UI_INIT(VM)	((t_ui){(VM), W_ARENA(VM), W_PANEL(VM), W_LOG(VM), UI_F_PAUSE, EXEC_PER_FRAME})
+# define UI_INIT(VM)	((t_ui){(VM),W_A(VM),W_P(VM),W_L(VM),UI_PAUSE,E_FRAME})
 
 void			init_ui(t_ui *ui, t_vm *vm);
 void			destroy_ui(t_ui *ui);

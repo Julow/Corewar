@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:12:39 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/31 18:54:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 12:01:11 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int32_t	get_sti_value(t_vm const *vm, t_process *const process,
 	(void)vm;
 }
 
-bool		op_sti(t_vm *vm, t_process *process, uint32_t const *args,
+bool			op_sti(t_vm *vm, t_process *process, uint32_t const *args,
 						uint8_t args_types)
 {
 	uint32_t		val0;

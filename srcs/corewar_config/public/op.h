@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2016/05/23 13:51:04 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 12:04:30 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@
 
 # define MAX_PLAYER_PROCESS		16384
 
-/*
-**
-*/
-
 # define T_REG					1
 # define T_DIR					2
 # define T_IND					4
@@ -82,10 +78,6 @@ typedef struct		s_op
 }					t_op;
 
 extern t_op			g_op_tab[];
-
-/*
-**
-*/
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)

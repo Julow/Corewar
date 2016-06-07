@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 16:26:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 16:58:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 11:48:34 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ struct			s_w_panel
 	WINDOW			*w;
 };
 
-# define W_PANEL(VM)	((t_w_panel){(VM), NULL})
+# define W_P(VM)	((t_w_panel){(VM), NULL})
 
 /*
 ** -

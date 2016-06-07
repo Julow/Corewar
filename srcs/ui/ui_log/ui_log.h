@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 16:25:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 16:57:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 11:53:07 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ struct			s_w_log
 {
 	t_vm			*vm;
 	WINDOW			*w;
-	char			logs[LOG_SIZE.y-2][LOG_SIZE.x-2];
+	char			logs[LOG_SIZE.y - 2][LOG_SIZE.x - 2];
 	uint32_t		log_start;
 };
 
-# define W_LOG(VM)	((t_w_log){(VM), NULL, {}, 0})
+# define W_L(VM)	((t_w_log){(VM), NULL, {}, 0})
 
 /*
 ** -

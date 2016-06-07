@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/30 18:47:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 12:06:43 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,9 @@ static t_op const	*unpack_args(t_vm const *vm, uint32_t *pc,
 static void			print_op(t_op const *op, t_process const *process,
 						uint32_t *args, uint8_t ocp)
 {
-	uint32_t		i = 0;
+	uint32_t		i;
 
+	i = 0;
 	ft_printf("%u %#.8x: %s", process->player_idx, process, op->name);
 	while (i < op->arg_n)
 	{

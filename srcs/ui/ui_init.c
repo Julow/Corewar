@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 18:32:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/02 18:03:51 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/07 11:53:46 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ WINDOW			*create_newwin(t_vec2u pos, t_vec2u size)
 	WINDOW			*w;
 
 	w = newwin(size.y, size.x, pos.y, pos.x);
-	box(w, 0 , 0);
+	box(w, 0, 0);
 	return (w);
 }
 

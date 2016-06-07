@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:19:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 16:57:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 12:36:43 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int32_t			next_player_id(t_vm_loader const *loader, int32_t id)
 {
-	uint32_t		i;
+	uint32_t			i;
 
 	while (true)
 	{

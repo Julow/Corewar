@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 16:29:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 18:19:09 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 11:48:47 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ struct			s_player_color
 	bool			bold;
 };
 
-# define W_ARENA(VM)	((t_w_arena){(VM), NULL, NULL})
+# define W_A(VM)	((t_w_arena){(VM), NULL, NULL})
 
 /*
 ** -

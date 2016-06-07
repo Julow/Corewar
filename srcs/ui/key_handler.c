@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 15:42:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 17:00:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 11:51:42 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ static void		log_key(t_ui *ui, int key)
 
 static void		toggle_pause(t_ui *ui)
 {
-	ui->flags ^= UI_F_PAUSE;
-	w_log_log(&ui->w_log, (ui->flags & UI_F_PAUSE) ? SUBC("** PAUSE **") : SUBC("** RESUME **"));
+	ui->flags ^= UI_PAUSE;
+	w_log_log(&ui->w_log, (ui->flags & UI_PAUSE) ?
+		SUBC("** PAUSE **") : SUBC("** RESUME **"));
 }
 
 void			handle_key(t_ui *ui, int key)

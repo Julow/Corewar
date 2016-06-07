@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:21:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/06 17:41:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 12:32:54 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static bool		load_champion(t_vm *vm, t_vm_loader_player const *p,
 		LOAD_ERROR("Not a corewar file", DSTR_SUB(p->file_name.str));
 	else if (B32_REV(head.prog_size) > CHAMP_MAX_SIZE)
 		LOAD_ERROR("Program too heavy", DSTR_SUB(p->file_name.str));
-	else if (read(fd, vm->arena + arena_offset, B32_REV(head.prog_size)) != B32_REV(head.prog_size))
+	else if (read(fd, vm->arena + arena_offset, B32_REV(head.prog_size))
+				!= B32_REV(head.prog_size))
 		LOAD_ERROR("Truncated file", DSTR_SUB(p->file_name.str));
 	else if (read(fd, &head, 1) > 0)
 		LOAD_ERROR("Prog size does not match", DSTR_SUB(p->file_name.str));
@@ -55,7 +56,7 @@ bool			load_vm(t_vm_loader const *loader, t_vm *vm)
 
 	*vm = VM_INIT();
 	if (loader->player.length == 0 || loader->player.length > MAX_PLAYERS)
-		return (false); // Too many players
+		return (false);
 	arena_delta = MEM_SIZE / loader->player.length;
 	vm->arena = NEW_N(char, MEM_SIZE);
 	i = 0;

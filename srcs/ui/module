@@ -12,5 +12,6 @@ module ui:
 	private require ft::out
 	private require vm_exec
 	private require ft::base
+	private require ft::printf
 
 	put LINK_FLAGS -lcurses

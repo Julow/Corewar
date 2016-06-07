@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 11:50:01 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/31 16:56:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/07 11:51:34 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		loop(t_ui *ui)
 	while (!VM_GAMEOVER(*ui->vm) && !(ui->flags & UI_F_EXIT))
 	{
 		handle_key(ui, getch());
-		loop = (ui->flags & UI_F_PAUSE) ? 0 : ui->loop_speed;
+		loop = (ui->flags & UI_PAUSE) ? 0 : ui->loop_speed;
 		while (!VM_GAMEOVER(*ui->vm) && loop-- > 0)
 			vm_exec(ui->vm);
 		refresh_ui(ui);
