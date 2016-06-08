@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 16:15:31 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/08 16:24:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/08 18:23:23 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 ** ========================================================================== **
 */
 
-bool			bytecode_asm(t_out *out, t_asm const *asm, t_dstr *err);
+bool			bytecode_asm(t_out *out, t_asm const *asm);
 
 #endif
