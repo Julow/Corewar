@@ -1,0 +1,6 @@
+module asm_bytecode:
+	public include public/
+
+	public include ft::dstr
+	public include ft::out
+	public include asm_data

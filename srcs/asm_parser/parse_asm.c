@@ -6,34 +6,38 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:55:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 19:21:57 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/08 15:49:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/ft_printf.h"
 #include "p_asm_parser.h"
 
 #define TOKEN_DEF(S,DATA)	((t_token_def){SUBC(S), V(DATA)})
 
-static t_token_map const	*get_token_map(void)
+static t_token_map			*ft_token_map_build(t_vector const *t)
 {
-	static t_token_map const	map = TOKEN_MAP();
-	static bool					map_init = false;
+	t_token_map *const			map = NEW(t_token_map);
+	uint32_t					i;
 
-	if (!map_init)
-	{
-		ft_token_map(&map, &TOKEN_DEF(" ", TOKEN_SPACE));
-		ft_token_map(&map, &TOKEN_DEF("\t", TOKEN_SPACE));
-		ft_token_map(&map, &TOKEN_DEF("\n", TOKEN_ENDL));
-		ft_token_map(&map, &TOKEN_DEF("\"", TOKEN_QUOTE));
-		ft_token_map(&map, &TOKEN_DEF("%", TOKEN_MODULO));
-		ft_token_map(&map, &TOKEN_DEF("%:", TOKEN_LABEL));
-		ft_token_map(&map, &TOKEN_DEF(";", TOKEN_COMMENT));
-		ft_token_map(&map, &TOKEN_DEF("#", TOKEN_COMMENT));
-		ft_token_map(&map, &TOKEN_DEF(":", TOKEN_COLON));
-		map_init = true;
-	}
-	return (&map);
+	*map = TOKEN_MAP();
+	i = 0;
+	while (i < t->length)
+		ft_token_map(map, VECTOR_GET(*t, i++));
+	return (map);
 }
+
+static t_vector const	g_token_map = VECTOR(t_token_def,
+	TOKEN_DEF(" ", TOKEN_SPACE),
+	TOKEN_DEF("\t", TOKEN_SPACE),
+	TOKEN_DEF("\n", TOKEN_ENDL),
+	TOKEN_DEF("\"", TOKEN_QUOTE),
+	TOKEN_DEF("%", TOKEN_MODULO),
+	TOKEN_DEF("%:", TOKEN_LABEL),
+	TOKEN_DEF(";", TOKEN_COMMENT),
+	TOKEN_DEF("#", TOKEN_COMMENT),
+	TOKEN_DEF(":", TOKEN_COLON),
+);
 
 static bool			err_unexpected_token(t_asm_parser *p)
 {
@@ -46,27 +50,21 @@ static bool			err_unexpected_token(t_asm_parser *p)
 ** Comment
 */
 
-static t_token_map const	*get_comment_token_map(void)
-{
-	static t_token_map const	map = TOKEN_MAP();
-	static bool					map_init = false;
-
-	if (!map_init)
-	{
-		ft_token_map(&map, &TOKEN_DEF("\\\n", TOKEN_COMMENT_ESCAPED));
-		ft_token_map(&map, &TOKEN_DEF("\n", TOKEN_COMMENT_ENDL));
-		map_init = true;
-	}
-	return (&map);
-}
+static t_vector const	g_comment_token_map = VECTOR(t_token_def,
+	TOKEN_DEF("\\\n", TOKEN_COMMENT_ESCAPED),
+	TOKEN_DEF("\n", TOKEN_COMMENT_ENDL),
+);
 
 static bool			parse_comment(t_asm_parser *p)
 {
+	static t_token_map const	*map = NULL;
 	t_token_map const *const	old_map = p->t.token_map;
 
-	p->t.token_map = get_comment_token_map();
+	if (map == NULL)
+		map = ft_token_map_build(&g_comment_token_map);
+	p->t.token_map = map;
 	while (ft_tokenize(&p->t))
-		if (p->t.token_data == TOKEN_COMMENT_ENDL)
+		if (((uint32_t)p->t.token_data) == TOKEN_COMMENT_ENDL)
 		{
 			p->line++;
 			break ;
@@ -80,30 +78,24 @@ static bool			parse_comment(t_asm_parser *p)
 ** string
 */
 
-static t_token_map const	*get_string_token_map(void)
-{
-	static t_token_map const	map = TOKEN_MAP();
-	static bool					map_init = false;
-
-	if (!map_init)
-	{
-		ft_token_map(&map, &TOKEN_DEF("\\\"", TOKEN_STRING_ESCAPED));
-		ft_token_map(&map, &TOKEN_DEF("\n", TOKEN_STRING_ENDL));
-		ft_token_map(&map, &TOKEN_DEF("\"", TOKEN_STRING_QUOTE));
-		map_init = true;
-	}
-	return (&map);
-}
+static t_vector const	g_string_token_map = VECTOR(t_token_def,
+	TOKEN_DEF("\\\"", TOKEN_STRING_ESCAPED),
+	TOKEN_DEF("\n", TOKEN_STRING_ENDL),
+	TOKEN_DEF("\"", TOKEN_STRING_QUOTE),
+);
 
 static bool			parse_string(t_asm_parser *p, t_dstr *dst)
 {
+	static t_token_map const	*map = NULL;
 	t_token_map const *const	old_map = p->t.token_map;
 
-	p->t.token_map = get_comment_token_map();
+	if (map == NULL)
+		map = ft_token_map_build(&g_string_token_map);
+	p->t.token_map = map;
 	while (ft_tokenize(&p->t))
-		if (p->t.token_data == TOKEN_COMMENT_ENDL)
+		if (((uint32_t)p->t.token_data) == TOKEN_COMMENT_ENDL)
 			p->line++;
-		else if (p->t.token_data == TOKEN_QUOTE)
+		else if (((uint32_t)p->t.token_data) == TOKEN_QUOTE)
 			break ;
 		else
 			ft_dstradd(dst, p->t.token);
@@ -120,11 +112,11 @@ static bool			parse_pre_string(t_asm_parser *p, t_dstr *dst)
 {
 	while (ft_tokenize(&p->t))
 	{
-		if (p->t.token_data == TOKEN_QUOTE)
+		if (((uint32_t)p->t.token_data) == TOKEN_QUOTE)
 			return (parse_string(p, dst));
-		else if (p->t.token_data == TOKEN_ENDL)
+		if (((uint32_t)p->t.token_data) == TOKEN_ENDL)
 			break ;
-		else if (p->t.token_data != TOKEN_SPACE)
+		if (((uint32_t)p->t.token_data) != TOKEN_SPACE)
 			return (err_unexpected_token(p));
 	}
 	ft_asprintf(p->err, "Unexpected end of line");
@@ -138,9 +130,9 @@ static bool			parse_pre_string(t_asm_parser *p, t_dstr *dst)
 
 static bool			push_label(t_asm_parser *p, t_sub name)
 {
-	if ((ft_hmapget(p->dst.labels)).value != NULL)
+	if ((ft_hmapget(p->dst.labels, name)).value != NULL)
 		return (ft_asprintf(p->err, "Label '%ts' redefined", name), false);
-	ft_hmapputp(p->dst.labels, name, V(p->dst.instr.length));
+	ft_hmapputp(p->dst.labels, name, &p->dst.instr.length);
 	return (true);
 }
 
@@ -149,22 +141,48 @@ static bool			push_label(t_asm_parser *p, t_sub name)
 ** instr arg
 */
 
-static bool			parse_instr_arg_reg_ind(t_asm_parser *p, t_instr_arg *dst)
+static bool			parse_instr_arg_ind(t_asm_parser *p, t_instr_arg *dst)
 {
+	t_sub const			ind = SUB_FOR(p->t.token, 1);
+
+	dst->e = INSTR_ARG_IND;
+	if (ind.length == 0 || ft_subto_int(ind, &dst->u.ind) != ind.length)
+		return (ft_asprintf(p->err, "Invalid identifier: '%ts'", p->t.token), false);
+	return (true);
+}
+
+static bool			parse_instr_arg_reg(t_asm_parser *p, t_instr_arg *dst)
+{
+	t_sub const			reg = SUB_FOR(p->t.token, 1);
+
+	dst->e = INSTR_ARG_REG;
+	if (reg.length == 0 || ft_subto_uint(reg, &dst->u.reg) != reg.length)
+		return (ft_asprintf(p->err, "Invalid identifier: '%ts'", p->t.token), false);
+	if (dst->u.reg > REG_NUMBER || dst->u.reg < 1)
+		return (ft_asprintf(p->err, "Invalid register r%u%n", dst->u.reg), false);
 	return (true);
 }
 
 static bool			parse_instr_arg_dir(t_asm_parser *p, t_instr_arg *dst)
 {
+	if (!ft_tokenize(&p->t))
+		return (ft_asprintf(p->err, "Unexpected end of file"), false);
+	if (((uint32_t)p->t.token_data) != TOKEN_UNKNOWN)
+		return (err_unexpected_token(p));
+	dst->e = INSTR_ARG_DIR;
+	if (ft_subto_int(p->t.token, &dst->u.ind) != p->t.token.length)
+		return (ft_asprintf(p->err, "Invalid value: '%ts'", p->t.token), false);
 	return (true);
 }
 
 static bool			parse_instr_arg_label(t_asm_parser *p, t_instr_arg *dst)
 {
 	if (!ft_tokenize(&p->t))
-		r = (ft_asprintf(p->err, "Unexpected end of file"), false);
-	else if (p->t.token_data != TOKEN_UNKNOWN)
-		; // TODO: finish
+		return (ft_asprintf(p->err, "Unexpected end of file"), false);
+	if (((uint32_t)p->t.token_data) != TOKEN_UNKNOWN)
+		return (err_unexpected_token(p));
+	dst->e = INSTR_ARG_LABEL;
+	dst->u.label = ft_aprintf("%ts", p->t.token);
 	return (true);
 }
 
@@ -172,16 +190,20 @@ static bool			parse_instr_arg_label(t_asm_parser *p, t_instr_arg *dst)
 
 static bool			parse_instr_arg(t_asm_parser *p, t_instr_arg *dst)
 {
+	bool				r;
+
 	if (!ft_tokenize(&p->t))
 		r = (ft_asprintf(p->err, "Unexpected end of file"), false);
-	else if (p->t.token_data == TOKEN_UNKNOWN)
-		r = parse_instr_arg_reg_ind(p, dst);
-	else if (p->t.token_data == TOKEN_MODULO)
+	else if (((uint32_t)p->t.token_data) == TOKEN_UNKNOWN)
+		r = (p->t.token.str[0] == 'r') ?
+			parse_instr_arg_reg(p, dst) : parse_instr_arg_ind(p, dst);
+	else if (((uint32_t)p->t.token_data) == TOKEN_MODULO)
 		r = parse_instr_arg_dir(p, dst);
-	else if (p->t.token_data == TOKEN_LABEL)
+	else if (((uint32_t)p->t.token_data) == TOKEN_LABEL)
 		r = parse_instr_arg_label(p, dst);
 	else
 		r = err_unexpected_token(p);
+	return (r);
 }
 
 /*
@@ -194,17 +216,18 @@ static bool			parse_instr_arg_list(t_asm_parser *p, t_instr *dst)
 {
 	while (true)
 	{
-		r = parse_instr_arg(p, &instr->args[instr->arg_count]);
-		instr->arg_count++;
+		if (!parse_instr_arg(p, &dst->args[dst->arg_count]))
+			return (false);
+		dst->arg_count++;
 		while (ft_tokenize(&p->t))
 		{
-			if (p->t.token_data == TOKEN_SPACE)
+			if (((uint32_t)p->t.token_data) == TOKEN_SPACE)
 				continue ;
-			else if (p->t.token_data == TOKEN_ENDL)
+			else if (((uint32_t)p->t.token_data) == TOKEN_ENDL)
 				return ((++p->line), true);
-			else if (p->t.token_data == TOKEN_COMMENT)
+			else if (((uint32_t)p->t.token_data) == TOKEN_COMMENT)
 				return (parse_comment(p));
-			else if (p->t.token_data == TOKEN_COMMA)
+			else if (((uint32_t)p->t.token_data) == TOKEN_COMMA)
 				break ;
 			return (err_unexpected_token(p),
 					ft_asprintf(p->err, ", expecting ','"), false);
@@ -241,14 +264,13 @@ static bool			get_opcode(t_sub name, uint32_t *dst)
 
 static bool			parse_instr(t_asm_parser *p, t_sub name)
 {
-	bool				r;
 	uint32_t			opcode;
 	t_instr				*instr;
 
 	if (!get_opcode(name, &opcode))
 		return (ft_asprintf(p->err, "Unknown instruction '%ts'", name), false);
 	instr = ft_vpush(&p->dst.instr, NULL, 1);
-	*instr = (t_instr){opcode, {0}, 0};
+	*instr = (t_instr){opcode, {{0, {0}}}, 0};
 	return (parse_instr_arg_list(p, instr));
 }
 
@@ -267,9 +289,9 @@ static bool			parse_label_or_instr(t_asm_parser *p)
 	name = ft_aprintf("%ts", p->t.token);
 	if (!ft_tokenize(&p->t))
 		r = (ft_asprintf(p->err, "Unexpected end of file"), false);
-	else if (p->t.token_data == TOKEN_COLON)
+	else if (((uint32_t)p->t.token_data) == TOKEN_COLON)
 		r = push_label(p, DSTR_SUB(name));
-	else if (p->t.token_data == TOKEN_SPACE)
+	else if (((uint32_t)p->t.token_data) == TOKEN_SPACE)
 		r = parse_instr(p, DSTR_SUB(name));
 	else
 		r = err_unexpected_token(p);
@@ -290,12 +312,12 @@ static bool			start_parsing(t_asm_parser *p)
 
 	while (ft_tokenize(&p->t))
 	{
-		if (p->t.token_data == TOKEN_SPACE
-			|| (p->t.token_data == TOKEN_ENDL && ++p->line))
+		if (((uint32_t)p->t.token_data) == TOKEN_SPACE
+			|| (((uint32_t)p->t.token_data) == TOKEN_ENDL && ++p->line))
 			r = true;
-		else if (p->t.token_data == TOKEN_COMMENT)
+		else if (((uint32_t)p->t.token_data) == TOKEN_COMMENT)
 			r = parse_comment(p);
-		else if (p->t.token_data != TOKEN_UNKNOWN)
+		else if (((uint32_t)p->t.token_data) != TOKEN_UNKNOWN)
 			r = err_unexpected_token(p);
 		else if (SUB_EQU(p->t.token, SUBC(NAME_CMD_STRING)))
 			r = parse_pre_string(p, &p->dst.name);
@@ -311,22 +333,26 @@ static bool			start_parsing(t_asm_parser *p)
 
 bool				parse_asm(t_in *in, t_asm *dst, t_dstr *err)
 {
+	static t_token_map const	*map = NULL;
 	t_asm_parser	p;
 	bool			r;
 
+	if (map == NULL)
+		map = ft_token_map_build(&g_token_map);
 	p = (t_asm_parser){
-		TOKENIZER(in, get_token_map()),
+		TOKENIZER(in, map),
 		(t_asm){
 			DSTR0(),
 			DSTR0(),
 			VECTOR(t_instr),
 			ft_hmapnew(20, &ft_djb2)
 		},
-		err
+		err,
+		0
 	};
 	if (!(r = start_parsing(&p)))
-		ft_asprintf(p->err, " at line %u", p.line);
+		ft_asprintf(err, " at line %u", p.line);
 	*dst = p.dst;
-	ft_tokenizer_reset(&p->t, true);
+	ft_tokenizer_reset(&p.t, true);
 	return (r);
 }

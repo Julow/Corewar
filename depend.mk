@@ -8,11 +8,11 @@ OBJ_DIR_TREE += $(O_DIR)/srcs/vm_loader/ $(O_DIR)/srcs/vm_exec/operations/ \
 	$(O_DIR)/srcs/debug_ui/ $(O_DIR)/srcs/corewar_main/ \
 	$(O_DIR)/srcs/corewar_config/ $(O_DIR)/srcs/asm_parser/ $(O_DIR)/srcs/asm/ \
 	$(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ $(O_DIR)/libft/ft_vector/ \
-	$(O_DIR)/libft/ft_printf/formats/ $(O_DIR)/libft/ft_printf/ \
-	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ $(O_DIR)/libft/ft_in/ \
-	$(O_DIR)/libft/ft_hmap/ $(O_DIR)/libft/ft_dstr/ $(O_DIR)/libft/ft_base/ \
-	$(O_DIR)/libft/ft_argv/ $(O_DIR)/libft/ $(O_DIR)/_public/ft/ \
-	$(O_DIR)/_public/ $(O_DIR)/
+	$(O_DIR)/libft/ft_tokenizer/ $(O_DIR)/libft/ft_printf/formats/ \
+	$(O_DIR)/libft/ft_printf/ $(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ \
+	$(O_DIR)/libft/ft_in/ $(O_DIR)/libft/ft_hmap/ $(O_DIR)/libft/ft_dstr/ \
+	$(O_DIR)/libft/ft_bst/ $(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ft_argv/ \
+	$(O_DIR)/libft/ $(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
 O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/main.o \
 	$(O_DIR)/srcs/asm/parse_params.o $(O_DIR)/srcs/asm_parser/parse_asm.o \
 	$(O_DIR)/srcs/corewar_main/main.o $(O_DIR)/srcs/corewar_main/parse_argv.o \
@@ -38,7 +38,12 @@ O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/main.o \
 	$(O_DIR)/libft/ft_base/ft_subto.o $(O_DIR)/libft/ft_base/ft_unescape.o \
 	$(O_DIR)/libft/ft_base/ft_widetoa.o $(O_DIR)/libft/ft_base/ft_wstrconv.o \
 	$(O_DIR)/libft/ft_base/ft_wstrlen.o $(O_DIR)/libft/ft_base/ft_wstrnconv.o \
-	$(O_DIR)/libft/ft_dstr/ft_dstradd.o $(O_DIR)/libft/ft_dstr/ft_dstrclear.o \
+	$(O_DIR)/libft/ft_bst/bst_balance.o $(O_DIR)/libft/ft_bst/ft_bst_destroy.o \
+	$(O_DIR)/libft/ft_bst/ft_bstdel.o $(O_DIR)/libft/ft_bst/ft_bstget.o \
+	$(O_DIR)/libft/ft_bst/ft_bstgetall.o $(O_DIR)/libft/ft_bst/ft_bstiter.o \
+	$(O_DIR)/libft/ft_bst/ft_bstmax.o $(O_DIR)/libft/ft_bst/ft_bstmin.o \
+	$(O_DIR)/libft/ft_bst/ft_bstput.o $(O_DIR)/libft/ft_dstr/ft_dstradd.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstrclear.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstrextend.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstrspan.o \
 	$(O_DIR)/libft/get_next_line/get_next_line.o \
@@ -69,6 +74,8 @@ O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/main.o \
 	$(O_DIR)/libft/ft_printf/ft_aprintf.o $(O_DIR)/libft/ft_printf/ft_logf.o \
 	$(O_DIR)/libft/ft_printf/ft_out.o $(O_DIR)/libft/ft_printf/ft_printf.o \
 	$(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_printf/ft_vprintf.o \
+	$(O_DIR)/libft/ft_tokenizer/ft_token_map.o \
+	$(O_DIR)/libft/ft_tokenizer/ft_tokenize.o \
 	$(O_DIR)/libft/ft_vector/ft_vclear.o $(O_DIR)/libft/ft_vector/ft_vpush.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/libft/ft_vector/ft_vspan.o \
 	$(O_DIR)/srcs/ui/key_handler.o $(O_DIR)/srcs/ui/listeners/on_aff.o \
@@ -95,17 +102,18 @@ O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/main.o \
 	$(O_DIR)/srcs/vm_exec/operations/zjmp.o $(O_DIR)/srcs/vm_exec/vm_check.o \
 	$(O_DIR)/srcs/vm_exec/vm_exec.o $(O_DIR)/srcs/vm_loader/load_vm.o \
 	$(O_DIR)/srcs/vm_loader/misc.o
-PUBLIC_LINKS += $(O_DIR)/_public/asm_parser.h $(O_DIR)/_public/op.h \
-	$(O_DIR)/_public/debug_ui.h $(O_DIR)/_public/ft/argv.h \
-	$(O_DIR)/_public/ft/ft_colors.h $(O_DIR)/_public/ft/ft_wchar.h \
-	$(O_DIR)/_public/ft/libft.h $(O_DIR)/_public/ft/ft_dstr.h \
+PUBLIC_LINKS += $(O_DIR)/_public/asm_data.h $(O_DIR)/_public/asm_parser.h \
+	$(O_DIR)/_public/op.h $(O_DIR)/_public/debug_ui.h \
+	$(O_DIR)/_public/ft/argv.h $(O_DIR)/_public/ft/ft_colors.h \
+	$(O_DIR)/_public/ft/ft_wchar.h $(O_DIR)/_public/ft/libft.h \
+	$(O_DIR)/_public/ft/ft_bst.h $(O_DIR)/_public/ft/ft_dstr.h \
 	$(O_DIR)/_public/ft/get_next_line.h $(O_DIR)/_public/ft/ft_hmap.h \
 	$(O_DIR)/_public/ft/ft_file_in.h $(O_DIR)/_public/ft/ft_in.h \
 	$(O_DIR)/_public/ft/ft_list.h $(O_DIR)/_public/ft/ft_out.h \
 	$(O_DIR)/_public/ft/ft_str_out.h $(O_DIR)/_public/ft/path.h \
 	$(O_DIR)/_public/ft/ft_printf.h $(O_DIR)/_public/ft/ft_vprintf.h \
-	$(O_DIR)/_public/ft/ft_vector.h $(O_DIR)/_public/ui.h \
-	$(O_DIR)/_public/utils.h $(O_DIR)/_public/player.h \
+	$(O_DIR)/_public/ft/tokenizer.h $(O_DIR)/_public/ft/ft_vector.h \
+	$(O_DIR)/_public/ui.h $(O_DIR)/_public/utils.h $(O_DIR)/_public/player.h \
 	$(O_DIR)/_public/process.h $(O_DIR)/_public/vm.h \
 	$(O_DIR)/_public/vm_exec.h $(O_DIR)/_public/vm_loader.h
 
@@ -116,64 +124,72 @@ asm:$(O_DIR)/libft/ft_base/ft_subnext.o $(O_DIR)/libft/ft_base/ft_memcpy.o \
 	$(O_DIR)/libft/ft_out/ft_putsub.o $(O_DIR)/srcs/asm_parser/parse_asm.o \
 	$(O_DIR)/libft/ft_base/ft_clock.o $(O_DIR)/libft/ft_printf/ft_logf.o \
 	$(O_DIR)/srcs/asm/parse_params.o $(O_DIR)/libft/ft_base/ft_max.o \
-	$(O_DIR)/libft/ft_base/ft_memrcpy.o $(O_DIR)/libft/ft_base/ft_bitset.o \
+	$(O_DIR)/libft/ft_base/ft_wstrconv.o $(O_DIR)/libft/ft_base/ft_bitset.o \
 	$(O_DIR)/libft/ft_base/ft_getenv.o $(O_DIR)/libft/ft_base/ft_wstrnconv.o \
-	$(O_DIR)/libft/ft_out/ft_putendl.o $(O_DIR)/libft/ft_dstr/ft_dstrclear.o \
-	$(O_DIR)/libft/ft_base/ft_strlen.o $(O_DIR)/srcs/corewar_config/op.o \
-	$(O_DIR)/libft/ft_printf/formats/str.o $(O_DIR)/libft/ft_out/ft_putstr.o \
-	$(O_DIR)/libft/ft_base/ft_is.o $(O_DIR)/libft/ft_base/ft_strchri.o \
-	$(O_DIR)/libft/ft_printf/exec_subformat.o $(O_DIR)/libft/ft_hmap/ft_djb2.o \
-	$(O_DIR)/libft/ft_base/ft_memdup.o $(O_DIR)/libft/ft_out/out_formats.o \
+	$(O_DIR)/libft/ft_bst/ft_bstdel.o $(O_DIR)/libft/ft_base/ft_memrcpy.o \
+	$(O_DIR)/libft/ft_out/ft_putendl.o $(O_DIR)/libft/ft_bst/ft_bstget.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstrclear.o $(O_DIR)/libft/ft_base/ft_strlen.o \
+	$(O_DIR)/srcs/corewar_config/op.o $(O_DIR)/libft/ft_printf/formats/str.o \
+	$(O_DIR)/libft/ft_out/ft_putstr.o $(O_DIR)/libft/ft_out/ft_putchar.o \
+	$(O_DIR)/libft/ft_base/ft_strchri.o \
+	$(O_DIR)/libft/ft_printf/exec_subformat.o \
+	$(O_DIR)/libft/ft_printf/formats/char.o $(O_DIR)/libft/ft_base/ft_memdup.o \
+	$(O_DIR)/libft/ft_bst/ft_bstmax.o $(O_DIR)/libft/ft_out/out_formats.o \
 	$(O_DIR)/libft/ft_argv/opt.o $(O_DIR)/libft/ft_base/ft_memmove.o \
 	$(O_DIR)/libft/ft_base/ft_widetoa.o $(O_DIR)/libft/ft_vector/ft_vpush.o \
-	$(O_DIR)/libft/ft_base/ft_wstrconv.o $(O_DIR)/libft/ft_dstr/ft_dstradd.o \
-	$(O_DIR)/libft/ft_base/ft_memswap.o $(O_DIR)/libft/ft_hmap/ft_hmapnew.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstradd.o $(O_DIR)/libft/ft_base/ft_memswap.o \
+	$(O_DIR)/libft/ft_hmap/ft_hmapnew.o $(O_DIR)/libft/ft_bst/ft_bstgetall.o \
 	$(O_DIR)/libft/ft_base/ft_rand.o $(O_DIR)/srcs/asm/compile.o \
 	$(O_DIR)/libft/ft_hmap/ft_hmapput.o $(O_DIR)/libft/ft_base/ft_wstrlen.o \
 	$(O_DIR)/libft/ft_vector/ft_vspan.o $(O_DIR)/libft/ft_argv/arg.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/srcs/asm/main.o \
 	$(O_DIR)/libft/ft_base/ft_escape.o $(O_DIR)/libft/ft_base/ft_subfind.o \
+	$(O_DIR)/libft/ft_bst/bst_balance.o $(O_DIR)/libft/ft_hmap/ft_djb2.o \
 	$(O_DIR)/libft/ft_in/ft_readto.o $(O_DIR)/libft/ft_in/ft_in_refresh.o \
 	$(O_DIR)/libft/ft_hmap/ft_hmaprem.o $(O_DIR)/libft/ft_base/ft_nanoclock.o \
-	$(O_DIR)/libft/ft_out/ft_putint.o $(O_DIR)/libft/ft_printf/ft_out.o \
-	$(O_DIR)/libft/ft_hmap/ft_hmapget.o $(O_DIR)/libft/ft_hmap/ft_hmapdatas.o \
-	$(O_DIR)/libft/ft_hmap/hmap_puth.o $(O_DIR)/libft/ft_printf/formats/misc.o \
-	$(O_DIR)/libft/ft_base/ft_bzero.o $(O_DIR)/libft/ft_hmap/ft_hmapkeys.o \
-	$(O_DIR)/libft/ft_printf/ft_aprintf.o \
+	$(O_DIR)/libft/ft_bst/ft_bstmin.o $(O_DIR)/libft/ft_out/ft_putint.o \
+	$(O_DIR)/libft/ft_printf/ft_out.o $(O_DIR)/libft/ft_hmap/ft_hmapget.o \
+	$(O_DIR)/libft/ft_hmap/ft_hmapdatas.o $(O_DIR)/libft/ft_hmap/hmap_puth.o \
+	$(O_DIR)/libft/ft_out/ft_putfloat.o $(O_DIR)/libft/ft_base/ft_bzero.o \
+	$(O_DIR)/libft/ft_hmap/ft_hmapkeys.o $(O_DIR)/libft/ft_printf/ft_aprintf.o \
 	$(O_DIR)/libft/ft_printf/ft_vprintf.o $(O_DIR)/libft/ft_printf/ft_printf.o \
-	$(O_DIR)/libft/ft_base/ft_assert.o $(O_DIR)/libft/ft_printf/ft_putf.o \
+	$(O_DIR)/libft/ft_base/ft_assert.o $(O_DIR)/libft/ft_base/ft_sub.o \
 	$(O_DIR)/libft/ft_base/ft_clock_stack.o \
-	$(O_DIR)/libft/ft_dstr/ft_dstrextend.o $(O_DIR)/libft/ft_out/ft_putfloat.o \
-	$(O_DIR)/libft/ft_base/ft_emalloc.o $(O_DIR)/libft/ft_out/ft_putchar.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstrextend.o \
+	$(O_DIR)/libft/ft_printf/formats/misc.o \
+	$(O_DIR)/libft/ft_base/ft_emalloc.o $(O_DIR)/libft/ft_base/ft_is.o \
 	$(O_DIR)/libft/ft_base/ft_subto.o $(O_DIR)/libft/ft_in/file_in_open.o \
 	$(O_DIR)/libft/ft_in/file_in.o $(O_DIR)/libft/ft_base/ft_memset.o \
+	$(O_DIR)/libft/ft_tokenizer/ft_token_map.o \
+	$(O_DIR)/libft/ft_tokenizer/ft_tokenize.o \
 	$(O_DIR)/libft/ft_base/ft_memcmp.o $(O_DIR)/libft/ft_base/ft_unescape.o \
 	$(O_DIR)/libft/ft_base/ft_memfill.o $(O_DIR)/libft/ft_printf/exec_format.o \
-	$(O_DIR)/libft/ft_base/ft_sub.o $(O_DIR)/libft/ft_base/ft_abs.o \
-	$(O_DIR)/srcs/ft_path/path.o $(O_DIR)/libft/ft_out/ft_putuint.o \
+	$(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_base/ft_abs.o \
+	$(O_DIR)/srcs/ft_path/path.o $(O_DIR)/libft/ft_bst/ft_bstiter.o \
 	$(O_DIR)/libft/ft_printf/args_utils.o $(O_DIR)/libft/ft_base/ft_min.o \
 	$(O_DIR)/libft/ft_out/ft_write_nchar.o \
-	$(O_DIR)/libft/ft_base/ft_memstart.o \
-	$(O_DIR)/libft/ft_printf/formats/char.o $(O_DIR)/libft/ft_out/ft_putpad.o \
+	$(O_DIR)/libft/ft_bst/ft_bst_destroy.o \
+	$(O_DIR)/libft/ft_base/ft_memstart.o $(O_DIR)/libft/ft_bst/ft_bstput.o \
+	$(O_DIR)/libft/ft_out/ft_putpad.o $(O_DIR)/libft/ft_out/ft_putuint.o \
 	$(O_DIR)/libft/ft_printf/formats/int.o \
 	$(O_DIR)/libft/ft_hmap/ft_hmapdestroy.o \
 	$(O_DIR)/libft/ft_out/ft_putnchar.o $(O_DIR)/libft/ft_out/ft_str_out.o \
 	$(O_DIR)/libft/ft_hmap/ft_hmapputp.o
 
 corewar: $(O_DIR)/srcs/ui/listeners/on_write.o \
-	$(O_DIR)/libft/ft_base/ft_subnext.o $(O_DIR)/libft/ft_base/ft_memcpy.o \
-	$(O_DIR)/libft/ft_dstr/ft_dstrspan.o $(O_DIR)/libft/ft_base/ft_atoib.o \
-	$(O_DIR)/srcs/debug_ui/debug_loop.o $(O_DIR)/srcs/vm_exec/operations/sti.o \
-	$(O_DIR)/libft/ft_out/ft_write.o $(O_DIR)/libft/ft_vector/ft_vclear.o \
-	$(O_DIR)/libft/ft_out/ft_write_char.o $(O_DIR)/libft/ft_base/ft_memmove.o \
-	$(O_DIR)/libft/ft_out/ft_putsub.o $(O_DIR)/srcs/vm_exec/operations/ld.o \
-	$(O_DIR)/libft/ft_base/ft_clock.o $(O_DIR)/libft/ft_printf/ft_logf.o \
-	$(O_DIR)/libft/ft_base/ft_max.o $(O_DIR)/srcs/debug_ui/debug_dump.o \
-	$(O_DIR)/libft/ft_out/ft_putuint.o $(O_DIR)/libft/ft_base/ft_bitset.o \
-	$(O_DIR)/libft/ft_base/ft_getenv.o $(O_DIR)/srcs/vm/vm_access.o \
-	$(O_DIR)/srcs/corewar_main/parse_argv.o \
+	$(O_DIR)/libft/ft_printf/ft_aprintf.o $(O_DIR)/libft/ft_base/ft_subnext.o \
+	$(O_DIR)/libft/ft_base/ft_memcpy.o $(O_DIR)/libft/ft_dstr/ft_dstrspan.o \
+	$(O_DIR)/libft/ft_base/ft_atoib.o $(O_DIR)/srcs/debug_ui/debug_loop.o \
+	$(O_DIR)/srcs/vm_exec/operations/sti.o $(O_DIR)/libft/ft_out/ft_write.o \
+	$(O_DIR)/libft/ft_vector/ft_vclear.o $(O_DIR)/libft/ft_out/ft_write_char.o \
+	$(O_DIR)/srcs/vm/vm_start.o $(O_DIR)/libft/ft_out/ft_putsub.o \
+	$(O_DIR)/srcs/vm_exec/vm_check.o $(O_DIR)/libft/ft_base/ft_clock.o \
+	$(O_DIR)/libft/ft_printf/ft_logf.o $(O_DIR)/libft/ft_base/ft_max.o \
+	$(O_DIR)/libft/ft_base/ft_widetoa.o $(O_DIR)/libft/ft_out/ft_putuint.o \
+	$(O_DIR)/libft/ft_base/ft_wstrlen.o $(O_DIR)/libft/ft_base/ft_getenv.o \
+	$(O_DIR)/srcs/vm/vm_access.o $(O_DIR)/srcs/corewar_main/parse_argv.o \
 	$(O_DIR)/srcs/corewar_main/parse_tools.o $(O_DIR)/srcs/ui/ui.o \
-	$(O_DIR)/srcs/vm_loader/misc.o $(O_DIR)/srcs/vm_exec/vm_check.o \
+	$(O_DIR)/srcs/vm_loader/misc.o $(O_DIR)/srcs/vm_exec/operations/ld.o \
 	$(O_DIR)/libft/ft_base/ft_wstrnconv.o \
 	$(O_DIR)/srcs/vm_exec/operations/lld.o $(O_DIR)/libft/ft_out/ft_putendl.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstrclear.o \
@@ -188,18 +204,17 @@ corewar: $(O_DIR)/srcs/ui/listeners/on_write.o \
 	$(O_DIR)/srcs/vm_exec/operations/lldi.o \
 	$(O_DIR)/libft/ft_printf/formats/char.o $(O_DIR)/libft/ft_base/ft_memdup.o \
 	$(O_DIR)/libft/ft_out/out_formats.o $(O_DIR)/libft/ft_argv/opt.o \
-	$(O_DIR)/srcs/vm/vm_start.o $(O_DIR)/libft/ft_base/ft_widetoa.o \
+	$(O_DIR)/libft/ft_base/ft_memmove.o $(O_DIR)/srcs/debug_ui/debug_dump.o \
 	$(O_DIR)/libft/ft_vector/ft_vpush.o $(O_DIR)/libft/ft_base/ft_wstrconv.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstradd.o $(O_DIR)/libft/ft_base/ft_memswap.o \
 	$(O_DIR)/srcs/vm_exec/operations/live.o \
 	$(O_DIR)/srcs/ui/ui_arena/w_arena.o $(O_DIR)/libft/ft_base/ft_rand.o \
 	$(O_DIR)/libft/get_next_line/get_next_line.o \
-	$(O_DIR)/libft/ft_list/ft_listadd.o $(O_DIR)/libft/ft_base/ft_wstrlen.o \
-	$(O_DIR)/libft/ft_vector/ft_vspan.o $(O_DIR)/libft/ft_argv/arg.o \
-	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/srcs/vm_exec/exec_op.o \
-	$(O_DIR)/libft/ft_base/ft_escape.o $(O_DIR)/srcs/vm_exec/operations/aff.o \
-	$(O_DIR)/libft/ft_base/ft_subfind.o $(O_DIR)/srcs/corewar_main/main.o \
-	$(O_DIR)/libft/ft_base/ft_nanoclock.o \
+	$(O_DIR)/libft/ft_list/ft_listadd.o $(O_DIR)/libft/ft_vector/ft_vspan.o \
+	$(O_DIR)/libft/ft_argv/arg.o $(O_DIR)/libft/ft_vector/ft_vreserve.o \
+	$(O_DIR)/srcs/vm_exec/exec_op.o $(O_DIR)/libft/ft_base/ft_escape.o \
+	$(O_DIR)/srcs/vm_exec/operations/aff.o $(O_DIR)/libft/ft_base/ft_subfind.o \
+	$(O_DIR)/srcs/corewar_main/main.o $(O_DIR)/libft/ft_base/ft_nanoclock.o \
 	$(O_DIR)/srcs/vm_exec/operations/and.o $(O_DIR)/srcs/vm_exec/vm_exec.o \
 	$(O_DIR)/libft/ft_out/ft_putint.o $(O_DIR)/libft/ft_printf/ft_out.o \
 	$(O_DIR)/srcs/vm_exec/operations/ldi.o $(O_DIR)/libft/ft_out/ft_putfloat.o \
@@ -208,33 +223,32 @@ corewar: $(O_DIR)/srcs/ui/listeners/on_write.o \
 	$(O_DIR)/libft/ft_printf/ft_vprintf.o $(O_DIR)/libft/ft_list/ft_listsort.o \
 	$(O_DIR)/srcs/vm_exec/operations/xor.o \
 	$(O_DIR)/libft/ft_printf/ft_printf.o $(O_DIR)/libft/ft_base/ft_assert.o \
-	$(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_base/ft_clock_stack.o \
+	$(O_DIR)/libft/ft_base/ft_sub.o $(O_DIR)/libft/ft_base/ft_clock_stack.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstrextend.o \
 	$(O_DIR)/libft/ft_printf/formats/misc.o \
-	$(O_DIR)/libft/ft_base/ft_emalloc.o $(O_DIR)/libft/ft_printf/formats/int.o \
-	$(O_DIR)/libft/ft_out/ft_putchar.o $(O_DIR)/srcs/vm/vm_destroy.o \
-	$(O_DIR)/libft/ft_base/ft_subto.o $(O_DIR)/libft/ft_base/ft_memset.o \
-	$(O_DIR)/libft/ft_base/ft_memcmp.o $(O_DIR)/libft/ft_base/ft_unescape.o \
-	$(O_DIR)/libft/ft_base/ft_memfill.o $(O_DIR)/srcs/ui/ui_init.o \
-	$(O_DIR)/srcs/ui/key_handler.o $(O_DIR)/libft/ft_printf/exec_format.o \
-	$(O_DIR)/libft/ft_base/ft_sub.o $(O_DIR)/libft/ft_base/ft_abs.o \
-	$(O_DIR)/srcs/vm_loader/load_vm.o $(O_DIR)/srcs/vm_exec/operations/st.o \
-	$(O_DIR)/libft/ft_base/ft_memrcpy.o $(O_DIR)/libft/ft_printf/args_utils.o \
-	$(O_DIR)/libft/ft_base/ft_min.o $(O_DIR)/srcs/vm_exec/get_values.o \
-	$(O_DIR)/libft/ft_out/ft_write_nchar.o \
+	$(O_DIR)/libft/ft_base/ft_emalloc.o $(O_DIR)/libft/ft_out/ft_putchar.o \
+	$(O_DIR)/srcs/vm/vm_destroy.o $(O_DIR)/libft/ft_base/ft_subto.o \
+	$(O_DIR)/libft/ft_base/ft_memset.o $(O_DIR)/libft/ft_base/ft_memcmp.o \
+	$(O_DIR)/libft/ft_base/ft_unescape.o $(O_DIR)/libft/ft_base/ft_memfill.o \
+	$(O_DIR)/srcs/ui/ui_init.o $(O_DIR)/srcs/ui/key_handler.o \
+	$(O_DIR)/libft/ft_printf/exec_format.o $(O_DIR)/libft/ft_printf/ft_putf.o \
+	$(O_DIR)/libft/ft_base/ft_abs.o $(O_DIR)/srcs/vm_loader/load_vm.o \
+	$(O_DIR)/srcs/vm_exec/operations/st.o $(O_DIR)/libft/ft_base/ft_memrcpy.o \
+	$(O_DIR)/libft/ft_printf/args_utils.o $(O_DIR)/libft/ft_base/ft_min.o \
+	$(O_DIR)/srcs/vm_exec/get_values.o $(O_DIR)/libft/ft_out/ft_write_nchar.o \
 	$(O_DIR)/libft/ft_base/ft_memstart.o $(O_DIR)/libft/ft_out/ft_putpad.o \
 	$(O_DIR)/libft/ft_list/ft_listremove.o \
 	$(O_DIR)/srcs/vm_exec/operations/add.o \
-	$(O_DIR)/libft/ft_printf/ft_aprintf.o $(O_DIR)/libft/ft_out/ft_putnchar.o \
+	$(O_DIR)/libft/ft_printf/formats/int.o $(O_DIR)/libft/ft_out/ft_putnchar.o \
 	$(O_DIR)/srcs/ui/ui_arena/arena_update.o \
-	$(O_DIR)/libft/ft_out/ft_str_out.o
+	$(O_DIR)/libft/ft_out/ft_str_out.o $(O_DIR)/libft/ft_base/ft_bitset.o
 
 # module asm
 $(O_DIR)/srcs/asm/compile.o: srcs/asm/compile.c libft/ft_argv/public/argv.h \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_hmap/public/ft_hmap.h libft/ft_in/public/ft_file_in.h \
 	libft/ft_in/public/ft_in.h libft/ft_vector/public/ft_vector.h \
-	srcs/asm/p_asm.h srcs/asm/parse_params.h \
+	srcs/asm/p_asm.h srcs/asm/parse_params.h srcs/asm_data/public/asm_data.h \
 	srcs/asm_parser/public/asm_parser.h srcs/corewar_config/public/op.h
 $(O_DIR)/srcs/asm/main.o: srcs/asm/main.c libft/ft_argv/public/argv.h \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
@@ -250,12 +264,17 @@ $(O_DIR)/srcs/asm/parse_params.o: srcs/asm/parse_params.c \
 $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/main.o \
 $(O_DIR)/srcs/asm/parse_params.o: INCLUDE_FLAGS += -Isrcs/asm
 
+# module asm_data
+
 # module asm_parser
 $(O_DIR)/srcs/asm_parser/parse_asm.o: srcs/asm_parser/parse_asm.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_hmap/public/ft_hmap.h libft/ft_in/public/ft_in.h \
-	libft/ft_vector/public/ft_vector.h srcs/asm_parser/p_asm_parser.h \
-	srcs/asm_parser/public/asm_parser.h srcs/corewar_config/public/op.h
+	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_hmap/public/ft_hmap.h \
+	libft/ft_in/public/ft_in.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h libft/ft_tokenizer/public/tokenizer.h \
+	libft/ft_vector/public/ft_vector.h srcs/asm_data/public/asm_data.h \
+	srcs/asm_parser/p_asm_parser.h srcs/asm_parser/public/asm_parser.h \
+	srcs/corewar_config/public/op.h
 
 $(O_DIR)/srcs/asm_parser/parse_asm.o: INCLUDE_FLAGS += -Isrcs/asm_parser
 
@@ -309,8 +328,9 @@ $(O_DIR)/srcs/debug_ui/debug_dump.o: srcs/debug_ui/debug_dump.c \
 	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
 	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
 	libft/get_next_line/public/get_next_line.h srcs/corewar_config/public/op.h \
-	srcs/debug_ui/public/debug_ui.h srcs/vm/public/player.h \
-	srcs/vm/public/process.h srcs/vm/public/vm.h srcs/vm_exec/public/vm_exec.h
+	srcs/debug_ui/p_debug_ui.h srcs/debug_ui/public/debug_ui.h \
+	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
+	srcs/vm_exec/public/vm_exec.h
 $(O_DIR)/srcs/debug_ui/debug_loop.o: srcs/debug_ui/debug_loop.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_list/public/ft_list.h srcs/corewar_config/public/op.h \
@@ -397,6 +417,36 @@ $(O_DIR)/libft/ft_base/ft_wstrlen.o: libft/ft_base/ft_wstrlen.c \
 	libft/ft_base/public/ft_wchar.h libft/ft_base/public/libft.h
 $(O_DIR)/libft/ft_base/ft_wstrnconv.o: libft/ft_base/ft_wstrnconv.c \
 	libft/ft_base/public/ft_wchar.h libft/ft_base/public/libft.h
+
+# module ft::bst
+$(O_DIR)/libft/ft_bst/bst_balance.o: libft/ft_bst/bst_balance.c \
+	libft/ft_base/public/libft.h libft/ft_bst/bst_internal.h \
+	libft/ft_bst/public/ft_bst.h
+$(O_DIR)/libft/ft_bst/ft_bst_destroy.o: libft/ft_bst/ft_bst_destroy.c \
+	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h
+$(O_DIR)/libft/ft_bst/ft_bstdel.o: libft/ft_bst/ft_bstdel.c \
+	libft/ft_base/public/libft.h libft/ft_bst/bst_internal.h \
+	libft/ft_bst/public/ft_bst.h
+$(O_DIR)/libft/ft_bst/ft_bstget.o: libft/ft_bst/ft_bstget.c \
+	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h
+$(O_DIR)/libft/ft_bst/ft_bstgetall.o: libft/ft_bst/ft_bstgetall.c \
+	libft/ft_base/public/libft.h libft/ft_bst/bst_internal.h \
+	libft/ft_bst/public/ft_bst.h
+$(O_DIR)/libft/ft_bst/ft_bstiter.o: libft/ft_bst/ft_bstiter.c \
+	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h
+$(O_DIR)/libft/ft_bst/ft_bstmax.o: libft/ft_bst/ft_bstmax.c \
+	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h
+$(O_DIR)/libft/ft_bst/ft_bstmin.o: libft/ft_bst/ft_bstmin.c \
+	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h
+$(O_DIR)/libft/ft_bst/ft_bstput.o: libft/ft_bst/ft_bstput.c \
+	libft/ft_base/public/libft.h libft/ft_bst/bst_internal.h \
+	libft/ft_bst/public/ft_bst.h
+
+$(O_DIR)/libft/ft_bst/bst_balance.o $(O_DIR)/libft/ft_bst/ft_bst_destroy.o \
+$(O_DIR)/libft/ft_bst/ft_bstdel.o $(O_DIR)/libft/ft_bst/ft_bstget.o \
+$(O_DIR)/libft/ft_bst/ft_bstgetall.o $(O_DIR)/libft/ft_bst/ft_bstiter.o \
+$(O_DIR)/libft/ft_bst/ft_bstmax.o $(O_DIR)/libft/ft_bst/ft_bstmin.o \
+$(O_DIR)/libft/ft_bst/ft_bstput.o: INCLUDE_FLAGS += -Ilibft/ft_bst
 
 # module ft::dstr
 $(O_DIR)/libft/ft_dstr/ft_dstradd.o: libft/ft_dstr/ft_dstradd.c \
@@ -604,6 +654,16 @@ $(O_DIR)/libft/ft_printf/ft_aprintf.o $(O_DIR)/libft/ft_printf/ft_logf.o \
 $(O_DIR)/libft/ft_printf/ft_out.o $(O_DIR)/libft/ft_printf/ft_printf.o \
 $(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_printf/ft_vprintf.o: \
 	INCLUDE_FLAGS += -Ilibft/ft_printf
+
+# module ft::tokenizer
+$(O_DIR)/libft/ft_tokenizer/ft_token_map.o: libft/ft_tokenizer/ft_token_map.c \
+	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_in/public/ft_in.h \
+	libft/ft_tokenizer/public/tokenizer.h
+$(O_DIR)/libft/ft_tokenizer/ft_tokenize.o: libft/ft_tokenizer/ft_tokenize.c \
+	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_in/public/ft_in.h \
+	libft/ft_tokenizer/public/tokenizer.h
 
 # module ft::vector
 $(O_DIR)/libft/ft_vector/ft_vclear.o: libft/ft_vector/ft_vclear.c \
@@ -821,9 +881,11 @@ $(O_DIR)/srcs/vm_loader/misc.o: srcs/vm_loader/misc.c \
 	srcs/vm_loader/public/vm_loader.h
 
 # public links
+$(O_DIR)/_public/asm_data.h: srcs/asm_data/public/asm_data.h
 $(O_DIR)/_public/asm_parser.h: srcs/asm_parser/public/asm_parser.h
 $(O_DIR)/_public/debug_ui.h: srcs/debug_ui/public/debug_ui.h
 $(O_DIR)/_public/ft/argv.h: libft/ft_argv/public/argv.h
+$(O_DIR)/_public/ft/ft_bst.h: libft/ft_bst/public/ft_bst.h
 $(O_DIR)/_public/ft/ft_colors.h: libft/ft_base/public/ft_colors.h
 $(O_DIR)/_public/ft/ft_dstr.h: libft/ft_dstr/public/ft_dstr.h
 $(O_DIR)/_public/ft/ft_file_in.h: libft/ft_in/public/ft_file_in.h
@@ -840,6 +902,7 @@ $(O_DIR)/_public/ft/get_next_line.h: \
 libft/get_next_line/public/get_next_line.h
 $(O_DIR)/_public/ft/libft.h: libft/ft_base/public/libft.h
 $(O_DIR)/_public/ft/path.h: srcs/ft_path/public/path.h
+$(O_DIR)/_public/ft/tokenizer.h: libft/ft_tokenizer/public/tokenizer.h
 $(O_DIR)/_public/op.h: srcs/corewar_config/public/op.h
 $(O_DIR)/_public/player.h: srcs/vm/public/player.h
 $(O_DIR)/_public/process.h: srcs/vm/public/process.h

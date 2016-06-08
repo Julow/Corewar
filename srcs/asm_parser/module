@@ -6,4 +6,7 @@ module asm_parser:
 	public require ft::vector
 	public require ft::base
 	public require ft::in
+	public require asm_data
 	private require corewar_config
+	private require ft::tokenizer
+	private require ft::printf

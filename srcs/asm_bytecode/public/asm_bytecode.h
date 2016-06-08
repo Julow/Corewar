@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_parser.h                                       :+:      :+:    :+:   */
+/*   asm_bytecode.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/06 10:45:27 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/08 16:25:38 by jaguillo         ###   ########.fr       */
+/*   Created: 2016/06/08 16:15:31 by jaguillo          #+#    #+#             */
+/*   Updated: 2016/06/08 16:24:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_PARSER_H
-# define ASM_PARSER_H
+#ifndef ASM_BYTECODE_H
+# define ASM_BYTECODE_H
 
-# include "ft/ft_in.h"
-# include "ft/libft.h"
+# include "ft/ft_dstr.h"
+# include "ft/ft_out.h"
 
 # include "asm_data.h"
 
 /*
 ** ========================================================================== **
-** Corewar asm parser
 */
 
-/*
-** Parse an asm file
-** Return true on success, false on error
-** On error, 'err' is filled with the error string
-*/
-bool			parse_asm(t_in *in, t_asm *dst, t_dstr *err);
+bool			bytecode_asm(t_out *out, t_asm const *asm, t_dstr *err);
 
 #endif
