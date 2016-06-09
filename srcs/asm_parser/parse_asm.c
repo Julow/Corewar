@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:55:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/08 15:49:59 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/09 12:27:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static t_vector const	g_token_map = VECTOR(t_token_def,
 	TOKEN_DEF(";", TOKEN_COMMENT),
 	TOKEN_DEF("#", TOKEN_COMMENT),
 	TOKEN_DEF(":", TOKEN_COLON),
+	TOKEN_DEF(",", TOKEN_COMMA),
 );
 
 static bool			err_unexpected_token(t_asm_parser *p)
@@ -190,20 +191,21 @@ static bool			parse_instr_arg_label(t_asm_parser *p, t_instr_arg *dst)
 
 static bool			parse_instr_arg(t_asm_parser *p, t_instr_arg *dst)
 {
-	bool				r;
-
-	if (!ft_tokenize(&p->t))
-		r = (ft_asprintf(p->err, "Unexpected end of file"), false);
-	else if (((uint32_t)p->t.token_data) == TOKEN_UNKNOWN)
-		r = (p->t.token.str[0] == 'r') ?
-			parse_instr_arg_reg(p, dst) : parse_instr_arg_ind(p, dst);
+	while (true)
+	{
+		if (!ft_tokenize(&p->t))
+			return (ft_asprintf(p->err, "Unexpected end of file"), false);
+		else if (((uint32_t)p->t.token_data) != TOKEN_SPACE)
+			break ;
+	}
+	if (((uint32_t)p->t.token_data) == TOKEN_UNKNOWN)
+		return ((p->t.token.str[0] == 'r') ?
+				parse_instr_arg_reg(p, dst) : parse_instr_arg_ind(p, dst));
 	else if (((uint32_t)p->t.token_data) == TOKEN_MODULO)
-		r = parse_instr_arg_dir(p, dst);
+		return (parse_instr_arg_dir(p, dst));
 	else if (((uint32_t)p->t.token_data) == TOKEN_LABEL)
-		r = parse_instr_arg_label(p, dst);
-	else
-		r = err_unexpected_token(p);
-	return (r);
+		return (parse_instr_arg_label(p, dst));
+	return (err_unexpected_token(p));
 }
 
 /*
@@ -296,7 +298,7 @@ static bool			parse_label_or_instr(t_asm_parser *p)
 	else
 		r = err_unexpected_token(p);
 	ft_dstrclear(&name);
-	return (false);
+	return (true);
 }
 
 /*
@@ -321,7 +323,7 @@ static bool			start_parsing(t_asm_parser *p)
 			r = err_unexpected_token(p);
 		else if (SUB_EQU(p->t.token, SUBC(NAME_CMD_STRING)))
 			r = parse_pre_string(p, &p->dst.name);
-		else if (SUB_EQU(p->t.token, SUBC(NAME_CMD_STRING)))
+		else if (SUB_EQU(p->t.token, SUBC(COMMENT_CMD_STRING)))
 			r = parse_pre_string(p, &p->dst.comment);
 		else
 			r = parse_label_or_instr(p);
@@ -348,7 +350,7 @@ bool				parse_asm(t_in *in, t_asm *dst, t_dstr *err)
 			ft_hmapnew(20, &ft_djb2)
 		},
 		err,
-		0
+		1
 	};
 	if (!(r = start_parsing(&p)))
 		ft_asprintf(err, " at line %u", p.line);
