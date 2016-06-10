@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 16:55:51 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/10 17:25:57 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/10 17:43:38 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool		bcode_encode(t_out *out, t_instr_arg *arg, uint32_t nb)
 	while (i++ < nb)
 	{
 		if (arg->e == INSTR_ARG_REG)
-				code |= 0b01;
+			code |= 0b01;
 		else if (arg->e == INSTR_ARG_DIR)
 			code |= 0b10;
 		else if (arg->e == INSTR_ARG_IND)
@@ -35,7 +35,7 @@ static bool		bcode_encode(t_out *out, t_instr_arg *arg, uint32_t nb)
 		code <<= 2;
 	}
 	ft_fprintf(out, "%c", code);
-	return (true)
+	return (true);
 }
 
 static bool		instr_to_byte(t_out *out, t_instr_arg *arg, uint32_t len)
@@ -66,7 +66,7 @@ static bool		bcode_instr(t_out *out, t_instr const *instr)
 	{
 		if (instr->args[i]->e == INSTR_ARG_REG
 			|| instr->args[i]->e == INSTR_ARG_DIR
-			||(instr->args[i]->e == INSTR_ARG_IND
+			|| (instr->args[i]->e == INSTR_ARG_IND
 				&& g_op_tab[instr.opc]->short_value))
 			instr_to_byte(out, instr->args[i], 2);
 		else
