@@ -6,11 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 16:16:12 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 17:26:15 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/10 16:56:59 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/ft_printf.h"
+#include "ft/get_next_line.h"
+
 #include "debug_ui.h"
+#include "p_debug_ui.h"
 #include "vm_exec.h"
 
 static uint32_t	getch_com(t_vm *vm)
@@ -32,7 +36,8 @@ static uint32_t	getch_com(t_vm *vm)
 	else if (line.length == 0)
 		tmp = 1;
 	else if (ft_subto_uint(line, &tmp) == 0)
-		ASSERT(false, "Unknown command");
+		ft_dprintf(2, "Unknown command '%s'\nOptions:\n\t-p\n\t-p && value"
+			"\n\t-pcr\n\t-pc\n", line);
 	return (tmp);
 }
 

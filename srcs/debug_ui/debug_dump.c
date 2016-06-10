@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 17:25:59 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/07 18:11:05 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/10 16:51:23 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		dump_arena(t_vm const *vm, uint32_t mark)
 		if (mark >= i && mark < (i + BYTE_PER_LINE))
 		{
 			dump_arena_n(vm, i, mark - i);
-			ft_printf("%s%.2hhx%s ", C_CYAN, C_RESET, arena[mark]);
+			ft_printf("%s%.2hhx%s ", C_CYAN, arena[mark], C_RESET);
 			dump_arena_n(vm, mark + 1, BYTE_PER_LINE - (mark - i) - 1);
 		}
 		else
@@ -107,5 +107,4 @@ void		dump_arena_focus(t_vm *vm, t_sub *line)
 
 	if (ft_subto_uint(SUB_FOR(*line, 2), &mark) > 0)
 		dump_arena(vm, mark);
-	//SEGFAULT HERE
 }
