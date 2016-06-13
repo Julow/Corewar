@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:50:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/09 12:01:07 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/13 13:28:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,29 @@ struct			s_asm_parser
 	t_dstr			*err;
 	uint32_t		line;
 };
+
+/*
+** -
+*/
+
+bool				parse_string(t_asm_parser *p, t_dstr *dst);
+bool				parse_comment(t_asm_parser *p);
+
+bool				parse_instr_arg(t_asm_parser *p, t_instr_arg *dst);
+
+bool				parse_instr(t_asm_parser *p, t_sub name);
+
+bool				err_unexpected_token(t_asm_parser *p);
+bool				err_unexpected_eof(t_asm_parser *p);
+
+/*
+** ========================================================================== **
+** Utils
+** TODO: move
+*/
+
+# define TOKEN_DEF(S,DATA)	((t_token_def){SUBC(S), V(DATA)})
+
+t_token_map			*ft_token_map_build(t_vector const *t);
 
 #endif

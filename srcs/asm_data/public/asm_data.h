@@ -6,15 +6,17 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 16:12:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/08 16:20:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/13 13:20:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_DATA_H
 # define ASM_DATA_H
 
+# include "ft/ft_dstr.h"
 # include "ft/ft_hmap.h"
 # include "ft/ft_vector.h"
+# include "ft/libft.h"
 
 # include "op.h"
 
