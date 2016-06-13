@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:50:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 13:28:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/13 19:05:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ enum			e_asm_tokens
 	TOKEN_SPACE,
 	TOKEN_ENDL,
 	TOKEN_QUOTE,
-	TOKEN_COMMA,
-	TOKEN_MODULO,
-	TOKEN_LABEL,
 	TOKEN_COMMENT,
 	TOKEN_COLON
 };
@@ -50,6 +47,17 @@ enum			e_asm_token_string
 	TOKEN_STRING_QUOTE
 };
 
+enum			e_asm_token_instr
+{
+	TOKEN_INSTR_UNKNOWN = 0,
+	TOKEN_INSTR_MODULO,
+	TOKEN_INSTR_LABEL,
+	TOKEN_INSTR_SPACE,
+	TOKEN_INSTR_ENDL,
+	TOKEN_INSTR_COMMA,
+	TOKEN_INSTR_COMMENT,
+};
+
 struct			s_asm_parser
 {
 	t_tokenizer		t;
@@ -59,18 +67,26 @@ struct			s_asm_parser
 };
 
 /*
-** -
+** Parse
 */
 
-bool				parse_string(t_asm_parser *p, t_dstr *dst);
-bool				parse_comment(t_asm_parser *p);
+bool			parse_string(t_asm_parser *p, t_dstr *dst);
+bool			parse_comment(t_asm_parser *p);
 
-bool				parse_instr_arg(t_asm_parser *p, t_instr_arg *dst);
+bool			parse_instr_arg(t_asm_parser *p, t_instr_arg *dst);
 
-bool				parse_instr(t_asm_parser *p, t_sub name);
+bool			parse_instr(t_asm_parser *p, t_sub name);
 
-bool				err_unexpected_token(t_asm_parser *p);
-bool				err_unexpected_eof(t_asm_parser *p);
+bool			err_unexpected_token(t_asm_parser *p);
+bool			err_unexpected_eof(t_asm_parser *p);
+
+/*
+** Check
+*/
+
+bool			check_instr(t_asm_parser const *p,
+					t_instr const *instr, t_dstr *err);
+bool			check_labels(t_asm_parser const *p, t_dstr *err);
 
 /*
 ** ========================================================================== **
@@ -80,6 +96,6 @@ bool				err_unexpected_eof(t_asm_parser *p);
 
 # define TOKEN_DEF(S,DATA)	((t_token_def){SUBC(S), V(DATA)})
 
-t_token_map			*ft_token_map_build(t_vector const *t);
+t_token_map		*ft_token_map_build(t_vector const *t);
 
 #endif

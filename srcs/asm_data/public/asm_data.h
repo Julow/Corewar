@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 16:12:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 13:20:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/13 17:02:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ struct			s_instr_arg
 
 struct			s_instr
 {
-	uint32_t		op_code;
+	t_op const		*op;
 	t_instr_arg		args[MAX_ARGS_NUMBER];
 	uint32_t		arg_count;
 };

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 15:40:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/09 12:20:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/13 15:52:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		print_instr(t_asm const *s, t_instr const *instr)
 {
 	uint32_t		i;
 
-	ft_printf("%s ", g_op_tab[instr->op_code].name);
+	ft_printf("%s ", instr->op->name);
 	i = 0;
 	while (i < instr->arg_count)
 	{
