@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/02 19:10:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/06 17:37:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 09:56:23 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "parse_params.h"
 
-#define ARGS_ERROR(MSG, ...)	(ft_printf("Error: " MSG "%n", ##__VA_ARGS__), false)
+#define ARGS_ERROR(M, ...)	(ft_printf("Error: " M "%n", ##__VA_ARGS__), false)
 
 static t_dstr	get_output_file(t_sub source_file)
 {
@@ -63,7 +63,8 @@ bool			parse_params(t_params *params, t_argv argv)
 			break ;
 		if (tmp.length == 0)
 			return (ARGS_ERROR("Invalid argument ''"));
-		ft_vpush(&params->files, &(t_params_file){tmp, get_output_file(tmp)}, 1);
+		ft_vpush(&params->files,
+			&(t_params_file){tmp, get_output_file(tmp)}, 1);
 	}
 	return (true);
 }

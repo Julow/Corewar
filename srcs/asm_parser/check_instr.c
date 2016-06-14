@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 16:01:00 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 18:56:05 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 09:53:36 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static uint32_t	get_arg_type(t_instr_arg const *arg)
 	else if (arg->e == INSTR_ARG_LABEL)
 		return (T_DIR);
 	else
-		return (ASSERT(false), 0);
+	{
+		ASSERT(false);
+		return (0);
+	}
 }
 
 bool			check_instr(t_asm_parser const *p,
@@ -33,7 +36,10 @@ bool			check_instr(t_asm_parser const *p,
 	uint32_t		i;
 
 	if (instr->arg_count != instr->op->arg_n)
-		return (ft_asprintf(err, "Not enougth argument"), false);
+	{
+		ft_asprintf(err, "Not enougth argument");
+		return (false);
+	}
 	i = 0;
 	while (i < instr->arg_count)
 	{

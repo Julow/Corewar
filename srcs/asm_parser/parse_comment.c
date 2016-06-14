@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 13:22:25 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 13:22:57 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 09:43:27 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_vector const	g_comment_token_map = VECTOR(t_token_def,
 	TOKEN_DEF("\\\n", TOKEN_COMMENT_ESCAPED),
-	TOKEN_DEF("\n", TOKEN_COMMENT_ENDL),
+	TOKEN_DEF("\n", TOKEN_COMMENT_ENDL)
 );
 
 bool				parse_comment(t_asm_parser *p)

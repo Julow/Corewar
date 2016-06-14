@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 13:24:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 18:56:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 09:52:52 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_vector const	g_instr_token_map = VECTOR(t_token_def,
 	TOKEN_DEF("#", TOKEN_INSTR_COMMENT),
 	TOKEN_DEF(";", TOKEN_INSTR_COMMENT),
 	TOKEN_DEF("%", TOKEN_INSTR_MODULO),
-	TOKEN_DEF("%:", TOKEN_INSTR_LABEL),
+	TOKEN_DEF("%:", TOKEN_INSTR_LABEL)
 );
 
 static bool			parse_instr_arg_list(t_asm_parser *p, t_instr *dst)
@@ -31,7 +31,10 @@ static bool			parse_instr_arg_list(t_asm_parser *p, t_instr *dst)
 	while (true)
 	{
 		if (dst->arg_count >= dst->op->arg_n)
-			return (ft_asprintf(p->err, "Too many argument"), false);
+		{
+			ft_asprintf(p->err, "Too many argument");
+			return (false);
+		}
 		if (!parse_instr_arg(p, &dst->args[dst->arg_count]))
 			return (false);
 		dst->arg_count++;
@@ -51,6 +54,10 @@ static bool			parse_instr_arg_list(t_asm_parser *p, t_instr *dst)
 		}
 	}
 }
+
+/*
+** this funct cannot compile norminette
+*/
 
 static t_op const	*get_opcode(t_sub name)
 {
@@ -88,6 +95,9 @@ bool				parse_instr(t_asm_parser *p, t_sub name)
 	r = parse_instr_arg_list(p, instr) && check_instr(p, instr, p->err);
 	p->t.token_map = old_map;
 	if (!r)
-		return (ft_asprintf(p->err, " (instruction %s)", instr->op->name), false);
+	{
+		ft_asprintf(p->err, " (instruction %s)", instr->op->name);
+		return (false);
+	}
 	return (r);
 }

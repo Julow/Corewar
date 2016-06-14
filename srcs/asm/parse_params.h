@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/02 19:12:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/02 19:17:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 09:54:50 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ typedef struct s_params			t_params;
 ** ========================================================================== **
 */
 
-#define FLAG_VERBOSE	(1 << 0)
+# define FLAG_VERBOSE	(1 << 0)
 
-struct		s_params_file
+struct			s_params_file
 {
 	t_sub		file;
 	t_dstr		dest;
 };
 
-struct		s_params
+struct			s_params
 {
 	uint32_t	flags;
 	t_vector	files;

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 15:40:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 15:52:07 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 09:58:47 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ static bool		parse_file(t_sub file, t_asm *dst, t_dstr *err)
 
 	if ((in = ft_in_open(file.str // LOL PAS BIEN
 			)) == NULL)
-		return (ft_asprintf(err, "Not a valid file"), false);
+	{
+		ft_asprintf(err, "Not a valid file");
+		return (false);
+	}
 	ret = parse_asm(V(in), dst, err);
 	ft_in_close(in);
 	return (ret);

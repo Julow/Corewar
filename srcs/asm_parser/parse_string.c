@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 13:25:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 13:31:09 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 09:45:16 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static t_vector const	g_string_token_map = VECTOR(t_token_def,
 	TOKEN_DEF("\\\"", TOKEN_STRING_ESCAPED),
 	TOKEN_DEF("\n", TOKEN_STRING_ENDL),
-	TOKEN_DEF("\"", TOKEN_STRING_QUOTE),
+	TOKEN_DEF("\"", TOKEN_STRING_QUOTE)
 );
 
 static bool			string_content(t_asm_parser *p, t_dstr *dst)
