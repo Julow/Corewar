@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 15:40:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:26:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 18:18:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool			compile_file(t_params_file const *f, t_dstr *err)
 
 	if (!parse_file(f->file, &dst, err))
 		return (false);
-	print_asm(&dst);
+	// print_asm(&dst);
 	if (!gen_file(DSTR_SUB(f->dest), &dst, err))
 		return (false);
 	return (true);

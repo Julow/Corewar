@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 13:26:10 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 15:23:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 18:31:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 
 static bool			parse_instr_arg_ind(t_asm_parser *p, t_instr_arg *dst)
 {
-	t_sub const			ind = SUB_FOR(p->t.token, 1);
-
 	dst->e = INSTR_ARG_IND;
-	if (ind.length == 0 || ft_subto_int(ind, &dst->u.ind) != ind.length)
+	if (p->t.token.length == 0
+		|| ft_subto_int(p->t.token, &dst->u.ind) != p->t.token.length)
 	{
 		ft_asprintf(p->err, "Invalid identifier: '%ts'", p->t.token);
 		return (false);

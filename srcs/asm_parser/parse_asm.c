@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:55:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:23:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 17:27:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,28 @@ static bool			parse_label_or_instr(t_asm_parser *p)
 	return (r);
 }
 
+static bool			parse_command(t_asm_parser *p, t_dstr *dest, uint32_t maxl)
+{
+	t_dstr				str_name;
+	bool				r;
+
+	str_name = ft_aprintf("%ts", p->t.token);
+	if (dest->length > 0)
+	{
+		ft_asprintf(p->err, "Redefined command");
+		r = false;
+	}
+	else if ((r = parse_string(p, dest)) && dest->length > maxl)
+	{
+		ft_asprintf(p->err, "String too long: %d", dest->length);
+		r = false;
+	}
+	if (!r)
+		ft_asprintf(p->err, " (command %ts)", DSTR_SUB(str_name));
+	ft_dstrclear(&str_name);
+	return (r);
+}
+
 static bool			start_parsing(t_asm_parser *p)
 {
 	bool				r;
@@ -78,9 +100,9 @@ static bool			start_parsing(t_asm_parser *p)
 		else if (((uint32_t)p->t.token_data) != TOKEN_UNKNOWN)
 			r = err_unexpected_token(p);
 		else if (SUB_EQU(p->t.token, SUBC(NAME_CMD_STRING)))
-			r = parse_string(p, &p->dst.name);
+			r = parse_command(p, &p->dst.name, PROG_NAME_LENGTH);
 		else if (SUB_EQU(p->t.token, SUBC(COMMENT_CMD_STRING)))
-			r = parse_string(p, &p->dst.comment);
+			r = parse_command(p, &p->dst.comment, COMMENT_LENGTH);
 		else
 			r = parse_label_or_instr(p);
 		if (!r)

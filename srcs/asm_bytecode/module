@@ -1,9 +1,13 @@
 module asm_bytecode:
 	public include public/
 
+	private include ./
+
 	public require ft::out
 	public require asm_data
 
 	private require corewar_config
 	private require ft::dstr
 	private require ft::printf
+	private require utils
+	private require ft::hmap
