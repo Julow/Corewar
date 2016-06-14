@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 16:52:50 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 18:24:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 18:38:46 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static void		label_locate(t_asm_bytecode *b, uint32_t i)
 	while (b->next_label != NULL && b->next_label->index <= i)
 	{
 		HARD_ASSERT(b->next_label->index == i);
-		ft_hmapput(b->labels_loc, b->next_label->name, &b->offset, sizeof(uint32_t));
+		ft_hmapput(b->labels_loc, b->next_label->name,
+					&b->offset, sizeof(uint32_t));
 		b->next_label = LIST_NEXT(b->next_label);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 16:53:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 18:27:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 18:37:58 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static void		bcode_arg_label(t_asm_bytecode *b, t_instr const *instr,
 {
 	t_label_ref *const	ref = ft_vpush(&b->labels_ref, NULL, 1);
 
-	*ref = (t_label_ref){b->offset, instr_begin, DSTR_SUB(*name), instr->op->short_value};
+	*ref = (t_label_ref){b->offset,
+		instr_begin,
+		DSTR_SUB(*name),
+		instr->op->short_value};
 	bcode_arg_dir(b, instr, 0);
 }
 

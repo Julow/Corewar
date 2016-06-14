@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:54:29 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/11 15:23:42 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 18:42:10 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "vm.h"
 
 typedef struct s_vm_loader			t_vm_loader;
-typedef struct s_vm_loader_player	t_vm_loader_player;
+typedef struct s_vm_loader_play		t_vm_loader_play;
 
 /*
 ** ========================================================================== **
@@ -31,7 +31,7 @@ typedef struct s_vm_loader_player	t_vm_loader_player;
 ** represent a player to load
 ** TODO: move to private
 */
-struct			s_vm_loader_player
+struct			s_vm_loader_play
 {
 	int32_t			id;
 	t_dstr			file_name;
@@ -40,7 +40,7 @@ struct			s_vm_loader_player
 /*
 ** vm_loader object
 ** -
-** player		=> vector of t_vm_loader_player to load
+** player		=> vector of t_vm_loader_play to load
 ** -
 ** VM_LOADER() init a vm_loader object
 */
@@ -49,7 +49,7 @@ struct			s_vm_loader
 	t_vector		player;
 };
 
-# define VM_LOADER()	((t_vm_loader){VECTOR(t_vm_loader_player)})
+# define VM_LOADER()	((t_vm_loader){VECTOR(t_vm_loader_play)})
 
 /*
 ** Load vm from a vm_loader object

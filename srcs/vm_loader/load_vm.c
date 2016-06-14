@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:21:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 12:32:54 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/14 18:42:29 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #define LOAD_ERROR(E,F,...)	ft_dprintf(2,"corewar: %ts: "E"%n",F,##__VA_ARGS__)
 
-static bool		load_champion(t_vm *vm, t_vm_loader_player const *p,
+static bool		load_champion(t_vm *vm, t_vm_loader_play const *p,
 					uint32_t arena_offset, t_player *dst)
 {
 	t_header		head;
