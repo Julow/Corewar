@@ -1,7 +1,8 @@
 module asm_data:
 	public include public/
 
-	public require ft::hmap
+	public require ft::set
+	public require ft::list
 	public require ft::vector
 	public require ft::base
 	public require ft::dstr

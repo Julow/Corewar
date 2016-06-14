@@ -1,30 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_asm.h                                            :+:      :+:    :+:   */
+/*   file_out.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/06 15:40:14 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:36:20 by jaguillo         ###   ########.fr       */
+/*   Created: 2016/06/14 11:09:11 by jaguillo          #+#    #+#             */
+/*   Updated: 2016/06/14 11:30:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef P_ASM_H
-# define P_ASM_H
+#ifndef FILE_OUT_H
+# define FILE_OUT_H
 
-# include "ft/ft_dstr.h"
+# include "ft/ft_out.h"
 # include "ft/libft.h"
 
-# include "asm_data.h"
-# include "parse_params.h"
+typedef struct s_file_out	t_file_out;
 
 /*
 ** ========================================================================== **
+** File out
 */
 
-bool			compile_file(t_params_file const *f, t_dstr *err);
+struct			s_file_out
+{
+	t_out			out;
+	int				fd;
+	bool			opened;
+};
 
-void			print_asm(t_asm const *s);
+# define FILE_OUT_BUFF_SIZE	512
+
+/*
+** do the same for file_in
+*/
+t_file_out		*ft_out_open(t_sub file);
+
+/*
+** Create a file out from a fd
+*/
+t_file_out		*ft_out_fdopen(int fd);
+
+/*
+** Close a file out
+** Do not close the file descriptor if it was created by ft_out_fdopen
+*/
+void			ft_out_close(t_file_out *out);
 
 #endif

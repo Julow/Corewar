@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_asm.h                                            :+:      :+:    :+:   */
+/*   asm_label_cmp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/06 15:40:14 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:36:20 by jaguillo         ###   ########.fr       */
+/*   Created: 2016/06/14 14:08:11 by jaguillo          #+#    #+#             */
+/*   Updated: 2016/06/14 14:23:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef P_ASM_H
-# define P_ASM_H
+#include "asm_data.h"
 
-# include "ft/ft_dstr.h"
-# include "ft/libft.h"
-
-# include "asm_data.h"
-# include "parse_params.h"
-
-/*
-** ========================================================================== **
-*/
-
-bool			compile_file(t_params_file const *f, t_dstr *err);
-
-void			print_asm(t_asm const *s);
-
-#endif
+int				asm_label_cmp(t_label const *label, t_sub const *key)
+{
+	if (label->name.length != key->length)
+		return (label->name.length - key->length);
+	return (ft_memcmp(label->name.str, key->str, key->length));
+}

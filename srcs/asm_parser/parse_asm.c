@@ -6,11 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:55:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 09:45:07 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/14 14:23:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/ft_list.h"
 #include "ft/ft_printf.h"
+#include "ft/set.h"
+
 #include "p_asm_parser.h"
 
 static t_vector const	g_token_map = VECTOR(t_token_def,
@@ -25,12 +28,21 @@ static t_vector const	g_token_map = VECTOR(t_token_def,
 
 static bool			push_label(t_asm_parser *p, t_sub name)
 {
-	if ((ft_hmapget(p->dst.labels, name)).value != NULL)
+	t_label				*label;
+
+	if (ft_set_cget(&p->dst.label_set, &name) != NULL)
 	{
 		ft_asprintf(p->err, "Label '%ts' redefined", name);
 		return (false);
 	}
-	ft_hmapputp(p->dst.labels, name, &p->dst.instr.length);
+	label = ft_listadd(&p->dst.label_list, p->dst.label_list.last, name.length);
+	*label = (t_label){
+		SET_HEAD(),
+		SUB(ENDOF(label), name.length),
+		p->dst.instr.length
+	};
+	ft_memcpy(ENDOF(label), name.str, name.length);
+	ft_set_insert(&p->dst.label_set, label, &name);
 	return (true);
 }
 
@@ -91,7 +103,8 @@ bool				parse_asm(t_in *in, t_asm *dst, t_dstr *err)
 			DSTR0(),
 			DSTR0(),
 			VECTOR(t_instr),
-			ft_hmapnew(20, &ft_djb2)
+			LIST(t_label),
+			SET(&asm_label_cmp, 0)
 		},
 		err,
 		1

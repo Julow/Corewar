@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 15:33:47 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 18:18:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 14:37:04 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void		init_owners(t_w_arena *w)
 		while (range.y > range.x && VM_GET1(w->vm, range.y - 1) == 0)
 			range.y--;
 		w_arena_set_owner(w, range, i + 1);
-		ft_dprintf(2, "OWNER RANGE %d-%d = %d%n", range.x, range.y, i);
 		range.y = range.x;
 	}
 }

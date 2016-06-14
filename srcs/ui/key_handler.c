@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 15:42:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 11:51:42 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/14 14:38:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 
 static void		log_key(t_ui *ui, int key)
 {
-	t_str_out		out;
-
-	out = STR_OUT();
-	ft_fprintf(&out, "key: %d", key);
-	w_log_log(&ui->w_log, ft_str_out_sub(&out));
-	ft_str_out_clear(&out);
+	(void)ui;
+	(void)key;
 }
 
 static void		toggle_pause(t_ui *ui)

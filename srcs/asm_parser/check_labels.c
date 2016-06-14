@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 18:54:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 19:04:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 14:23:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool			check_labels(t_asm_parser const *p, t_dstr *err)
 			if (instr->args[i].e == INSTR_ARG_LABEL)
 			{
 				label = DSTR_SUB(instr->args[i].u.label);
-				if (ft_hmapget(p->dst.labels, label).key == NULL)
+				if (ft_set_cget(&p->dst.label_set, &label) == NULL)
 				{
 					ft_asprintf(err, "Missing label %ts", label);
 					return (false);

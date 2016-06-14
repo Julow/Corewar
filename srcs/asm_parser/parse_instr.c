@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 13:24:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 09:52:52 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/14 14:32:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,7 @@ static bool			parse_instr_arg_list(t_asm_parser *p, t_instr *dst)
 	}
 }
 
-/*
-** this funct cannot compile norminette
-*/
-
-static t_op const	*get_opcode(t_sub name)
+static const t_op	*get_opcode(t_sub name)
 {
 	uint32_t			i;
 	t_sub				opname;

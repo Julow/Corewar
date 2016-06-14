@@ -2,6 +2,8 @@ main module asm:
 	private include ./
 
 	require asm_parser
+	require asm_data
+	require asm_bytecode
 	require corewar_config
 	require ft::printf
 	require ft::base
@@ -10,3 +12,4 @@ main module asm:
 	require ft::vector
 	require ft::argv
 	require ft::dstr
+	require ft::file_out

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/07 16:38:16 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/14 14:34:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,28 +90,6 @@ static t_op const	*unpack_args(t_vm const *vm, uint32_t *pc,
 	return (op);
 }
 
-static void			print_op(t_op const *op, t_process const *process,
-						uint32_t *args, uint8_t ocp)
-{
-	uint32_t		i;
-	char			c;
-
-	i = 0;
-	ft_printf("%u %#.8x: %s", process->player_idx, process, op->name);
-	while (i < op->arg_n)
-	{
-		if (OCP_GET(ocp, i) == REG_CODE)
-			c = 'r';
-		else if (OCP_GET(ocp, i) == DIR_CODE)
-			c = '%';
-		else
-			c = 0;
-		ft_printf(" %c%d", c, args[i]);
-		i++;
-	}
-	ft_printf("%n");
-}
-
 bool				exec_op(t_vm *vm, t_process *process)
 {
 	t_op const			*op;
@@ -127,7 +105,6 @@ bool				exec_op(t_vm *vm, t_process *process)
 		process->reg_pc = pc.x;
 		return (false);
 	}
-	//print_op(op, process, args, ocp);
 	r = g_op_functions[op->op_code](vm, process, args, ocp);
 	if (process->reg_pc == pc.y)
 		process->reg_pc = pc.x;

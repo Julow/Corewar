@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 16:12:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 17:02:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/14 14:16:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define ASM_DATA_H
 
 # include "ft/ft_dstr.h"
-# include "ft/ft_hmap.h"
+# include "ft/ft_list.h"
 # include "ft/ft_vector.h"
 # include "ft/libft.h"
+# include "ft/set.h"
 
 # include "op.h"
 
@@ -25,6 +26,7 @@ typedef struct s_instr		t_instr;
 typedef struct s_instr_arg	t_instr_arg;
 typedef enum e_instr_arg_e	t_instr_arg_e;
 typedef union u_instr_arg_u	t_instr_arg_u;
+typedef struct s_label		t_label;
 
 /*
 ** ========================================================================== **
@@ -73,6 +75,18 @@ struct			s_instr
 };
 
 /*
+** Label
+** -
+*/
+
+struct			s_label
+{
+	t_set_h			set_h;
+	t_sub			name;
+	uint32_t		index;
+};
+
+/*
 ** Asm
 ** -
 ** name, comment	=> strings
@@ -85,7 +99,14 @@ struct			s_asm
 	t_dstr			name;
 	t_dstr			comment;
 	t_vector		instr;
-	t_hmap			*labels;
+	t_list			label_list;
+	t_set			label_set;
 };
+
+/*
+** -
+*/
+
+int				asm_label_cmp(t_label const *label, t_sub const *key);
 
 #endif

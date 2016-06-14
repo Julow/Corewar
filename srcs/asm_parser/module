@@ -2,7 +2,6 @@ module asm_parser:
 	public include public/
 	private include ./
 
-	public require ft::hmap
 	public require ft::vector
 	public require ft::base
 	public require ft::in
@@ -10,3 +9,5 @@ module asm_parser:
 	private require corewar_config
 	private require ft::tokenizer
 	private require ft::printf
+	private require ft::set
+	private require ft::list
