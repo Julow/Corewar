@@ -7,9 +7,9 @@ main module asm:
 	require corewar_config
 	require ft::printf
 	require ft::base
-	require ft::in
 	require ft::path
 	require ft::vector
 	require ft::argv
 	require ft::dstr
 	require ft::file_out
+	require ft::file_in
