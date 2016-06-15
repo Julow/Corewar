@@ -6,12 +6,20 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 11:27:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/30 16:07:56 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/15 15:21:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_vm_exec.h"
 #include "vm_exec.h"
+
+static void		wait_next(t_vm *vm, t_process *process)
+{
+	uint32_t const	op = VM_GET1(vm, process->reg_pc);
+
+	process->wait = (op < 1 || op > OPCODE_COUNT) ?
+		0 : g_op_tab[op].duration - 1;
+}
 
 bool			vm_exec(t_vm *vm)
 {
@@ -25,7 +33,7 @@ bool			vm_exec(t_vm *vm)
 		else
 		{
 			exec_op(vm, process);
-			vm_wait_next(vm, process);
+			wait_next(vm, process);
 		}
 	return (vm->clock < vm->next_check || vm_check(vm));
 }

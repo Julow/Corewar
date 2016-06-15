@@ -6,12 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 13:14:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/15 13:48:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/15 15:21:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft/ft_printf.h"
+
 #include "main.h"
+#include "vm_exec.h"
 
 static void		introduce(t_vm const *vm)
 {

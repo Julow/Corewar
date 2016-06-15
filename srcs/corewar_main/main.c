@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:28:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/15 13:49:47 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/15 15:21:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "parse_argv.h"
 #include "ui.h"
 #include "vm.h"
-#include "vm_loader.h"
 
 int				main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 16:07:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 14:25:23 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/15 15:56:17 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static bool		vm_check_alive(t_vm *vm)
 		if (!(process->reg_pflags & PFLAG_ALIVE))
 		{
 			LISTENER(vm, on_die, process);
+			vm->players[process->player_idx].process_count--;
 			process = ft_listremove(&vm->process, process);
 		}
 		else

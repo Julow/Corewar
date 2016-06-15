@@ -6,36 +6,24 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:12:48 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/30 16:03:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/15 15:56:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_vm_exec.h"
 
-static uint32_t	player_process_count(t_vm const *vm, uint32_t player_idx)
-{
-	t_process const	*process;
-	uint32_t		count;
-
-	count = 0;
-	process = LIST_IT(&vm->process);
-	while ((process = LIST_NEXT(process)))
-		if (process->player_idx == player_idx)
-			count++;
-	return (count);
-}
-
 static void		process_fork(t_vm *vm, t_process *process, uint32_t pc)
 {
 	t_process		*new_p;
 
-	if (player_process_count(vm, process->player_idx) >= MAX_PLAYER_PROCESS)
+	if (vm->players[process->player_idx].process_count >= MAX_PLAYER_PROCESS)
 		return ;
 	new_p = ft_listadd(&vm->process, process, 0);
 	*new_p = PROCESS_INIT(pc, process->player_idx);
 	ft_memcpy(new_p->reg, process->reg, sizeof(uint32_t[REG_NUMBER]));
 	SET_CARRY(new_p, !(process->reg_pflags & PFLAG_CARRY));
 	vm_wait_next(vm, new_p);
+	vm->players[process->player_idx].process_count++;
 	LISTENER(vm, on_fork, process, new_p);
 }
 
