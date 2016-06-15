@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 13:24:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:32:07 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/15 18:01:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,26 @@ static t_vector const	g_instr_token_map = VECTOR(t_token_def,
 	TOKEN_DEF("%:", TOKEN_INSTR_LABEL)
 );
 
+static bool			err_too_many_args(t_asm_parser *p)
+{
+	ft_asprintf(p->err, "Too many argument");
+	return (false);
+}
+
 static bool			parse_instr_arg_list(t_asm_parser *p, t_instr *dst)
 {
 	while (true)
 	{
 		if (dst->arg_count >= dst->op->arg_n)
-		{
-			ft_asprintf(p->err, "Too many argument");
-			return (false);
-		}
+			return (err_too_many_args(p));
 		if (!parse_instr_arg(p, &dst->args[dst->arg_count]))
 			return (false);
 		dst->arg_count++;
-		while (ft_tokenize(&p->t))
+		while (true)
 		{
-			if (((uint32_t)p->t.token_data) == TOKEN_INSTR_SPACE)
+			if (!ft_tokenize(&p->t))
+				return (true);
+			else if (((uint32_t)p->t.token_data) == TOKEN_INSTR_SPACE)
 				continue ;
 			else if (((uint32_t)p->t.token_data) == TOKEN_INSTR_ENDL)
 				return (BOOL_OF(++p->line));
