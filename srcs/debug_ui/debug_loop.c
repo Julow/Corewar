@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 16:16:12 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/10 16:56:59 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/15 13:51:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void			debug_loop(t_vm *vm)
 			vm_exec(vm);
 	}
 	dump_arena(vm, -1);
-	ft_printf("CLOCK %u: GAME OVER, last alive player: %u%n",
-				vm->clock, vm->last_alive_player);
+	ft_printf("Contestant %d, \"%ts\", has won !%n",
+		vm->last_alive_player + 1,
+		DSTR_SUB(vm->players[vm->last_alive_player].name));
 }

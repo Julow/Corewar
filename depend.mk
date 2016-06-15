@@ -31,7 +31,8 @@ O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/debug.o \
 	$(O_DIR)/srcs/asm_parser/parse_instr.o \
 	$(O_DIR)/srcs/asm_parser/parse_instr_arg.o \
 	$(O_DIR)/srcs/asm_parser/parse_string.o $(O_DIR)/srcs/asm_parser/utils.o \
-	$(O_DIR)/srcs/corewar_main/main.o $(O_DIR)/srcs/corewar_main/parse_argv.o \
+	$(O_DIR)/srcs/corewar_main/dump_loop.o $(O_DIR)/srcs/corewar_main/main.o \
+	$(O_DIR)/srcs/corewar_main/parse_argv.o \
 	$(O_DIR)/srcs/corewar_main/parse_argv_opt.o \
 	$(O_DIR)/srcs/corewar_main/parse_tools.o $(O_DIR)/srcs/corewar_config/op.o \
 	$(O_DIR)/srcs/debug_ui/debug_dump.o $(O_DIR)/srcs/debug_ui/debug_loop.o \
@@ -216,7 +217,7 @@ asm:$(O_DIR)/libft/ft_base/ft_subnext.o $(O_DIR)/srcs/asm_parser/parse_asm.o \
 	$(O_DIR)/libft/ft_base/ft_bitset.o $(O_DIR)/libft/ft_hmap/ft_hmapputp.o
 
 corewar: $(O_DIR)/srcs/ui/listeners/on_write.o \
-	$(O_DIR)/libft/ft_printf/ft_aprintf.o $(O_DIR)/libft/ft_base/ft_subnext.o \
+	$(O_DIR)/srcs/corewar_main/dump_loop.o $(O_DIR)/libft/ft_base/ft_subnext.o \
 	$(O_DIR)/libft/ft_base/ft_memcpy.o $(O_DIR)/libft/ft_dstr/ft_dstrspan.o \
 	$(O_DIR)/libft/ft_base/ft_atoib.o $(O_DIR)/srcs/debug_ui/debug_loop.o \
 	$(O_DIR)/srcs/vm_exec/operations/sti.o $(O_DIR)/libft/ft_out/ft_write.o \
@@ -265,16 +266,17 @@ corewar: $(O_DIR)/srcs/ui/listeners/on_write.o \
 	$(O_DIR)/libft/ft_base/ft_sub.o $(O_DIR)/libft/ft_base/ft_clock_stack.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstrextend.o \
 	$(O_DIR)/libft/ft_printf/formats/misc.o \
-	$(O_DIR)/libft/ft_base/ft_emalloc.o $(O_DIR)/libft/ft_out/ft_putchar.o \
-	$(O_DIR)/srcs/vm/vm_destroy.o $(O_DIR)/libft/ft_base/ft_subto.o \
-	$(O_DIR)/libft/ft_base/ft_memset.o $(O_DIR)/libft/ft_base/ft_memcmp.o \
-	$(O_DIR)/libft/ft_base/ft_unescape.o $(O_DIR)/libft/ft_base/ft_memfill.o \
-	$(O_DIR)/srcs/ui/ui_init.o $(O_DIR)/srcs/ui/key_handler.o \
-	$(O_DIR)/libft/ft_printf/exec_format.o $(O_DIR)/libft/ft_printf/ft_putf.o \
-	$(O_DIR)/libft/ft_base/ft_abs.o $(O_DIR)/srcs/vm_loader/load_vm.o \
-	$(O_DIR)/srcs/vm_exec/operations/st.o $(O_DIR)/libft/ft_base/ft_memrcpy.o \
-	$(O_DIR)/libft/ft_printf/args_utils.o $(O_DIR)/libft/ft_base/ft_min.o \
-	$(O_DIR)/srcs/vm_exec/get_values.o $(O_DIR)/libft/ft_out/ft_write_nchar.o \
+	$(O_DIR)/libft/ft_base/ft_emalloc.o $(O_DIR)/libft/ft_printf/ft_aprintf.o \
+	$(O_DIR)/libft/ft_out/ft_putchar.o $(O_DIR)/srcs/vm/vm_destroy.o \
+	$(O_DIR)/libft/ft_base/ft_subto.o $(O_DIR)/libft/ft_base/ft_memset.o \
+	$(O_DIR)/libft/ft_base/ft_memcmp.o $(O_DIR)/libft/ft_base/ft_unescape.o \
+	$(O_DIR)/libft/ft_base/ft_memfill.o $(O_DIR)/srcs/ui/ui_init.o \
+	$(O_DIR)/srcs/ui/key_handler.o $(O_DIR)/libft/ft_printf/exec_format.o \
+	$(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_base/ft_abs.o \
+	$(O_DIR)/srcs/vm_loader/load_vm.o $(O_DIR)/srcs/vm_exec/operations/st.o \
+	$(O_DIR)/libft/ft_base/ft_memrcpy.o $(O_DIR)/libft/ft_printf/args_utils.o \
+	$(O_DIR)/libft/ft_base/ft_min.o $(O_DIR)/srcs/vm_exec/get_values.o \
+	$(O_DIR)/libft/ft_out/ft_write_nchar.o \
 	$(O_DIR)/libft/ft_base/ft_memstart.o $(O_DIR)/libft/ft_out/ft_putpad.o \
 	$(O_DIR)/libft/ft_list/ft_listremove.o \
 	$(O_DIR)/srcs/vm_exec/operations/add.o \
@@ -443,6 +445,12 @@ $(O_DIR)/srcs/asm_parser/parse_string.o $(O_DIR)/srcs/asm_parser/utils.o: \
 	INCLUDE_FLAGS += -Isrcs/asm_parser
 
 # module corewar
+$(O_DIR)/srcs/corewar_main/dump_loop.o: srcs/corewar_main/dump_loop.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h srcs/corewar_config/public/op.h \
+	srcs/corewar_main/main.h srcs/vm/public/player.h srcs/vm/public/process.h \
+	srcs/vm/public/vm.h
 $(O_DIR)/srcs/corewar_main/main.o: srcs/corewar_main/main.c \
 	libft/ft_argv/public/argv.h libft/ft_base/public/libft.h \
 	libft/ft_dstr/public/ft_dstr.h libft/ft_list/public/ft_list.h \
@@ -478,7 +486,8 @@ $(O_DIR)/srcs/corewar_main/parse_tools.o: srcs/corewar_main/parse_tools.c \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
 	srcs/vm_loader/public/vm_loader.h
 
-$(O_DIR)/srcs/corewar_main/main.o $(O_DIR)/srcs/corewar_main/parse_argv.o \
+$(O_DIR)/srcs/corewar_main/dump_loop.o $(O_DIR)/srcs/corewar_main/main.o \
+$(O_DIR)/srcs/corewar_main/parse_argv.o \
 $(O_DIR)/srcs/corewar_main/parse_argv_opt.o \
 $(O_DIR)/srcs/corewar_main/parse_tools.o: INCLUDE_FLAGS += -Isrcs/corewar_main
 

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:21:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 18:42:29 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/15 13:39:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 #include <unistd.h>
 
 #define LOAD_ERROR(E,F,...)	ft_dprintf(2,"corewar: %ts: "E"%n",F,##__VA_ARGS__)
+
+static bool		init_player(t_header const *h, t_vm_loader_play const *p,
+					t_player *dst, uint32_t arena_offset)
+{
+	*dst = PLAYER_INIT(p->id, arena_offset);
+	ft_asprintf(&dst->name, "%s", h->prog_name);
+	ft_asprintf(&dst->comment, "%s", h->comment);
+	dst->weight = B32_REV(h->prog_size);
+	return (true);
+}
 
 static bool		load_champion(t_vm *vm, t_vm_loader_play const *p,
 					uint32_t arena_offset, t_player *dst)
@@ -40,12 +50,7 @@ static bool		load_champion(t_vm *vm, t_vm_loader_play const *p,
 	else if (read(fd, &head, 1) > 0)
 		LOAD_ERROR("Prog size does not match", DSTR_SUB(p->file_name.str));
 	else
-	{
-		*dst = PLAYER_INIT(p->id, arena_offset);
-		dst->name = ft_aprintf("%s", head.prog_name);
-		dst->comment = ft_aprintf("%s", head.comment);
-		return (true);
-	}
+		return (init_player(&head, p, dst, arena_offset));
 	return (false);
 }
 

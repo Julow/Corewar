@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 16:19:18 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 12:58:42 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/15 13:02:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ struct			s_parse_argv
 	t_argv			args;
 	uint32_t		flags;
 	uint32_t		dump_cycles;
+	t_ui_type		ui_type;
 	t_vm_loader		vm_loader;
 };
 
@@ -64,5 +65,6 @@ bool			parse_opt_dump(t_parse_argv *argv);
 bool			parse_opt_n(t_parse_argv *argv);
 bool			parse_opt_a(t_parse_argv *argv);
 bool			parse_opt_h(t_parse_argv *argv);
+bool			parse_opt_ui(t_parse_argv *argv);
 
 #endif

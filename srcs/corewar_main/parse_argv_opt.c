@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 12:53:24 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/07 13:00:09 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/15 13:09:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,29 @@ bool			parse_opt_a(t_parse_argv *argv)
 	return (true);
 }
 
+bool			parse_opt_ui(t_parse_argv *argv)
+{
+	t_sub			val;
+
+	if (!ARGV_HAS_VALUE(&argv->args))
+		argv->ui_type = UI_NCURSES;
+	else
+	{
+		if (!ft_argv_arg(&argv->args, &val))
+			HARD_ASSERT(false);
+		if (SUB_EQU(val, SUBC("ncurses")))
+			argv->ui_type = UI_NCURSES;
+		else if (SUB_EQU(val, SUBC("debug")))
+			argv->ui_type = UI_DEBUG;
+		else
+		{
+			PARSE_ARGV_ERR("Invalid ui mode '%ts'", val);
+			return (false);
+		}
+	}
+	return (true);
+}
+
 bool			parse_opt_h(t_parse_argv *argv)
 {
 	ft_printf("Usage: ./corewar [-a] [-d nbr_cycles]"
@@ -61,6 +84,12 @@ bool			parse_opt_h(t_parse_argv *argv)
 		"	-d nbr_cycles\n"
 		"	--dump=nbr_cycles\n"
 		"		Dumps memory after nbr_cycles cycles then exits\n"
+		"	--ui=ncurses\n"
+		"		Interactive mode\n"
+		"	--ui=debug\n"
+		"		Debug mode\n"
+		"	--ui\n"
+		"		Default ui is ncurses\n"
 		"	-n player_id\n"
 		"		Set the id of the next champion%n");
 	exit(0);

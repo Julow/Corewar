@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 16:19:10 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 12:57:44 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/15 13:10:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static t_argv_opt const	g_parse_argv_opts[] = {
 	{SUBC("n"), &parse_opt_n},
 	{SUBC("h"), &parse_opt_h},
 	{SUBC("help"), &parse_opt_h},
+	{SUBC("ui"), &parse_opt_ui},
 };
 
 static bool		parse_argv_argv(t_parse_argv *argv)
@@ -55,6 +56,7 @@ static bool		load_main(t_parse_argv const *argv, t_main *p)
 {
 	p->flags = argv->flags;
 	p->dump_cycles = argv->dump_cycles;
+	p->ui = argv->ui_type;
 	return (load_vm(&argv->vm_loader, &p->vm));
 }
 
@@ -63,7 +65,7 @@ bool			parse_argv(t_main *p, int argc, char *const *argv)
 	t_parse_argv	arg;
 	bool			ok;
 
-	arg = (t_parse_argv){ARGV(argc, argv), 0, 0, VM_LOADER()};
+	arg = (t_parse_argv){ARGV(argc, argv), 0, 0, UI_NORMAL, VM_LOADER()};
 	ok = parse_argv_argv(&arg) && load_main(&arg, p);
 	vm_loader_destroy(&arg.vm_loader);
 	return (ok);
