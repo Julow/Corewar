@@ -431,6 +431,7 @@ $(O_DIR)/srcs/asm_parser/parse_label_or_instr.o: \
 	srcs/asm_parser/parse_label_or_instr.c libft/ft_base/public/libft.h \
 	libft/ft_bst/public/ft_bst.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_in/public/ft_in.h libft/ft_list/public/ft_list.h \
+	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
 	libft/ft_set/public/set.h libft/ft_tokenizer/public/tokenizer.h \
 	libft/ft_vector/public/ft_vector.h srcs/asm_data/public/asm_data.h \
 	srcs/asm_parser/p_asm_parser.h srcs/asm_parser/public/asm_parser.h \

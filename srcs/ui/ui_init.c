@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 18:32:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 11:53:46 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/17 18:19:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void			init_ui(t_ui *ui, t_vm *vm)
 	w_panel_init(&ui->w_panel);
 	w_log_init(&ui->w_log);
 	ui->vm->listeners = (t_listeners){
-		NULL, //&ui_on_exec,
-		NULL, //&ui_on_fork,
+		NULL,
+		NULL,
 		V(&ui_on_write),
-		NULL, //&ui_on_die,
+		NULL,
 		V(&ui_on_aff),
-		NULL, //&ui_on_live,
+		NULL,
 		ui
 	};
 }

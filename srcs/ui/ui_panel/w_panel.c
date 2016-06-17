@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 15:35:39 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/17 12:16:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 18:22:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static void		w_panel_players(t_w_panel *w)
 	while (i < w->vm->player_count)
 	{
 		p = &w->vm->players[i];
-		mvwprintw(w->w,  7 + 5 * i, 5, "Player #%d - %s", p->id, p->name.str);
-		mvwprintw(w->w,  8 + 5 * i, 6, "Last live :%20d", p->last_live);
-		mvwprintw(w->w,  9 + 5 * i, 6, "Live in period :%15d", p->live_to_check);
+		mvwprintw(w->w, 7 + 5 * i, 5, "Player #%d - %s", p->id, p->name.str);
+		mvwprintw(w->w, 8 + 5 * i, 6, "Last live :%20d", p->last_live);
+		mvwprintw(w->w, 9 + 5 * i, 6, "Live in period :%15d", p->live_to_check);
 		mvwprintw(w->w, 10 + 5 * i, 6, "Processes :%20d", p->process_count);
 		i++;
 	}

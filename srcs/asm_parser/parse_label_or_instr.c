@@ -6,14 +6,22 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 15:37:59 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/17 17:35:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 18:33:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft/ft_printf.h"
 #include "p_asm_parser.h"
 
-typedef struct { t_bits bits[BITARRAY((uint8_t)-1)]; }	t_char_map;
+/*
+** some shit
+*/
+
+#define BITARRAY_T(S)	struct { t_bits bits[BITARRAY(S)]; }
+
+#define CHAR_MAP_T		BITARRAY_T((uint8_t)-1)
+
+typedef CHAR_MAP_T		t_char_map;
 
 #define _STATIC_INIT_D(T)			static T this; static bool _init = false;
 #define _STATIC_INIT_I(T, INIT)		if (!_init) { _init = true; { INIT; } }
@@ -36,12 +44,17 @@ static t_char_map	char_map(t_sub str)
 	return (map);
 }
 
+/*
+** -
+*/
+
 static bool			check_label_name(t_sub name)
 {
-	t_char_map const *const	allowed_chars = STATIC(t_char_map,
-								this = char_map(SUBC(LABEL_CHARS)));
-	uint32_t				i;
+	t_char_map const	*allowed_chars;
+	uint32_t			i;
 
+	allowed_chars = STATIC_INIT(t_char_map,
+			this = char_map(SUBC(LABEL_CHARS)));
 	i = 0;
 	while (i < name.length)
 	{
