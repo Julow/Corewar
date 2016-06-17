@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:15:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/15 15:54:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 12:06:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ struct		s_player
 	t_dstr		comment;
 };
 
-# define PLAYER_INIT(ID,OFF)	((t_player){(ID),(OFF),0,0,0,0,DSTR0(),DSTR0()})
+# define PLAYER_INIT(ID,OFF)	((t_player){(ID),(OFF),0,0,0,1,DSTR0(),DSTR0()})
 
 #endif

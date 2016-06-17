@@ -6,9 +6,11 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 11:50:01 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/14 14:29:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 12:03:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft/ft_printf.h"
 
 #include "p_ui.h"
 #include "vm_exec.h"
@@ -22,16 +24,35 @@ static void		refresh_ui(t_ui *ui)
 	refresh();
 }
 
+static void		loop_end(t_ui *ui)
+{
+	t_dstr			win_msg;
+
+	win_msg = ft_aprintf("Player #%u \"%ts\" win !",
+			ui->vm->last_alive_player + 1,
+			DSTR_SUB(ui->vm->players[ui->vm->last_alive_player].name));
+	w_log_log(&ui->w_log, DSTR_SUB(win_msg));
+	ft_dstrclear(&win_msg);
+	w_log_log(&ui->w_log, SUBC("Press any key to quit"));
+	refresh_ui(ui);
+	timeout(-1);
+	getch();
+}
+
 static void		loop(t_ui *ui)
 {
 	uint32_t		loop;
 
-	while (!VM_GAMEOVER(*ui->vm) && !(ui->flags & UI_F_EXIT))
+	while (!(ui->flags & UI_F_EXIT))
 	{
 		handle_key(ui, getch());
 		loop = (ui->flags & UI_PAUSE) ? 0 : ui->loop_speed;
-		while (!VM_GAMEOVER(*ui->vm) && loop-- > 0)
+		while (loop-- > 0)
+		{
 			vm_exec(ui->vm);
+			if (VM_GAMEOVER(*ui->vm))
+				return (loop_end(ui));
+		}
 		refresh_ui(ui);
 	}
 }
