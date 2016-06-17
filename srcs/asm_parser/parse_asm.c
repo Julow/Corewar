@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:55:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 17:27:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 15:38:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,44 +25,6 @@ static t_vector const	g_token_map = VECTOR(t_token_def,
 	TOKEN_DEF("#", TOKEN_COMMENT),
 	TOKEN_DEF(":", TOKEN_COLON)
 );
-
-static bool			push_label(t_asm_parser *p, t_sub name)
-{
-	t_label				*label;
-
-	if (ft_set_cget(&p->dst.label_set, &name) != NULL)
-	{
-		ft_asprintf(p->err, "Label '%ts' redefined", name);
-		return (false);
-	}
-	label = ft_listadd(&p->dst.label_list, p->dst.label_list.last, name.length);
-	*label = (t_label){
-		SET_HEAD(),
-		SUB(ENDOF(label), name.length),
-		p->dst.instr.length
-	};
-	ft_memcpy(ENDOF(label), name.str, name.length);
-	ft_set_insert(&p->dst.label_set, label, &name);
-	return (true);
-}
-
-static bool			parse_label_or_instr(t_asm_parser *p)
-{
-	t_dstr				name;
-	bool				r;
-
-	name = ft_aprintf("%ts", p->t.token);
-	if (!ft_tokenize(&p->t))
-		r = err_unexpected_eof(p);
-	else if (((uint32_t)p->t.token_data) == TOKEN_COLON)
-		r = push_label(p, DSTR_SUB(name));
-	else if (((uint32_t)p->t.token_data) == TOKEN_SPACE)
-		r = parse_instr(p, DSTR_SUB(name));
-	else
-		r = err_unexpected_token(p);
-	ft_dstrclear(&name);
-	return (r);
-}
 
 static bool			parse_command(t_asm_parser *p, t_dstr *dest, uint32_t maxl)
 {

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 10:50:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/13 19:05:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 15:38:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ bool			parse_comment(t_asm_parser *p);
 bool			parse_instr_arg(t_asm_parser *p, t_instr_arg *dst);
 
 bool			parse_instr(t_asm_parser *p, t_sub name);
+
+bool			parse_label_or_instr(t_asm_parser *p);
 
 bool			err_unexpected_token(t_asm_parser *p);
 bool			err_unexpected_eof(t_asm_parser *p);

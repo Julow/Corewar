@@ -30,6 +30,7 @@ O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/debug.o \
 	$(O_DIR)/srcs/asm_parser/parse_comment.o \
 	$(O_DIR)/srcs/asm_parser/parse_instr.o \
 	$(O_DIR)/srcs/asm_parser/parse_instr_arg.o \
+	$(O_DIR)/srcs/asm_parser/parse_label_or_instr.o \
 	$(O_DIR)/srcs/asm_parser/parse_string.o $(O_DIR)/srcs/asm_parser/utils.o \
 	$(O_DIR)/srcs/corewar_main/dump_loop.o \
 	$(O_DIR)/srcs/corewar_main/exec_loop.o $(O_DIR)/srcs/corewar_main/main.o \
@@ -145,12 +146,14 @@ PUBLIC_LINKS += $(O_DIR)/_public/asm_bytecode.h $(O_DIR)/_public/asm_data.h \
 asm:$(O_DIR)/libft/ft_base/ft_subnext.o $(O_DIR)/srcs/asm_parser/parse_asm.o \
 	$(O_DIR)/libft/ft_dstr/ft_dstrspan.o $(O_DIR)/libft/ft_base/ft_atoib.o \
 	$(O_DIR)/libft/ft_in/ft_read.o $(O_DIR)/libft/ft_out/ft_write.o \
-	$(O_DIR)/libft/ft_vector/ft_vclear.o $(O_DIR)/libft/ft_out/ft_write_char.o \
-	$(O_DIR)/libft/ft_out/ft_putsub.o $(O_DIR)/libft/ft_base/ft_memcpy.o \
-	$(O_DIR)/libft/ft_base/ft_clock.o $(O_DIR)/libft/ft_printf/ft_logf.o \
-	$(O_DIR)/srcs/asm/parse_params.o $(O_DIR)/libft/ft_base/ft_max.o \
-	$(O_DIR)/libft/ft_base/ft_wstrconv.o $(O_DIR)/libft/ft_base/ft_wstrlen.o \
-	$(O_DIR)/libft/ft_base/ft_getenv.o $(O_DIR)/libft/ft_base/ft_wstrnconv.o \
+	$(O_DIR)/libft/ft_vector/ft_vclear.o \
+	$(O_DIR)/srcs/asm_parser/parse_label_or_instr.o \
+	$(O_DIR)/libft/ft_out/ft_write_char.o $(O_DIR)/libft/ft_out/ft_putsub.o \
+	$(O_DIR)/libft/ft_base/ft_memcpy.o $(O_DIR)/libft/ft_base/ft_clock.o \
+	$(O_DIR)/libft/ft_printf/ft_logf.o $(O_DIR)/srcs/asm/parse_params.o \
+	$(O_DIR)/libft/ft_base/ft_max.o $(O_DIR)/libft/ft_base/ft_wstrconv.o \
+	$(O_DIR)/libft/ft_base/ft_wstrlen.o $(O_DIR)/libft/ft_base/ft_getenv.o \
+	$(O_DIR)/libft/ft_base/ft_wstrnconv.o \
 	$(O_DIR)/libft/ft_file_out/file_out.o $(O_DIR)/libft/ft_out/ft_putpad.o \
 	$(O_DIR)/libft/ft_bst/ft_bstdel.o \
 	$(O_DIR)/srcs/asm_bytecode/asm_bytecode.o \
@@ -424,6 +427,14 @@ $(O_DIR)/srcs/asm_parser/parse_instr_arg.o: srcs/asm_parser/parse_instr_arg.c \
 	libft/ft_tokenizer/public/tokenizer.h libft/ft_vector/public/ft_vector.h \
 	srcs/asm_data/public/asm_data.h srcs/asm_parser/p_asm_parser.h \
 	srcs/asm_parser/public/asm_parser.h srcs/corewar_config/public/op.h
+$(O_DIR)/srcs/asm_parser/parse_label_or_instr.o: \
+	srcs/asm_parser/parse_label_or_instr.c libft/ft_base/public/libft.h \
+	libft/ft_bst/public/ft_bst.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_list/public/ft_list.h \
+	libft/ft_set/public/set.h libft/ft_tokenizer/public/tokenizer.h \
+	libft/ft_vector/public/ft_vector.h srcs/asm_data/public/asm_data.h \
+	srcs/asm_parser/p_asm_parser.h srcs/asm_parser/public/asm_parser.h \
+	srcs/corewar_config/public/op.h
 $(O_DIR)/srcs/asm_parser/parse_string.o: srcs/asm_parser/parse_string.c \
 	libft/ft_base/public/libft.h libft/ft_bst/public/ft_bst.h \
 	libft/ft_dstr/public/ft_dstr.h libft/ft_in/public/ft_in.h \
@@ -445,6 +456,7 @@ $(O_DIR)/srcs/asm_parser/check_instr.o $(O_DIR)/srcs/asm_parser/check_labels.o \
 $(O_DIR)/srcs/asm_parser/parse_asm.o $(O_DIR)/srcs/asm_parser/parse_comment.o \
 $(O_DIR)/srcs/asm_parser/parse_instr.o \
 $(O_DIR)/srcs/asm_parser/parse_instr_arg.o \
+$(O_DIR)/srcs/asm_parser/parse_label_or_instr.o \
 $(O_DIR)/srcs/asm_parser/parse_string.o $(O_DIR)/srcs/asm_parser/utils.o: \
 	INCLUDE_FLAGS += -Isrcs/asm_parser
 
