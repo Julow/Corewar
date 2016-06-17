@@ -13,5 +13,6 @@ module ui:
 	private require vm_exec
 	private require ft::base
 	private require ft::printf
+	private require ft::vector
 
 	put LINK_FLAGS -lcurses

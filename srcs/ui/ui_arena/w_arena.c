@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 15:33:47 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:37:04 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 12:48:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void			w_arena_init(t_w_arena *w)
 
 void			w_arena_refresh(t_w_arena *w)
 {
+	w_arena_update_processes(w);
 	wnoutrefresh(w->w);
 }
 

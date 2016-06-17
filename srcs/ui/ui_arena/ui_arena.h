@@ -6,13 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 16:29:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 11:48:47 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/17 13:58:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UI_ARENA_H
 # define UI_ARENA_H
 
+# include "ft/ft_vector.h"
 # include "ft/libft.h"
 
 # include "ui.h"
@@ -22,6 +23,7 @@
 
 typedef struct s_w_arena		t_w_arena;
 typedef struct s_player_color	t_player_color;
+typedef struct s_process_loc	t_process_loc;
 
 /*
 ** ========================================================================== **
@@ -43,6 +45,12 @@ struct			s_w_arena
 	t_vm			*vm;
 	WINDOW			*w;
 	uint8_t			*owners;
+	t_vector		process_loc;
+};
+
+struct			s_process_loc
+{
+	uint32_t		pc;
 };
 
 struct			s_player_color
@@ -51,7 +59,7 @@ struct			s_player_color
 	bool			bold;
 };
 
-# define W_A(VM)	((t_w_arena){(VM), NULL, NULL})
+# define W_A(VM)	((t_w_arena){(VM), NULL, NULL, VECTOR(t_process_loc)})
 
 /*
 ** -
@@ -62,6 +70,8 @@ void			w_arena_refresh(t_w_arena *w);
 void			w_arena_destroy(t_w_arena *w);
 
 void			w_arena_update(t_w_arena *w, t_vec2u range);
+
+void			w_arena_update_processes(t_w_arena *w);
 
 void			w_arena_set_owner(t_w_arena *w, t_vec2u range, uint8_t owner);
 
