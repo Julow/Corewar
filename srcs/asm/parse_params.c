@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/02 19:10:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 09:56:23 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/17 11:27:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ bool			parse_params(t_params *params, t_argv argv)
 		while (ft_argv_opt(&argv, &tmp))
 			if (SUB_EQU(tmp, SUBC("v")) || SUB_EQU(tmp, SUBC("verbose")))
 				params->flags |= FLAG_VERBOSE;
+			else if (SUB_EQU(tmp, SUBC("f")) || SUB_EQU(tmp, SUBC("force")))
+				params->flags |= FLAG_FORCE;
 			else if (SUB_EQU(tmp, SUBC("o")) || SUB_EQU(tmp, SUBC("output")))
 			{
 				if (!parse_argv_opt_o(params, &argv))

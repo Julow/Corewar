@@ -13,3 +13,4 @@ main module asm:
 	require ft::dstr
 	require ft::file_out
 	require ft::file_in
+	require ft::file

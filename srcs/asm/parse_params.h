@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/02 19:12:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 09:54:50 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/17 11:26:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_params			t_params;
 */
 
 # define FLAG_VERBOSE	(1 << 0)
+# define FLAG_FORCE		(1 << 1)
 
 struct			s_params_file
 {

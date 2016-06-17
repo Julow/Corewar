@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/02 15:04:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:28:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 11:28:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ static void		print_usage(void)
 		"	-v\n"
 		"	--verbose\n"
 		"		Verbose\n"
+		"	-f\n"
+		"	--force\n"
+		"		Overwrite output file if it exists\n"
 		"	-o dest\n"
 		"	--output dest\n"
 		"		Output file for the next source_file%n");
@@ -35,7 +38,7 @@ static bool		compile(t_params const *p)
 	err = DSTR0();
 	f = VECTOR_IT(p->files);
 	while (VECTOR_NEXT(p->files, f))
-		if (!compile_file(f, &err))
+		if (!compile_file(f, &err, p->flags))
 		{
 			ft_dprintf(2, "%ts: %ts%n", f->file, DSTR_SUB(err));
 			err.length = 0;

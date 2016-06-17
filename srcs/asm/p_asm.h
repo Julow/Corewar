@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 15:40:14 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:36:20 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 11:26:17 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 ** ========================================================================== **
 */
 
-bool			compile_file(t_params_file const *f, t_dstr *err);
+bool			compile_file(t_params_file const *f,
+					t_dstr *err, uint32_t flags);
 
 void			print_asm(t_asm const *s);
 
