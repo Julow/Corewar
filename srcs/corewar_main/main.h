@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 16:25:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/15 13:48:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 15:17:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ struct			s_main
 	t_vm			vm;
 };
 
-void			dump_loop(t_vm *vm);
+void			dump_loop(t_main *m);
+
+void			exec_loop(t_vm *vm, uint32_t max_clock);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 16:16:12 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/15 13:51:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/17 14:59:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static uint32_t	getch_com(t_vm *vm)
 
 	tmp = 0;
 	if (get_next_line(0, &line) <= 0)
+	{
+		ft_printf("%n");
 		tmp = -1;
+	}
 	else if (SUB_EQU(line, SUBC("p")))
 		dump_arena(vm, -1);
 	else if (SUB_EQU(SUB(line.str, 2), SUBC("p ")))
@@ -36,8 +39,10 @@ static uint32_t	getch_com(t_vm *vm)
 	else if (line.length == 0)
 		tmp = 1;
 	else if (ft_subto_uint(line, &tmp) == 0)
-		ft_dprintf(2, "Unknown command '%s'\nOptions:\n\t-p\n\t-p && value"
-			"\n\t-pcr\n\t-pc\n", line);
+		ft_dprintf(2, "Unknown command '%s'\nHelp:\n\tp\tDump arena\n"
+			"\tp <n>\tDump arena with the <n>th byte highlighted\n"
+			"\tpc\tDump processes\n\tpcr\tDump processes with their registers\n"
+			"\t<t>\tRun <t> ticks\n", line);
 	return (tmp);
 }
 
@@ -53,6 +58,7 @@ void			debug_loop(t_vm *vm)
 		while (tmp-- > 0 && !VM_GAMEOVER(*vm))
 			vm_exec(vm);
 	}
+	ft_printf("CLOCK %u: END%n", vm->clock);
 	dump_arena(vm, -1);
 	ft_printf("Contestant %d, \"%ts\", has won !%n",
 		vm->last_alive_player + 1,

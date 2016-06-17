@@ -6,3 +6,4 @@
 * print aff
 * vm verbose
 * dump option
+* LABEL_CHARS

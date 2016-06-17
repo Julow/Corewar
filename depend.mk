@@ -31,7 +31,8 @@ O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/debug.o \
 	$(O_DIR)/srcs/asm_parser/parse_instr.o \
 	$(O_DIR)/srcs/asm_parser/parse_instr_arg.o \
 	$(O_DIR)/srcs/asm_parser/parse_string.o $(O_DIR)/srcs/asm_parser/utils.o \
-	$(O_DIR)/srcs/corewar_main/dump_loop.o $(O_DIR)/srcs/corewar_main/main.o \
+	$(O_DIR)/srcs/corewar_main/dump_loop.o \
+	$(O_DIR)/srcs/corewar_main/exec_loop.o $(O_DIR)/srcs/corewar_main/main.o \
 	$(O_DIR)/srcs/corewar_main/parse_argv.o \
 	$(O_DIR)/srcs/corewar_main/parse_argv_opt.o \
 	$(O_DIR)/srcs/corewar_main/parse_tools.o $(O_DIR)/srcs/corewar_config/op.o \
@@ -236,6 +237,7 @@ corewar: $(O_DIR)/srcs/ui/listeners/on_write.o \
 	$(O_DIR)/srcs/corewar_main/parse_argv_opt.o \
 	$(O_DIR)/libft/ft_base/ft_strlen.o $(O_DIR)/srcs/corewar_config/op.o \
 	$(O_DIR)/srcs/vm_exec/operations/sub.o \
+	$(O_DIR)/srcs/corewar_main/exec_loop.o \
 	$(O_DIR)/libft/ft_printf/formats/str.o $(O_DIR)/libft/ft_out/ft_putstr.o \
 	$(O_DIR)/srcs/vm_exec/operations/fork.o $(O_DIR)/libft/ft_base/ft_is.o \
 	$(O_DIR)/srcs/vm_exec/operations/zjmp.o $(O_DIR)/srcs/ui/ui_log/w_log.o \
@@ -452,6 +454,12 @@ $(O_DIR)/srcs/corewar_main/dump_loop.o: srcs/corewar_main/dump_loop.c \
 	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
 	libft/ft_printf/public/ft_printf.h srcs/corewar_config/public/op.h \
 	srcs/corewar_main/main.h srcs/vm/public/player.h srcs/vm/public/process.h \
+	srcs/vm/public/vm.h
+$(O_DIR)/srcs/corewar_main/exec_loop.o: srcs/corewar_main/exec_loop.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h srcs/corewar_config/public/op.h \
+	srcs/corewar_main/main.h srcs/vm/public/player.h srcs/vm/public/process.h \
 	srcs/vm/public/vm.h srcs/vm_exec/public/vm_exec.h
 $(O_DIR)/srcs/corewar_main/main.o: srcs/corewar_main/main.c \
 	libft/ft_argv/public/argv.h libft/ft_base/public/libft.h \
@@ -488,8 +496,8 @@ $(O_DIR)/srcs/corewar_main/parse_tools.o: srcs/corewar_main/parse_tools.c \
 	srcs/vm/public/player.h srcs/vm/public/process.h srcs/vm/public/vm.h \
 	srcs/vm_loader/public/vm_loader.h
 
-$(O_DIR)/srcs/corewar_main/dump_loop.o $(O_DIR)/srcs/corewar_main/main.o \
-$(O_DIR)/srcs/corewar_main/parse_argv.o \
+$(O_DIR)/srcs/corewar_main/dump_loop.o $(O_DIR)/srcs/corewar_main/exec_loop.o \
+$(O_DIR)/srcs/corewar_main/main.o $(O_DIR)/srcs/corewar_main/parse_argv.o \
 $(O_DIR)/srcs/corewar_main/parse_argv_opt.o \
 $(O_DIR)/srcs/corewar_main/parse_tools.o: INCLUDE_FLAGS += -Isrcs/corewar_main
 
