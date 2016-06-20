@@ -6,12 +6,21 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 15:18:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/17 15:32:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 18:39:07 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft/ft_printf.h"
 #include "main.h"
+
+static void			dump_on_aff(t_vm *vm, t_process const *p, uint32_t val)
+{
+	t_player const *const	player = &vm->players[p->player_idx];
+
+	ft_printf("The player %ts is so pimp he says : %d aka %c%n",
+			DSTR_SUB(player->name), val, val % 256);
+}
+
 
 static void		dump_arena(uint8_t const *arena)
 {
@@ -37,6 +46,15 @@ static void		dump_arena(uint8_t const *arena)
 
 void			dump_loop(t_main *m)
 {
+	m->vm.listeners = (t_listeners){
+		NULL,
+		NULL,
+		NULL,
+		NULL,
+		V(&dump_on_aff),
+		NULL,
+		&m->vm
+	};
 	if (m->flags & ARGV_F_DUMP)
 	{
 		exec_loop(&m->vm, m->dump_cycles);
