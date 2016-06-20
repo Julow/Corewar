@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 15:18:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 14:24:48 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/20 14:07:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef bool	(*t_op_f)(t_vm *vm, t_process *process,
 
 /*
 ** Return the type of the Ith arg
+** TODO: replace with ARG_TYPE
 */
 # define OCP_GET(OCP, I)		(((OCP) >> (8 - (((I) + 1) * 2))) & 0b11)
 

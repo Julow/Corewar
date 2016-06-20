@@ -1,0 +1,6 @@
+module instr_loader:
+	public include public/
+
+	public require instr
+	public require ft::base
+	private require corewar_config

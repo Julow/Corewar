@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 13:32:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 18:21:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 15:05:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ft/ft_list.h"
 # include "ft/libft.h"
 
+# include "instr.h"
 # include "op.h"
 # include "player.h"
 # include "process.h"
@@ -42,7 +43,7 @@ typedef struct s_listeners	t_listeners;
 
 struct			s_listeners
 {
-	void			(*on_exec)(void*, t_process const*, uint32_t op);
+	void			(*on_exec)(void*, t_process const*, t_instr const *instr);
 	void			(*on_fork)(void*, t_process const*, t_process const *c);
 	void			(*on_write)(void*, t_process const*, t_vec2u range);
 	void			(*on_die)(void*, t_process const*);

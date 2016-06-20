@@ -7,3 +7,5 @@ module vm_exec:
 	public require ft::base
 	public require vm
 	private require ft::printf
+	private require instr
+	private require instr_loader

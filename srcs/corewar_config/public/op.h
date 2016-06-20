@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2016/06/07 12:04:30 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/20 13:15:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define MEM_SIZE				(4*1024)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
+
+# define MAX_OP_SIZE			(MAX_ARGS_NUMBER * REG_SIZE + 2)
 
 # define COMMENT_CHAR			'#'
 # define LABEL_CHAR				':'
