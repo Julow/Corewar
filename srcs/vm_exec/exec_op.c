@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/20 15:08:17 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 15:17:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,31 @@ static t_op_f const		g_op_functions[] =
 	[0x10]	= &op_aff
 };
 
+static bool			safe_load_instr(t_instr *dst, t_vm const *vm, uint32_t pc)
+{
+	uint8_t				data[MAX_OP_SIZE];
+	uint32_t			tmp;
+
+	if ((pc + MAX_OP_SIZE) > MEM_SIZE)
+	{
+		tmp = pc + MAX_OP_SIZE - MEM_SIZE;
+		ft_memcpy(data, vm->arena + pc, tmp);
+		ft_memcpy(data + tmp, vm->arena, MAX_OP_SIZE - tmp);
+		return (load_instr(dst, data));
+	}
+	return (load_instr(dst, vm->arena + pc));
+}
+
 bool				exec_op(t_vm *vm, t_process *process)
 {
 	t_instr				instr;
 	uint32_t const		old_pc = process->reg_pc;
 	bool				r;
 
-	// TODO: safe load_instr
-	r = load_instr(&instr, vm->arena + process->reg_pc)
+	r = safe_load_instr(&instr, vm, process->reg_pc)
 		&& g_op_functions[instr.op->op_code](vm, process, instr.args, instr.ocp);
 	LISTENER(vm, on_exec, process, &instr);
 	if (process->reg_pc == old_pc)
-		process->reg_pc += instr.length;
+		process->reg_pc = (process->reg_pc + instr.length) % MEM_SIZE;
 	return (r);
 }
