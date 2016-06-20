@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 15:18:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/20 18:39:07 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/20 19:27:42 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			dump_loop(t_main *m)
 		NULL,
 		NULL,
 		NULL,
-		V(&dump_on_aff),
+		(m->flags & ARGV_F_AFF ? V(&dump_on_aff) : NULL),
 		NULL,
 		&m->vm
 	};
