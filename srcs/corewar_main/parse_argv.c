@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 16:19:10 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/15 13:10:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 17:43:56 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ bool			parse_argv(t_main *p, int argc, char *const *argv)
 	t_parse_argv	arg;
 	bool			ok;
 
+	if (argc == 1)
+	{
+		print_usage();
+		return (false);
+	}
 	arg = (t_parse_argv){ARGV(argc, argv), 0, 0, UI_NORMAL, VM_LOADER()};
 	ok = parse_argv_argv(&arg) && load_main(&arg, p);
 	vm_loader_destroy(&arg.vm_loader);

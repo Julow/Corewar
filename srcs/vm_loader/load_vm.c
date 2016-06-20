@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:21:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/15 13:39:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 17:38:49 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ bool			load_vm(t_vm_loader const *loader, t_vm *vm)
 
 	*vm = VM_INIT();
 	if (loader->player.length == 0 || loader->player.length > MAX_PLAYERS)
+	{
+		ft_dprintf(2, "corewar: You must have from one to four players%n");
 		return (false);
+	}
 	arena_delta = MEM_SIZE / loader->player.length;
 	vm->arena = NEW_N(char, MEM_SIZE);
 	i = 0;

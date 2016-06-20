@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 16:19:18 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/15 13:02:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 17:44:30 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_argv_opt		t_argv_opt;
 ** Return false on error true otherwise
 */
 bool			parse_argv(t_main *main, int argc, char *const *argv);
+
+void			print_usage(void);
 
 /*
 ** -
