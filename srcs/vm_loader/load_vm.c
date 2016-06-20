@@ -6,52 +6,37 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:21:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/20 17:38:49 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/20 20:00:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft/ft_printf.h"
 
-#include "utils.h"
+#include "cor_loader.h"
 #include "vm_loader.h"
-
-#include <fcntl.h>
-#include <unistd.h>
-
-#define LOAD_ERROR(E,F,...)	ft_dprintf(2,"corewar: %ts: "E"%n",F,##__VA_ARGS__)
-
-static bool		init_player(t_header const *h, t_vm_loader_play const *p,
-					t_player *dst, uint32_t arena_offset)
-{
-	*dst = PLAYER_INIT(p->id, arena_offset);
-	ft_asprintf(&dst->name, "%s", h->prog_name);
-	ft_asprintf(&dst->comment, "%s", h->comment);
-	dst->weight = B32_REV(h->prog_size);
-	return (true);
-}
 
 static bool		load_champion(t_vm *vm, t_vm_loader_play const *p,
 					uint32_t arena_offset, t_player *dst)
 {
-	t_header		head;
-	int				fd;
+	t_cor			cor;
+	t_dstr			err;
 
-	if ((fd = open(p->file_name.str, O_RDONLY)) < 0)
-		LOAD_ERROR("Cannot open file", DSTR_SUB(p->file_name.str));
-	else if (read(fd, &head, sizeof(t_header)) != sizeof(t_header))
-		LOAD_ERROR("Invalid file", DSTR_SUB(p->file_name.str));
-	else if (B32_REV(head.magic) != COREWAR_EXEC_MAGIC)
-		LOAD_ERROR("Not a corewar file", DSTR_SUB(p->file_name.str));
-	else if (B32_REV(head.prog_size) > CHAMP_MAX_SIZE)
-		LOAD_ERROR("Program too heavy", DSTR_SUB(p->file_name.str));
-	else if (read(fd, vm->arena + arena_offset, B32_REV(head.prog_size))
-				!= B32_REV(head.prog_size))
-		LOAD_ERROR("Truncated file", DSTR_SUB(p->file_name.str));
-	else if (read(fd, &head, 1) > 0)
-		LOAD_ERROR("Prog size does not match", DSTR_SUB(p->file_name.str));
-	else
-		return (init_player(&head, p, dst, arena_offset));
-	return (false);
+	err = DSTR0();
+	if (!load_cor(DSTR_SUB(p->file_name), &cor, &err))
+	{
+		ft_dprintf(2, "corewar: %ts: %ts%n",
+			DSTR_SUB(p->file_name), DSTR_SUB(err));
+		ft_dstrclear(&err);
+		return (false);
+	}
+	*dst = PLAYER_INIT(p->id, arena_offset);
+	ft_asprintf(&dst->name, "%ts", DSTR_SUB(cor.name));
+	ft_asprintf(&dst->comment, "%ts", DSTR_SUB(cor.comment));
+	dst->weight = cor.prog_size;
+	ft_memcpy(vm->arena + arena_offset, cor.bytecode, cor.prog_size);
+	ft_dstrclear(&err);
+	cor_destroy(&cor);
+	return (true);
 }
 
 bool			load_vm(t_vm_loader const *loader, t_vm *vm)

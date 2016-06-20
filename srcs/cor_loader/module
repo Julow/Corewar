@@ -1,0 +1,10 @@
+module cor_loader:
+	public include public/
+
+	public require ft::base
+	public require ft::dstr
+
+	private require ft::file
+	private require ft::printf
+	private require corewar_config
+	private require utils
