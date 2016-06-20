@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 16:16:12 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/17 14:59:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 16:37:28 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static uint32_t	getch_com(t_vm *vm)
 
 void			debug_loop(t_vm *vm)
 {
-	uint32_t	tmp;
+	uint32_t		tmp;
+	t_player const	*p;
 
 	dump_players(vm);
 	while (!VM_GAMEOVER(*vm))
@@ -60,7 +61,6 @@ void			debug_loop(t_vm *vm)
 	}
 	ft_printf("CLOCK %u: END%n", vm->clock);
 	dump_arena(vm, -1);
-	ft_printf("Contestant %d, \"%ts\", has won !%n",
-		vm->last_alive_player + 1,
-		DSTR_SUB(vm->players[vm->last_alive_player].name));
+	p = &vm->players[vm->last_alive_player];
+	ft_printf("Contestant %d, \"%ts\", has won !%n", p->id, DSTR_SUB(p->name));
 }

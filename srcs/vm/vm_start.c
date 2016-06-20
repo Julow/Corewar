@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 11:57:13 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/20 17:21:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ void			vm_start(t_vm *vm)
 		vm_wait_next(vm, process);
 		i++;
 	}
-	vm->last_alive_player = vm->players[vm->player_count - 1].id;
+	vm->last_alive_player = vm->player_count;
 }

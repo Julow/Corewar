@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/15 13:14:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/17 15:18:18 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 17:27:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ static void		introduce(t_vm const *vm)
 	{
 		p = &vm->players[i];
 		ft_printf("* Player %d, weighing %u bytes, \"%ts\" yelling \"%ts\" !%n",
-			i + 1, p->weight, DSTR_SUB(p->name), DSTR_SUB(p->comment));
+			p->id, p->weight, DSTR_SUB(p->name), DSTR_SUB(p->comment));
 		i++;
 	}
 }
 
 void			exec_loop(t_vm *vm, uint32_t max_clock)
 {
+	t_player const	*winner;
+
 	introduce(vm);
 	while (!VM_GAMEOVER(*vm))
 	{
@@ -40,7 +42,7 @@ void			exec_loop(t_vm *vm, uint32_t max_clock)
 			return ;
 		vm_exec(vm);
 	}
+	winner = &vm->players[vm->last_alive_player];
 	ft_printf("Contestant %d, \"%ts\", has won !%n",
-		vm->last_alive_player + 1,
-		DSTR_SUB(vm->players[vm->last_alive_player].name));
+		winner->id, DSTR_SUB(winner->name));
 }

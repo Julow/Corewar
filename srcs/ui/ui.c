@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 11:50:01 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/17 12:03:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 17:39:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void		refresh_ui(t_ui *ui)
 
 static void		loop_end(t_ui *ui)
 {
-	t_dstr			win_msg;
+	t_dstr					win_msg;
+	t_player const *const	p = &ui->vm->players[ui->vm->last_alive_player];
 
-	win_msg = ft_aprintf("Player #%u \"%ts\" win !",
-			ui->vm->last_alive_player + 1,
-			DSTR_SUB(ui->vm->players[ui->vm->last_alive_player].name));
+	win_msg = ft_aprintf("Player #%d \"%ts\" win !",
+			p->id, DSTR_SUB(p->name));
 	w_log_log(&ui->w_log, DSTR_SUB(win_msg));
 	ft_dstrclear(&win_msg);
 	w_log_log(&ui->w_log, SUBC("Press any key to quit"));
