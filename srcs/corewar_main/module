@@ -2,11 +2,12 @@ main module corewar:
 
 	private include ./
 
+	require debug_ui
+	require ft::argv
 	require ft::base
 	require ft::printf
-	require ft::argv
-	require vm
-	require vm_loader
-	require vm_exec
 	require ui
+	require vm
+	require vm_exec
+	require vm_loader
 	require debug_ui

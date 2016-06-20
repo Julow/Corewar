@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 14:00:28 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/05/30 18:33:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 19:12:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 ** UI
 */
 
-void			ui_loop(t_vm *vm);
+void			ui_loop(t_vm *vm, uint32_t dump_cycles);
 
 #endif

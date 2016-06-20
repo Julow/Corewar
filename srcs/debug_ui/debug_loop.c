@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 16:16:12 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/20 16:37:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 19:12:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,18 @@ static uint32_t	getch_com(t_vm *vm)
 	return (tmp);
 }
 
-void			debug_loop(t_vm *vm)
+void			debug_loop(t_vm *vm, uint32_t dump_cycles)
 {
 	uint32_t		tmp;
 	t_player const	*p;
 
 	dump_players(vm);
+	if (dump_cycles != (uint32_t)-1)
+	{
+		while (!VM_GAMEOVER(*vm) && vm->clock < dump_cycles)
+			vm_exec(vm);
+		dump_arena(vm, -1);
+	}
 	while (!VM_GAMEOVER(*vm))
 	{
 		ft_printf("CLOCK %u: %!", vm->clock);

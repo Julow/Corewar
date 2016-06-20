@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 11:50:01 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/20 17:39:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/20 19:12:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,17 @@ static void		loop_end(t_ui *ui)
 	getch();
 }
 
-static void		loop(t_ui *ui)
+static void		dump(t_ui *ui)
+{
+	t_dstr			msg;
+
+	msg = ft_aprintf("Dump at %u", ui->vm->clock);
+	w_log_log(&ui->w_log, DSTR_SUB(msg));
+	ft_dstrclear(&msg);
+	ui->flags |= UI_PAUSE;
+}
+
+static void		loop(t_ui *ui, uint32_t dump_cycles)
 {
 	uint32_t		loop;
 
@@ -52,16 +62,21 @@ static void		loop(t_ui *ui)
 			vm_exec(ui->vm);
 			if (VM_GAMEOVER(*ui->vm))
 				return (loop_end(ui));
+			if (ui->vm->clock == dump_cycles)
+			{
+				dump(ui);
+				break ;
+			}
 		}
 		refresh_ui(ui);
 	}
 }
 
-void			ui_loop(t_vm *vm)
+void			ui_loop(t_vm *vm, uint32_t dump_cycles)
 {
 	t_ui				ui;
 
 	init_ui(&ui, vm);
-	loop(&ui);
+	loop(&ui, dump_cycles);
 	destroy_ui(&ui);
 }

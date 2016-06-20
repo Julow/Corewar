@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 16:22:14 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 17:54:11 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/20 19:05:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "vm.h"
 
-void			debug_loop(t_vm *vm);
+void			debug_loop(t_vm *vm, uint32_t dump);
 
 #endif
