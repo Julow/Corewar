@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 15:40:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/17 11:35:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 16:52:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ bool			compile_file(t_params_file const *f,
 					t_dstr *err, uint32_t flags)
 {
 	t_asm			dst;
+	bool			r;
 
 	if (!parse_file(f->file, &dst, err))
 		return (false);
 	if (flags & FLAG_VERBOSE)
 		print_asm(&dst);
-	if (!gen_file(DSTR_SUB(f->dest), &dst,
-			((flags & FLAG_FORCE) ? O_TRUNC : O_EXCL), err))
-		return (false);
+	r = gen_file(DSTR_SUB(f->dest), &dst,
+			((flags & FLAG_FORCE) ? O_TRUNC : O_EXCL), err);
+	asm_destroy(&dst);
 	return (true);
 }

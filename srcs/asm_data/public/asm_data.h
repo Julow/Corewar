@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 16:12:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/14 14:16:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 16:51:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,11 @@ struct			s_asm
 	t_list			label_list;
 	t_set			label_set;
 };
+
+/*
+** Free an asm object
+*/
+void			asm_destroy(t_asm *s);
 
 /*
 ** -

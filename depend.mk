@@ -24,6 +24,7 @@ O_FILES += $(O_DIR)/srcs/asm/compile.o $(O_DIR)/srcs/asm/debug.o \
 	$(O_DIR)/srcs/asm_bytecode/bcode_gen.o \
 	$(O_DIR)/srcs/asm_bytecode/bcode_gen_args.o \
 	$(O_DIR)/srcs/asm_bytecode/labels_ref.o $(O_DIR)/srcs/asm_bytecode/utils.o \
+	$(O_DIR)/srcs/asm_data/asm_destroy.o \
 	$(O_DIR)/srcs/asm_data/asm_label_cmp.o \
 	$(O_DIR)/srcs/asm_parser/check_instr.o \
 	$(O_DIR)/srcs/asm_parser/check_labels.o \
@@ -162,7 +163,7 @@ asm:$(O_DIR)/libft/ft_base/ft_subnext.o $(O_DIR)/srcs/asm_parser/parse_asm.o \
 	$(O_DIR)/libft/ft_bst/ft_bstdel.o \
 	$(O_DIR)/srcs/asm_bytecode/asm_bytecode.o \
 	$(O_DIR)/libft/ft_out/ft_putendl.o $(O_DIR)/libft/ft_bst/ft_bstget.o \
-	$(O_DIR)/libft/ft_dstr/ft_dstrclear.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstrclear.o $(O_DIR)/srcs/asm_data/asm_destroy.o \
 	$(O_DIR)/srcs/asm_bytecode/bcode_gen_args.o \
 	$(O_DIR)/libft/ft_base/ft_strlen.o $(O_DIR)/srcs/corewar_config/op.o \
 	$(O_DIR)/libft/ft_printf/formats/str.o $(O_DIR)/libft/ft_out/ft_putstr.o \
@@ -380,6 +381,11 @@ $(O_DIR)/srcs/asm_bytecode/labels_ref.o $(O_DIR)/srcs/asm_bytecode/utils.o: \
 	INCLUDE_FLAGS += -Isrcs/asm_bytecode
 
 # module asm_data
+$(O_DIR)/srcs/asm_data/asm_destroy.o: srcs/asm_data/asm_destroy.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_list/public/ft_list.h libft/ft_set/public/set.h \
+	libft/ft_vector/public/ft_vector.h srcs/asm_data/public/asm_data.h \
+	srcs/corewar_config/public/op.h
 $(O_DIR)/srcs/asm_data/asm_label_cmp.o: srcs/asm_data/asm_label_cmp.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_list/public/ft_list.h libft/ft_set/public/set.h \

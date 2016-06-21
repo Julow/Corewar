@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 16:55:51 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/14 17:56:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 17:09:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "asm_bytecode.h"
 #include "op.h"
 #include "p_asm_bytecode.h"
+
+static void		bcode_destroy(t_asm_bytecode *b)
+{
+	ft_dstrclear(&b->bcode);
+	ft_vclear(&b->labels_ref);
+	ft_hmapdestroy(b->labels_loc, NULL);
+}
 
 bool			bytecode_asm(t_out *out, t_asm const *src)
 {
@@ -32,5 +39,6 @@ bool			bytecode_asm(t_out *out, t_asm const *src)
 	asm_header(out, &b, src);
 	ft_putsub(out, DSTR_SUB(b.bcode));
 	ft_flush(out);
+	bcode_destroy(&b);
 	return (true);
 }
