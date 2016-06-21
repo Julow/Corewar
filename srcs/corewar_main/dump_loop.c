@@ -6,21 +6,20 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 15:18:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/20 19:27:42 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/21 10:25:27 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft/ft_printf.h"
 #include "main.h"
 
-static void			dump_on_aff(t_vm *vm, t_process const *p, uint32_t val)
+static void		dump_on_aff(t_vm *vm, t_process const *p, uint32_t val)
 {
 	t_player const *const	player = &vm->players[p->player_idx];
 
 	ft_printf("The player %ts is so pimp he says : %d aka %c%n",
 			DSTR_SUB(player->name), val, val % 256);
 }
-
 
 static void		dump_arena(uint8_t const *arena)
 {

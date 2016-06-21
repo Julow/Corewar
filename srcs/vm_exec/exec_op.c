@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:23:12 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/20 15:17:59 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 10:26:09 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ bool				exec_op(t_vm *vm, t_process *process)
 	bool				r;
 
 	r = safe_load_instr(&instr, vm, process->reg_pc)
-		&& g_op_functions[instr.op->op_code](vm, process, instr.args, instr.ocp);
+		&& g_op_functions[instr.op->op_code](
+			vm,
+			process,
+			instr.args,
+			instr.ocp);
 	LISTENER(vm, on_exec, process, &instr);
 	if (process->reg_pc == old_pc)
 		process->reg_pc = (process->reg_pc + instr.length) % MEM_SIZE;
