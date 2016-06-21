@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/20 13:47:56 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/20 14:55:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 21:41:01 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static bool		load_opcode(t_instr *dst, uint8_t const *bytecode)
 {
 	uint8_t const	op_code = NEXT_BYTE;
 
+	dst->op_code = op_code;
 	if (op_code < 1 || op_code > OPCODE_COUNT)
 		return (false);
 	dst->op = &g_op_tab[op_code];
@@ -80,7 +81,7 @@ static bool		load_args(t_instr *dst, uint8_t const *bytecode)
 
 bool			load_instr(t_instr *dst, void const *bytecode)
 {
-	*dst = (t_instr){NULL, {0}, 0, 0};
+	*dst = (t_instr){NULL, {0}, 0, 0, 0};
 	return (load_opcode(dst, bytecode)
 		&& load_ocp(dst, bytecode)
 		&& load_args(dst, bytecode));

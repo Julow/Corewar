@@ -1,0 +1,9 @@
+main module disass:
+	private include ./
+
+	require ft::argv
+	require ft::base
+	require ft::printf
+	require cor_loader
+	require instr
+	require instr_loader
