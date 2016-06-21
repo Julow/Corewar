@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 18:19:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/05/31 18:59:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 14:42:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		arena_update(t_ui *ui, t_process const *p, t_vec2u range)
 {
-	w_arena_set_owner(&ui->w_arena, range, p->player_idx + 1);
+	w_arena_set_owner(&ui->w_arena, range, p->last_player_idx + 1);
 	w_arena_update(&ui->w_arena, range);
 }
 

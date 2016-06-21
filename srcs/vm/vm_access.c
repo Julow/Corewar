@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 19:18:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/21 12:44:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 14:26:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 #define POSITIVE_MOD(A, MD)	(((A) < 0) ? (A) % (MD) + (MD) : (A) % (MD))
 
-uint32_t		vm_get(t_vm const *vm, int32_t i, uint32_t n)
+uint32_t		vm_get(t_vm const *vm, int32_t index, uint32_t n)
 {
 	uint8_t *const	arena = vm->arena;
+	uint32_t		i;
 	uint32_t		value;
 
 	value = 0;
-	i = POSITIVE_MOD(i, MEM_SIZE);
+	i = POSITIVE_MOD(index, MEM_SIZE);
 	n += i;
 	while (i < n)
 	{

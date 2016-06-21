@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:01:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/07 16:36:22 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/21 14:41:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_process		t_process;
 struct			s_process
 {
 	uint32_t		player_idx;
+	uint32_t		last_player_idx;
 	uint32_t		wait;
 	uint32_t		reg_pc;
 	int32_t			reg_pflags;
@@ -57,6 +58,6 @@ struct			s_process
 ** PC			=> initial pc
 ** PIDX			=> player index
 */
-# define PROCESS_INIT(PC,PIDX)		((t_process){(PIDX), 0, (PC), 0, {0}})
+# define PROCESS_INIT(PC,PIDX)		((t_process){(PIDX),(PIDX),0,(PC),0,{0}})
 
 #endif

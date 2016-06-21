@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 18:18:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/06/17 13:04:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 14:59:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,28 @@ void			w_arena_update(t_w_arena *w, t_vec2u range)
 void			w_arena_update_processes(t_w_arena *w)
 {
 	t_process_loc	*loc;
+	uint32_t		i;
 	t_process const	*process;
+	t_bits			loc_map[BITARRAY(MEM_SIZE)];
 
+	ft_bzero(loc_map, sizeof(loc_map));
 	loc = VECTOR_IT(w->process_loc);
 	while (VECTOR_NEXT(w->process_loc, loc))
 		update_byte(w, loc->pc, w->owners[loc->pc], false);
 	process = LIST_IT(&w->vm->process);
 	w->process_loc.length = 0;
 	loc = ft_vpush(&w->process_loc, NULL, w->vm->process.length);
+	i = 0;
 	while ((process = LIST_NEXT(process)))
 	{
-		*loc = (t_process_loc){process->reg_pc};
-		update_byte(w, loc->pc, process->player_idx + 1, true);
-		loc++;
+		if (BITARRAY_GET(loc_map, i))
+			continue ;
+		loc[i] = (t_process_loc){process->reg_pc};
+		update_byte(w, loc[i].pc, process->last_player_idx + 1, true);
+		BITARRAY_SET(loc_map, i);
+		i++;
 	}
+	w->process_loc.length = i;
 }
 
 void			w_arena_set_owner(t_w_arena *w, t_vec2u range, uint8_t owner)

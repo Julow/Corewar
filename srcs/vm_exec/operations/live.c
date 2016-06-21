@@ -6,7 +6,7 @@
 /*   By: gwoodwar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 17:09:57 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/20 17:25:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 14:42:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ bool					op_live(t_vm *vm, t_process *process,
 	if ((player_idx = player_id_exists(vm, args[0])) < vm->player_count)
 	{
 		vm->last_alive_player = player_idx;
+		process->last_player_idx = player_idx;
 		p = &vm->players[player_idx];
 		p->last_live = vm->clock;
 		p->live_to_check++;
