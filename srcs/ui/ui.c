@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 11:50:01 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/20 19:12:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/21 16:30:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		loop_end(t_ui *ui)
 	t_dstr					win_msg;
 	t_player const *const	p = &ui->vm->players[ui->vm->last_alive_player];
 
-	win_msg = ft_aprintf("Player #%d \"%ts\" win !",
+	win_msg = ft_aprintf("Player #%d \"%ts\" wins !",
 			p->id, DSTR_SUB(p->name));
 	w_log_log(&ui->w_log, DSTR_SUB(win_msg));
 	ft_dstrclear(&win_msg);
