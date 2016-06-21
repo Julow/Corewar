@@ -2,6 +2,8 @@
 .comment ""
 
 lol:
-	ldi %:lol, %-4, r1
-	sti r1, %:dest, %42
+	ld %-559038737, r1
+	sti r1, %:lol, %-4
+	ldi %:lol, %-4, r2
+	sti r2, %:dest, %42
 dest:
