@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/21 21:17:42 by juloo             #+#    #+#             */
-/*   Updated: 2016/06/21 21:47:12 by juloo            ###   ########.fr       */
+/*   Updated: 2016/06/22 12:02:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			disass_cor(t_cor const *cor, uint32_t flags)
 {
 	uint32_t		i;
 	t_instr			instr;
+	bool			r;
 
 	ft_printf(PRINT(flags, STRING), SUBC("name"), DSTR_SUB(cor->name));
 	ft_printf(PRINT(flags, STRING), SUBC("comment"), DSTR_SUB(cor->comment));
@@ -60,9 +61,10 @@ void			disass_cor(t_cor const *cor, uint32_t flags)
 	i = 0;
 	while (i < cor->prog_size)
 	{
-		if (!load_instr(&instr, cor->bytecode + i))
-			;
+		r = load_instr(&instr, cor->bytecode + i);
 		print_instr(&instr, flags);
+		if (!r)
+			ft_printf(PRINT(flags, ERROR), SUBC("invalid instruction"));
 		ft_printf("%n");
 		i += instr.length;
 	}

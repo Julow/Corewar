@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/21 21:42:34 by juloo             #+#    #+#             */
-/*   Updated: 2016/06/22 10:22:09 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/06/22 12:02:43 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 
 # define PRINT_STRING		".%ts " C_LYELLOW "\"%ts\"" C_RESET "%n"
 # define PRINTR_STRING		".%ts \"%ts\"%n"
+
+# define PRINT_ERROR		" " C_RED "# %ts" C_RESET
+# define PRINTR_ERROR		" # %ts"
 
 /*
 ** -
